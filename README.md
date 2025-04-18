@@ -1,48 +1,54 @@
-**🖥️ FlexFi Frontend** — `flexfi-front`
+# React + TypeScript + Vite
 
-This repository contains the frontend application for the FlexFi protocol.
-Built using Astro, React, and Tailwind CSS, it provides a smooth UI/UX for users to access onboarding, card selection, dashboard, and more.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-⚠️ This frontend is open source for hackathon transparency, but remains under protection via contributor NDA. Do not reuse core flows, logic or brand assets without permission.
+Currently, two official plugins are available:
 
-**🚀 Project Setup**
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-1. Clone the repository
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
-git clone https://github.com/flexfi-protocol/flexfi-front.git
-cd flexfi-front
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
 ```
-2. Install dependencies
-
-`npm install`
-
-3. Run the dev server
-
-`npm run dev`
-
-**📁 Structure Overview**
-```
-/src
- ┣ 📁 components     # UI components (React)
- ┣ 📁 pages          # Astro pages (routing)
- ┣ 📁 layouts        # Base layouts and wrappers
- ┣ 📁 styles         # Tailwind / custom CSS
- ┣ 📁 utils          # Client-side helpers
-/public              # Static assets (favicon, images...)
-```
-**🛡 License (MIT)**
-
-This project is licensed under the MIT License — see `LICENSE.`
-Note: the brand, UX copywriting, and strategic flows are proprietary.
-
-**🙌 Contributing**
-
-Please refer to `CONTRIBUTING.md` to see how to contribute safely and effectively.
-
-**📫 Contact**
-
-Lead Maintainer: MickaelSanches
-
-Email: contact@flex-fi.io
-
-Website: https://www.flex-fi.io
