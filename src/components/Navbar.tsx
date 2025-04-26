@@ -1,8 +1,8 @@
 const Navbar = () => {
   return (
-    <nav className="px-50 py-10 flex items-center justify-between">
+    <nav className=" px-6 lg:px-50 py-10 flex items-center justify-between">
       <img
-        className="h-20 cursor-pointer transition-transform duration-300 hover:scale-105"
+        className="h-10 lg:h-20 cursor-pointer transition-transform duration-300 hover:scale-105"
         src="/logo/flexfi-logo.webp"
         alt="logo flexfi"
       />

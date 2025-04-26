@@ -4,5 +4,12 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #001a22;
+  background: linear-gradient(180deg, #001a22 25%, #005069 70%, #00fefb 100%);
+}
+
+.perspective {
+  perspective: 1200px;
+}
+.backface-hidden {
+  backface-visibility: hidden;
 }
