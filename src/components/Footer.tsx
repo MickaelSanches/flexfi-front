@@ -1,6 +1,7 @@
 // components/Footer.tsx
 import { FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import { BiMessageRounded } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -56,9 +57,11 @@ const Footer = () => {
               Be the first to access FlexFi when we launch. Early adopters get
               premium benefits.
             </p>
-            <button className="rounded-2xl border border-[#00FEFB] px-4 py-2 cursor-pointer hover:bg-[#00FEFB] hover:text-black transition duration-300">
-              Join Waitlist
-            </button>
+            <Link to="/waitlist">
+              <button className="rounded-2xl border border-[#00FEFB] px-4 py-2 cursor-pointer hover:bg-[#00FEFB] hover:text-black transition duration-300">
+                Join Waitlist
+              </button>
+            </Link>
           </div>
         </div>
       </div>

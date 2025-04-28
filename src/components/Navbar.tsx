@@ -28,9 +28,11 @@ const Navbar = () => {
       </div>
 
       <ul className="flex items-center gap-6 text-white">
-        <li className="text-sm hover:text-[#00FEFB] transition-colors duration-300 cursor-pointer">
-          About Us
-        </li>
+        <Link to="/about">
+          <li className="text-sm hover:text-[#00FEFB] transition-colors duration-300 cursor-pointer">
+            About Us
+          </li>
+        </Link>
         <Link
           to="/waitlist"
           className="rounded-2xl border border-[#00FEFB] px-4 py-2 cursor-pointer hover:bg-[#00FEFB] hover:text-black transition duration-300 text-sm"
