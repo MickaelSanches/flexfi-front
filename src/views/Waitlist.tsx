@@ -612,6 +612,10 @@ const Waitlist = () => {
           )}
         </form>
       </div>
+
+      <h2 className="text-[#001A22] text-5xl font-bold mx-auto my-16 text-center">
+        Join the crypto <br /> payment revolution.
+      </h2>
     </section>
   );
 };
