@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./views/Home";
 import Waitlist from "./views/Waitlist";
+import AboutUs from "./views/AboutUs";
+import Merchants from "./views/Merchants";
 
 function App() {
   return (
@@ -13,8 +15,9 @@ function App() {
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* Exemple : <Route path="/about" element={<About />} /> */}
-            Exemple : <Route path="/waitlist" element={<Waitlist />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/waitlist" element={<Waitlist />} />
+            <Route path="/merchants" element={<Merchants />} />
           </Routes>
         </main>
         <Footer />

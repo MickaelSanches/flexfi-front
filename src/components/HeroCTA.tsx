@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const HeroCTA = () => {
   return (
@@ -14,15 +15,17 @@ const HeroCTA = () => {
         <br /> payment revolution.
       </motion.h1>
 
-      <motion.button
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2, duration: 0.6 }}
-        className="px-6 py-3 border border-[#001A22] rounded-2xl hover:bg-[#001A22] hover:text-white transition duration-300 cursor-pointer"
-      >
-        Join Waitlist
-      </motion.button>
+      <Link to="/waitlist">
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="px-6 py-3 border border-[#001A22] rounded-2xl hover:bg-[#001A22] hover:text-white transition duration-300 cursor-pointer"
+        >
+          Join Waitlist
+        </motion.button>
+      </Link>
     </section>
   );
 };

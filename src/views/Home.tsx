@@ -9,7 +9,7 @@ import SystemFixSection from "../components/SystemFixSection";
 
 const Home = () => {
   return (
-    <>
+    <main>
       <HeroBanner />
       <div className="flex flex-col gap-10 lg:gap-20 relative">
         <OurVision />
@@ -26,7 +26,7 @@ const Home = () => {
         <ReadyToChange />
         <HeroCTA />
       </div>
-    </>
+    </main>
   );
 };
 
