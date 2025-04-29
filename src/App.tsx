@@ -6,6 +6,7 @@ import Home from "./views/Home";
 import Waitlist from "./views/Waitlist";
 import AboutUs from "./views/AboutUs";
 import Merchants from "./views/Merchants";
+import Customers from "./views/Customers";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/waitlist" element={<Waitlist />} />
             <Route path="/merchants" element={<Merchants />} />
+            <Route path="/customers" element={<Customers />} />
           </Routes>
         </main>
         <Footer />
