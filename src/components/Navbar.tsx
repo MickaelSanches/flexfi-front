@@ -19,12 +19,14 @@ const Navbar = () => {
           Customers
         </a>
         <span className="text-[#00FEFB]">|</span>
-        <a
-          href="#merchants"
-          className="hover:text-[#00FEFB] transition-colors duration-300"
-        >
-          Merchants
-        </a>
+        <Link to="merchants">
+          <a
+            href="#merchants"
+            className="hover:text-[#00FEFB] transition-colors duration-300"
+          >
+            Merchants
+          </a>
+        </Link>
       </div>
 
       <ul className="flex items-center gap-6 text-white">

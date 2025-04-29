@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Home from "./views/Home";
 import Waitlist from "./views/Waitlist";
 import AboutUs from "./views/AboutUs";
+import Merchants from "./views/Merchants";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/waitlist" element={<Waitlist />} />
+            <Route path="/merchants" element={<Merchants />} />
           </Routes>
         </main>
         <Footer />
