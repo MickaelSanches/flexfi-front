@@ -29,9 +29,11 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-semibold mb-4">Product</h4>
             <ul className="text-[#E0E0E0] space-y-2">
+            <Link to="/howitworks">
               <li className="cursor-pointer hover:text-[#00FEFBCC]">
                 How it Works
               </li>
+              </Link>
               <li className="cursor-pointer hover:text-[#00FEFBCC]">
                 Merchant Solutions
               </li>
