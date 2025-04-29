@@ -38,7 +38,9 @@ const Footer = () => {
               <li className="cursor-pointer hover:text-[#00FEFBCC]">
                 Merchant Solutions
               </li>
+              <Link to="/roadmap">
               <li className="cursor-pointer hover:text-[#00FEFBCC]">Roadmap</li>
+              </Link>
             </ul>
           </div>
           <div>
