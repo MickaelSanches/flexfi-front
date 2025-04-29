@@ -10,6 +10,7 @@ import Roadmap from "./views/Roadmap";
 import Team from "./views/Team";
 import TermsOfUse from "./views/TermsOfUse";
 import PrivacyPolicy from "./views/PrivacyPolicy";
+import LegalNotice from "./views/LegalNotice";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/team" element={<Team />} />
             <Route path="/termsofuse" element={<TermsOfUse />} />
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="/legalnotice" element={<LegalNotice />} />
           </Routes>
         </main>
         <Footer />

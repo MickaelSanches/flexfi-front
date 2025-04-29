@@ -76,7 +76,7 @@ const Footer = () => {
           <a className="cursor-pointer" href="/termsofuse">
             Terms of Use
           </a>
-          <a className="cursor-pointer" href="#">
+          <a className="cursor-pointer" href="/legalnotice">
             Legal
           </a>
         </div>
