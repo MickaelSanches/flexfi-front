@@ -70,7 +70,7 @@ const Footer = () => {
       <div className="border-t border-[#00FEFB33] mt-10 pt-4 flex flex-col md:flex-row justify-between items-center text-xs text-[#B0B0B0]">
         <p>© 2025 FlexFi. All rights reserved.</p>
         <div className="flex gap-4 mt-2 md:mt-0">
-          <a className="cursor-pointer" href="#">
+          <a className="cursor-pointer" href="/privacypolicy">
             Privacy Policy
           </a>
           <a className="cursor-pointer" href="/termsofuse">

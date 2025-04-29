@@ -1,6 +1,6 @@
 const TermsOfUsePage = () => {
   return (
-    <div className="flex flex-col w-full px-6 pt-16 py-10 md:px-16 lg:px-24 xl:px-50 text-white bg-gradient-to-b from-[#00161C] to-[#013847]">
+    <div className="flex flex-col w-full px-6 pt-16 py-10 md:px-16 lg:px-24 xl:px-50 text-white bg-gradient-to-b">
       <div className="max-w-5xl mx-auto space-y-10">
         <h1 className="text-4xl font-bold">Terms of Use</h1>
         <p className="text-gray-400">Last Update: 29 April 2025</p>
