@@ -33,9 +33,6 @@ const Footer = () => {
                 How it Works
               </li>
               <li className="cursor-pointer hover:text-[#00FEFBCC]">
-                Features
-              </li>
-              <li className="cursor-pointer hover:text-[#00FEFBCC]">
                 Merchant Solutions
               </li>
               <Link to="/roadmap">
@@ -49,8 +46,9 @@ const Footer = () => {
               <li className="cursor-pointer hover:text-[#00FEFBCC]">
                 About Us
               </li>
-              <li className="cursor-pointer hover:text-[#00FEFBCC]">Careers</li>
-              <li className="cursor-pointer hover:text-[#00FEFBCC]">Press</li>
+              <Link to="/team">
+              <li className="cursor-pointer hover:text-[#00FEFBCC]">Team</li>
+              </Link>
               <li className="cursor-pointer hover:text-[#00FEFBCC]">Contact</li>
             </ul>
           </div>
