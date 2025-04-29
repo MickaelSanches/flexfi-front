@@ -8,6 +8,7 @@ import AboutUs from "./views/AboutUs";
 import Merchants from "./views/Merchants";
 import Roadmap from "./views/Roadmap";
 import Team from "./views/Team";
+import TermsOfUse from "./views/TermsOfUse";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/merchants" element={<Merchants />} />
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/team" element={<Team />} />
+            <Route path="/termsofuse" element={<TermsOfUse />} />
           </Routes>
         </main>
         <Footer />

@@ -73,8 +73,8 @@ const Footer = () => {
           <a className="cursor-pointer" href="#">
             Privacy Policy
           </a>
-          <a className="cursor-pointer" href="#">
-            Terms of Service
+          <a className="cursor-pointer" href="/termsofuse">
+            Terms of Use
           </a>
           <a className="cursor-pointer" href="#">
             Legal
