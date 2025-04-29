@@ -12,12 +12,14 @@ const Navbar = () => {
       </Link>
 
       <div className="hidden md:flex items-center gap-3 text-white text-sm font-semibold">
-        <a
-          href="#customers"
-          className="hover:text-[#00FEFB] transition-colors duration-300"
-        >
-          Customers
-        </a>
+        <Link to="/customers">
+          <a
+            href="#customers"
+            className="hover:text-[#00FEFB] transition-colors duration-300"
+          >
+            Customers
+          </a>
+        </Link>
         <span className="text-[#00FEFB]">|</span>
         <Link to="merchants">
           <a
