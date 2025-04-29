@@ -1,5 +1,6 @@
 // components/Footer.tsx
-import { FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import { FaLinkedinIn } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { BiMessageRounded } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
@@ -19,7 +20,7 @@ const Footer = () => {
           </p>
           <div className="flex gap-4 text-[#00FEFBCC] text-xl">
             <FaLinkedinIn className="cursor-pointer hover:text-white" />
-            <FaTwitter className="cursor-pointer hover:text-white" />
+            <FaXTwitter className="cursor-pointer hover:text-white" />
             <BiMessageRounded className="cursor-pointer hover:text-white" />
           </div>
         </div>
