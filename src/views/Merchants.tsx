@@ -3,14 +3,14 @@ import JoinWaitlistButton from "../components/JoinWaitlistButton";
 
 const Merchants = () => {
   return (
-    <div className=" w-full px-6 pt-16 md:px-16 lg:px-24 xl:px-50 bg-gradient-to-b text-white overflow-hidden">
+    <main className=" w-full px-6 pt-16 md:px-16 lg:px-24 xl:px-50 bg-gradient-to-b text-white overflow-hidden">
       <section className="py-10 px-6 text-start">
-        <h1 className="text-2xl md:text-4xl font-semibold leading-tight">
+        <h1 className="text-2xl md:text-4xl font-bold leading-tight mb-20 mt-22">
           For merchants,
           <br />
           <span className="text-cyan-400">By Merchants.</span>
         </h1>
-        <p className="mt-2 text-sm opacity-70">We’ve walked in your shoes.</p>
+        <p className="mt-2 text-2xl opacity-70">We’ve walked in your shoes.</p>
       </section>
 
       <section className="px-4">
@@ -22,12 +22,12 @@ const Merchants = () => {
       </section>
 
       <section className=" py-16 px-4">
-        <h2 className="text-xl md:text-2xl font-semibold mb-6">
+        <h2 className="text-2xl md:text-4xl font-bold leading-tight mb-20 mt-22">
           At FlexFi, we don’t just build for merchants –<br />
           <span className="text-white">We are merchants.</span>
         </h2>
 
-        <p className="text-sm mt-20 max-w-xl mx-auto leading-relaxed ">
+        <p className="text-2xl mt-20 max-w-xl mx-auto leading-relaxed ">
           We know the pressure of closing sales.
           <br />
           We know the frustration of high transaction fees.
@@ -35,7 +35,7 @@ const Merchants = () => {
           We know the risk you take with every customer.
         </p>
 
-        <div className="mt-20 text-sm max-w-md text-start space-y-3">
+        <div className="mt-20 text-2xl max-w-md text-start space-y-3">
           <p>That’s why FlexBoost was designed for the real world:</p>
           <ul className="list-disc list-inside text-left ">
             <li>0% BNPL sponsored campaigns to boost conversion.</li>
@@ -65,7 +65,7 @@ const Merchants = () => {
           </p>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

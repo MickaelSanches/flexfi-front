@@ -7,6 +7,15 @@ import Waitlist from "./views/Waitlist";
 import AboutUs from "./views/AboutUs";
 import Merchants from "./views/Merchants";
 
+import Roadmap from "./views/Roadmap";
+import Team from "./views/Team";
+import TermsOfUse from "./views/TermsOfUse";
+import PrivacyPolicy from "./views/PrivacyPolicy";
+import LegalNotice from "./views/LegalNotice";
+
+import Customers from "./views/Customers";
+
+
 function App() {
   return (
     <Router>
@@ -18,6 +27,15 @@ function App() {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/waitlist" element={<Waitlist />} />
             <Route path="/merchants" element={<Merchants />} />
+
+            <Route path="/roadmap" element={<Roadmap />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/termsofuse" element={<TermsOfUse />} />
+            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="/legalnotice" element={<LegalNotice />} />
+
+            <Route path="/customers" element={<Customers />} />
+
           </Routes>
         </main>
         <Footer />
