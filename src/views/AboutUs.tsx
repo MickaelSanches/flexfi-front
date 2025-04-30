@@ -50,33 +50,54 @@ const AboutUs = () => {
           From Colosseum's Radar
         </h3>
         <div className="flex flex-col items-end">
-          <img
-            className="rounded-3xl"
-            src="/images/radar.webp"
-            alt="Radar Colloseum"
-          />
+          <a
+            href="https://www.colosseum.org/radar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
+            <img
+              className="rounded-3xl"
+              src="/images/radar.webp"
+              alt="Radar Colloseum"
+            />
+          </a>
         </div>
 
         <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-20 mt-22 text-end">
           To <span className="text-[#00FEFB]">Breakout</span>.
         </h3>
         <div className="flex flex-col items-start">
-          <img
-            className="rounded-3xl"
-            src="/images/breakOut.webp"
-            alt="Radar Colloseum"
-          />
+          <a
+            href="https://www.colosseum.org/breakout"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
+            <img
+              className="rounded-3xl"
+              src="/images/breakOut.webp"
+              alt="Radar Colloseum"
+            />
+          </a>
         </div>
 
         <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-5 mt-22">
           From Superteam <span className="text-[#00FEFB]">France</span>.
         </h3>
         <div className="flex flex-col items-center">
-          <img
-            className=" rounded-3xl"
-            src="/logo/logo-STF-1.webp"
-            alt="Radar Colloseum"
-          />
+          <a
+            href="https://fr.superteam.fun/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
+            <img
+              className="rounded-3xl"
+              src="/logo/logo-STF-1.webp"
+              alt="Superteam France logo"
+            />
+          </a>
         </div>
 
         <div className="flex flex-col items-center">
