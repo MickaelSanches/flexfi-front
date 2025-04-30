@@ -6,6 +6,7 @@ import OurVision from "../components/OurVision";
 import ReadyToChange from "../components/ReadyToChange";
 import Roadmap from "../components/Roadmap";
 import SystemFixSection from "../components/SystemFixSection";
+import FAQFlexFi from "../components/FAQFlexFi";
 
 const Home = () => {
   return (
@@ -24,6 +25,7 @@ const Home = () => {
         </div>
         <Roadmap />
         <ReadyToChange />
+        <FAQFlexFi />
         <HeroCTA />
       </div>
     </main>
