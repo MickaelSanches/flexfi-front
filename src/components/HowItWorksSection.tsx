@@ -1,94 +1,95 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { CreditCard, ShieldCheck, Coins, Wallet } from "lucide-react";
+import { UserPlus, CreditCard, TrendingUp, Award } from "lucide-react";
+import FlexFiCard3D from "../components/RotatingCard1";
 
 const steps = [
   {
-    icon: <CreditCard className="w-6 h-6 text-blue-400" />,
-    title: "Order your FlexFi Card",
+    icon: <UserPlus className="w-8 h-8 text-cyan-400" />,
+    title: "Sign Up & Deposit",
     description:
-      "Choose the plan that suits your lifestyle and start spending with crypto-native power.",
+      "Open your FlexFi account. Deposit your USDC or preferred crypto. Your crypto stays yours — safe, staked, working for you.",
+    image: "/images/hand.webp",
   },
   {
-    icon: <ShieldCheck className="w-6 h-6 text-green-400" />,
-    title: "Use BNPL with Peace of Mind",
+    icon: <CreditCard className="w-8 h-8 text-blue-400" />,
+    title: "Pay with FlexFi Card",
     description:
-      "No late fees, thanks to collateral-backed Buy Now Pay Later across thousands of merchants.",
+      "Use your FlexFi Card anywhere. Split payments into 3, 4, 6, or 12 months. 0% interest when FlexBoost is active. Always fair.",
+    image: "/images/POS.webp",
   },
   {
-    icon: <Coins className="w-6 h-6 text-yellow-400" />,
-    title: "Earn with FlexYield",
+    icon: <TrendingUp className="w-8 h-8 text-green-400" />,
+    title: "Grow with FlexYield",
     description:
-      "Each transaction invests a portion into yield strategies, passively growing your purchasing power.",
+      "Every payment unlocks smart rewards. Your money keeps working while you spend.",
+    image: "/images/howitworks-grow.webp",
   },
   {
-    icon: <Wallet className="w-6 h-6 text-purple-400" />,
-    title: "Access Microcredit",
+    icon: <Award className="w-8 h-8 text-yellow-400" />,
+    title: "Level Up Your Life",
     description:
-      "Get fast, score-based microloans up to $1,500, directly from your FlexFi experience.",
+      "Boost your score. Unlock premium cards, perks, exclusive 0% offers. Control your crypto-powered future.",
+    component: <FlexFiCard3D />,
   },
 ];
 
 const HowItWorksSection: React.FC = () => {
   return (
     <section
-      className=" text-white  px-6 py-6 md:px-16 lg:px-24 xl:px-50"
+      className="text-white px-6 py-10 md:px-16 lg:px-24 xl:px-50"
       id="how-it-works"
     >
-      <div className="max-w-4xl  text-start">
+      <div className="max-w-7xl mx-auto text-start space-y-10">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold text-start"
+          className="text-4xl md:text-5xl font-bold"
         >
           How FlexFi Works
         </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-gray-400 mt-4 max-w-xl "
-        >
-          A seamless journey from payment to passive income.
-        </motion.p>
-      </div>
 
-      {/* Elegant vertical timeline layout */}
-      <div className="relative mt-20 max-w-3xl mx-auto">
-        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-[2px] bg-gradient-to-b from-cyan-600/60 via-blue-500/30 to-transparent" />
-        <div className="space-y-20 relative z-10">
+        {/* Steps Section */}
+        <div className="flex flex-col gap-20 mt-16">
           {steps.map((step, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.5 }}
-              className={`relative flex flex-col md:flex-row ${
-                index % 2 === 0 ? "md:items-start" : "md:items-end"
-              } gap-4`}
+              transition={{ delay: index * 0.2, duration: 0.5 }}
+              className={`flex flex-col md:flex-row ${
+                index % 2 !== 0 ? "md:flex-row-reverse" : ""
+              } items-center gap-10`}
             >
-              <div
-                className={`md:w-1/2 ${
-                  index % 2 === 0 ? "md:ml-auto" : "md:mr-auto"
-                }`}
-              >
-                <div className="bg-white/5 backdrop-blur-lg border border-gray-800 rounded-xl p-6 shadow-lg">
-                  <div className="flex items-center gap-3 mb-2">
+              <div className="flex-1">
+                <div className="bg-white/5 backdrop-blur-md border border-gray-800 rounded-3xl p-8 shadow-2xl">
+                  <div className="flex items-center gap-4 mb-6">
                     {step.icon}
-                    <h3 className="text-lg font-semibold text-white">
+                    <h3 className="text-2xl font-semibold text-white">
                       {step.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-gray-400 leading-relaxed">
+                  <p className="text-gray-400 text-lg leading-relaxed">
                     {step.description}
                   </p>
                 </div>
               </div>
-              <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-cyan-500 rounded-full border-4 border-[#0b0f16] z-10" />
+              <div className="flex-1 hidden md:flex justify-center">
+                <>
+                  {step.component ? (
+                    <div className="w-full h-full">{step.component}</div>
+                  ) : (
+                    <img
+                      src={step.image}
+                      alt={step.title}
+                      className="w-full h-full object-contain"
+                    />
+                  )}
+                </>
+              </div>
             </motion.div>
           ))}
         </div>

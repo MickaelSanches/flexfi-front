@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import frontCard from "/images/card-front.png";
-import backCard from "/images/card-back.png";
+import frontCard from "/images/Group.webp";
+import backCard from "/images/Group1.webp";
 
 const RotatingCard = () => {
   return (
