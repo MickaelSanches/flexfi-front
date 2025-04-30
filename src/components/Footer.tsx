@@ -36,7 +36,9 @@ const Footer = () => {
                 Merchant Solutions
               </li>
               <Link to="/roadmap">
-              <li className="cursor-pointer hover:text-[#00FEFBCC]">Roadmap</li>
+                <li className="cursor-pointer hover:text-[#00FEFBCC]">
+                  Roadmap
+                </li>
               </Link>
             </ul>
           </div>
@@ -47,7 +49,7 @@ const Footer = () => {
                 About Us
               </li>
               <Link to="/team">
-              <li className="cursor-pointer hover:text-[#00FEFBCC]">Team</li>
+                <li className="cursor-pointer hover:text-[#00FEFBCC]">Team</li>
               </Link>
               <li className="cursor-pointer hover:text-[#00FEFBCC]">Contact</li>
             </ul>
@@ -70,13 +72,13 @@ const Footer = () => {
       <div className="border-t border-[#00FEFB33] mt-10 pt-4 flex flex-col md:flex-row justify-between items-center text-xs text-[#B0B0B0]">
         <p>© 2025 FlexFi. All rights reserved.</p>
         <div className="flex gap-4 mt-2 md:mt-0">
-          <a className="cursor-pointer" href="/privacypolicy">
+          <a className="cursor-pointer" href="/privacy-policy">
             Privacy Policy
           </a>
-          <a className="cursor-pointer" href="/termsofuse">
+          <a className="cursor-pointer" href="/terms-of-use">
             Terms of Use
           </a>
-          <a className="cursor-pointer" href="/legalnotice">
+          <a className="cursor-pointer" href="/legal-notice">
             Legal
           </a>
         </div>
