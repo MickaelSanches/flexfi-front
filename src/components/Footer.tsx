@@ -19,9 +19,16 @@ const Footer = () => {
             assets.
           </p>
           <div className="flex gap-4 text-[#00FEFBCC] text-xl">
-            <FaLinkedinIn className="cursor-pointer hover:text-white" />
-            <FaXTwitter className="cursor-pointer hover:text-white" />
-            <BiMessageRounded className="cursor-pointer hover:text-white" />
+            <Link
+              target="_blank"
+              to="https://www.linkedin.com/company/flexfiofficial/posts/?feedView=all"
+            >
+              <FaLinkedinIn className="cursor-pointer hover:text-white" />
+            </Link>
+            <Link target="_blank" to="https://x.com/FlexFi_/">
+              <FaXTwitter className="cursor-pointer hover:text-white" />
+            </Link>
+            {/* <BiMessageRounded className="cursor-pointer hover:text-white" /> */}
           </div>
         </div>
 
