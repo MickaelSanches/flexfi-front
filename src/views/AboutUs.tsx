@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import JoinWaitlistButton from "../components/JoinWaitlistButton";
 
+
 const AboutUs = () => {
   return (
     <main className="min-h-screen text-white flex flex-col items-start">
