@@ -1,34 +1,16 @@
-export type WaitlistData = {
-  email: string;
-  name: string;
-  country: string;
-  state: string;
-  language: string;
-  mobile: string;
-  social: string;
-  ageGroup: string;
-  employmentStatus: string;
-  monthlyIncome: string;
-  educationLevel: string;
-  bnplServices: string[];
-  creditCard: string;
-  spendMonthly: string;
-  reasonSignUp: string;
-  firstPurchase: string;
-  cryptoProficiency: string;
-  walletType: string;
-  favoriteChains: string[];
-  walletAddress: string;
-  referralCode: string;
-  consentMarketing: boolean;
-  consentAge: boolean;
-  consentSharing: boolean;
-};
+import { WaitlistFormData } from "../@types/waitlist";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
+type WaitlistResponse = {
+  status: string;
+  data: {
+    userReferralCode: string;
+  };
+};
+
 export const waitlistRepository = {
-  async submit(data: WaitlistData): Promise<void> {
+  async submit(data: WaitlistFormData): Promise<WaitlistResponse> {
     const res = await fetch(`${API_URL}/api/waitlist`, {
       method: "POST",
       headers: {
@@ -41,5 +23,8 @@ export const waitlistRepository = {
       const error = await res.json();
       throw new Error(error.message || "Submission failed");
     }
+
+    const responseData: WaitlistResponse = await res.json();
+    return responseData;
   },
 };
