@@ -1,4 +1,5 @@
 import HowItWorks from "../components/HowItWorksSection";
+import FAQFlexFi from "../components/FAQFlexFi";
 
 const HowItWorksPage = () => {
   return (
@@ -17,6 +18,7 @@ const HowItWorksPage = () => {
         {/* How It Works Section */}
         <section>
           <HowItWorks />
+          <FAQFlexFi />
         </section>
       </div>
     </div>
