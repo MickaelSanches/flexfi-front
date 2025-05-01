@@ -1,6 +1,4 @@
 import { Player } from "@lottiefiles/react-lottie-player";
-import { useEffect, useState } from "react";
-import { waitlistRepository } from "../repository/waitlistRepository";
 import { useWaitlistViewModel } from "../viewmodels/useWaitlistViewModel";
 
 const Waitlist = () => {
@@ -14,6 +12,7 @@ const Waitlist = () => {
     states,
     error,
     handleSubmit,
+    invalidFields,
   } = useWaitlistViewModel();
 
   return (
@@ -61,27 +60,33 @@ const Waitlist = () => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400 outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("email") ? "bg-red-200" : "bg-white"
+                  }`}
                 />
               </div>
 
               {/* Name */}
               <div className="flex flex-col gap-2">
                 <label
-                  htmlFor="name"
+                  htmlFor="firstName"
                   className="text-sm font-semibold text-[#00FEFB]"
                 >
                   First Name / Handle *
                 </label>
                 <input
-                  id="name"
-                  name="name"
+                  id="firstName"
+                  name="firstName"
                   type="text"
                   placeholder="Enter your name or handle"
                   required
-                  value={formData.name}
+                  value={formData.firstName}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400 outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("firstName")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 />
               </div>
 
@@ -99,7 +104,11 @@ const Waitlist = () => {
                   required
                   value={formData.country}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400 outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("country")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 >
                   <option value="">Select your country</option>
                   {countries.map((country, idx) => (
@@ -112,18 +121,22 @@ const Waitlist = () => {
 
               <div className="flex flex-col gap-2">
                 <label
-                  htmlFor="state"
+                  htmlFor="stateProvince"
                   className="text-sm font-semibold text-[#00FEFB]"
                 >
                   State / Province *
                 </label>
                 <select
-                  id="state"
-                  name="state"
+                  id="stateProvince"
+                  name="stateProvince"
                   required
-                  value={formData.state}
+                  value={formData.stateProvince}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400 outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("stateProvince")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 >
                   <option value="">Select your state/province</option>
                   {states.map((state, idx) => (
@@ -137,18 +150,22 @@ const Waitlist = () => {
               {/* Preferred Language Dropdown */}
               <div className="flex flex-col gap-2">
                 <label
-                  htmlFor="language"
+                  htmlFor="preferredLanguage"
                   className="text-sm font-semibold text-[#00FEFB]"
                 >
                   Preferred Language *
                 </label>
                 <select
-                  id="language"
-                  name="language"
+                  id="preferredLanguage"
+                  name="preferredLanguage"
                   required
-                  value={formData.language}
+                  value={formData.preferredLanguage}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400 outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("preferredLanguage")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 >
                   <option value="">Select language</option>
                   <option value="English">English</option>
@@ -161,17 +178,17 @@ const Waitlist = () => {
               {/* Mobile Phone (optional) */}
               <div className="flex flex-col gap-2">
                 <label
-                  htmlFor="mobile"
+                  htmlFor="phoneNumber"
                   className="text-sm font-semibold text-[#00FEFB]"
                 >
                   Mobile Phone Number (Optional)
                 </label>
                 <input
-                  id="mobile"
-                  name="mobile"
+                  id="phoneNumber"
+                  name="phoneNumber"
                   type="text"
                   placeholder="Enter your mobile number"
-                  value={formData.mobile}
+                  value={formData.phoneNumber}
                   onChange={handleChange}
                   className="p-3 rounded-lg bg-white text-black placeholder-gray-400 outline-none"
                 />
@@ -180,21 +197,25 @@ const Waitlist = () => {
               {/* Telegram / Discord ID (optional) */}
               <div className="flex flex-col gap-2">
                 <label
-                  htmlFor="social"
+                  htmlFor="telegramOrDiscordId"
                   className="text-sm font-semibold text-[#00FEFB]"
                 >
                   Telegram or Discord ID (Optional)
                 </label>
                 <input
-                  id="social"
-                  name="social"
+                  id="telegramOrDiscordId"
+                  name="telegramOrDiscordId"
                   type="text"
                   placeholder="Your Telegram or Discord ID"
-                  value={formData.social}
+                  value={formData.telegramOrDiscordId}
                   onChange={handleChange}
                   className="p-3 rounded-lg bg-white text-black placeholder-gray-400 outline-none"
                 />
               </div>
+
+              {error && (
+                <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
+              )}
 
               <button
                 className="mt-6 bg-[#71FFFF] text-[#001A22] font-bold py-3 rounded-xl hover:bg-[#00FEFB] transition duration-300"
@@ -228,7 +249,11 @@ const Waitlist = () => {
                   required
                   value={formData.ageGroup}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("ageGroup")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 >
                   <option value="">Select your age group</option>
                   <option value="18-29">18-29</option>
@@ -252,7 +277,11 @@ const Waitlist = () => {
                   required
                   value={formData.employmentStatus}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("employmentStatus")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 >
                   <option value="">Select your employment status</option>
                   <option value="Employed – Full-time">
@@ -308,7 +337,11 @@ const Waitlist = () => {
                   required
                   value={formData.monthlyIncome}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("monthlyIncome")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 >
                   <option value="">Select your income</option>
                   <option value="Less than $1,500">Less than $1,500</option>
@@ -334,7 +367,11 @@ const Waitlist = () => {
                   required
                   value={formData.educationLevel}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("educationLevel")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 >
                   <option value="">Select your education level</option>
                   <option value="No formal education">
@@ -411,10 +448,12 @@ const Waitlist = () => {
                     <label key={option} className="flex items-center gap-2">
                       <input
                         type="radio"
-                        name="creditCard"
+                        name="hasCreditCard"
                         value={option}
-                        checked={formData.creditCard === option}
-                        onChange={() => handleRadioChange("creditCard", option)}
+                        checked={formData.hasCreditCard}
+                        onChange={() =>
+                          handleRadioChange("hasCreditCard", option)
+                        }
                         className="w-5 h-5"
                       />
                       {option}
@@ -426,18 +465,22 @@ const Waitlist = () => {
               {/* Average Online Spend Monthly */}
               <div className="flex flex-col gap-2">
                 <label
-                  htmlFor="spendMonthly"
+                  htmlFor="avgOnlineSpend"
                   className="text-sm font-semibold text-[#00FEFB]"
                 >
                   Average Online Spend Monthly *
                 </label>
                 <select
-                  id="spendMonthly"
-                  name="spendMonthly"
+                  id="avgOnlineSpend"
+                  name="avgOnlineSpend"
                   required
-                  value={formData.spendMonthly}
+                  value={formData.avgOnlineSpend}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("avgOnlineSpend")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 >
                   <option value="">Select spending range</option>
                   <option value="Less than $50">Less than $50</option>
@@ -455,18 +498,22 @@ const Waitlist = () => {
               {/* Reason for Signing Up */}
               <div className="flex flex-col gap-2">
                 <label
-                  htmlFor="reasonSignUp"
+                  htmlFor="mainReason"
                   className="text-sm font-semibold text-[#00FEFB]"
                 >
                   Reason for Signing Up *
                 </label>
                 <select
-                  id="reasonSignUp"
-                  name="reasonSignUp"
+                  id="mainReason"
+                  name="mainReason"
                   required
-                  value={formData.reasonSignUp}
+                  value={formData.mainReason}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("mainReason")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 >
                   <option value="">Select a reason</option>
                   <option value="Buy Now, Pay Later (BNPL) with crypto">
@@ -516,6 +563,10 @@ const Waitlist = () => {
                 />
               </div>
 
+              {error && (
+                <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
+              )}
+
               <button
                 className="mt-6 bg-[#71FFFF] text-[#001A22] font-bold py-3 rounded-xl hover:bg-[#00FEFB] transition duration-300"
                 onClick={(e) => {
@@ -537,18 +588,22 @@ const Waitlist = () => {
               {/* Crypto Proficiency */}
               <div className="flex flex-col gap-2">
                 <label
-                  htmlFor="cryptoProficiency"
+                  htmlFor="cryptoLevel"
                   className="text-sm font-semibold text-[#00FEFB]"
                 >
                   Crypto Proficiency *
                 </label>
                 <select
-                  id="cryptoProficiency"
-                  name="cryptoProficiency"
+                  id="cryptoLevel"
+                  name="cryptoLevel"
                   required
-                  value={formData.cryptoProficiency}
+                  value={formData.cryptoLevel}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("cryptoLevel")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 >
                   <option value="">Select your crypto proficiency</option>
                   <option value="Zero">Zero</option>
@@ -573,7 +628,11 @@ const Waitlist = () => {
                   required
                   value={formData.walletType}
                   onChange={handleChange}
-                  className="p-3 rounded-lg bg-white text-black outline-none"
+                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("walletType")
+                      ? "bg-red-200  "
+                      : "bg-white"
+                  }`}
                 >
                   <option value="">Select your wallet</option>
                   <option value="Phantom">Phantom</option>
@@ -629,28 +688,39 @@ const Waitlist = () => {
               {/* Public Wallet Address */}
               <div className="flex flex-col gap-2">
                 <label
-                  htmlFor="walletAddress"
+                  htmlFor="publicWallet"
                   className="text-sm font-semibold text-[#00FEFB]"
                 >
                   Public Wallet Address (Optional)
                 </label>
                 <input
-                  id="walletAddress"
-                  name="walletAddress"
+                  id="publicWallet"
+                  name="publicWallet"
                   type="text"
                   placeholder="Enter your public wallet address"
-                  value={formData.walletAddress}
+                  value={formData.publicWallet}
                   onChange={handleChange}
                   className="p-3 rounded-lg bg-white text-black outline-none"
                 />
               </div>
 
               {/* Hidden Referral Code */}
-              <input
-                type="hidden"
-                name="referralCode"
-                value={formData.referralCode}
-              />
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="referralCodeUsed"
+                  className="text-sm font-semibold text-[#00FEFB]"
+                >
+                  Referral Code (Optional)
+                </label>
+                <input
+                  type="text"
+                  name="referralCodeUsed"
+                  placeholder="Enter your referral code"
+                  id="referralCode"
+                  value={formData.referralCodeUsed}
+                  className="p-3 rounded-lg bg-white text-black outline-none"
+                />
+              </div>
 
               {/* Consent Checkboxes */}
               <div className="space-y-4 text-sm text-white">
@@ -669,8 +739,8 @@ const Waitlist = () => {
                 <label className="flex items-start gap-2">
                   <input
                     type="checkbox"
-                    name="consentAge"
-                    checked={formData.consentAge}
+                    name="consentAdult"
+                    checked={formData.consentAdult}
                     onChange={handleChange}
                     className="w-5 h-5 mt-1"
                     required
@@ -683,8 +753,8 @@ const Waitlist = () => {
                 <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
-                    name="consentSharing"
-                    checked={formData.consentSharing}
+                    name="consent_data_sharing"
+                    checked={formData.consent_data_sharing}
                     onChange={handleChange}
                     className="w-5 h-5"
                     required

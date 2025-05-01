@@ -1,0 +1,35 @@
+export interface WaitlistFormData {
+  email: string;
+  firstName: string;
+  phoneNumber?: string;
+  telegramOrDiscordId?: string;
+  preferredLanguage: string;
+  country: string;
+  stateProvince: string;
+  ageGroup: string;
+  employmentStatus: string;
+  monthlyIncome: string;
+  educationLevel: string;
+  hasCreditCard: boolean;
+  bnplServices: string[];
+  avgOnlineSpend: string;
+  cryptoLevel: string;
+  walletType: string;
+  portfolioSize: string;
+  favoriteChains: string[];
+  publicWallet?: string;
+  mainReason: string;
+  firstPurchase?: string;
+  referralCodeUsed?: string;
+  userReferralCode?: string;
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  landingVariant: string;
+  timeToCompletionSeconds: number;
+  consentMarketing: boolean;
+  consentAdult: boolean;
+  consent_data_sharing: boolean;
+  consent_data_sharing_date: Date;
+  experienceBnplRating: number;
+}
