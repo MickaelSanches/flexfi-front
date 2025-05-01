@@ -1,5 +1,6 @@
 import { Player } from "@lottiefiles/react-lottie-player";
 import { useWaitlistViewModel } from "../viewmodels/useWaitlistViewModel";
+import SuccessView from "./SuccesWaitlist";
 
 const Waitlist = () => {
   const {
@@ -13,7 +14,12 @@ const Waitlist = () => {
     error,
     handleSubmit,
     invalidFields,
+    referralCode,
   } = useWaitlistViewModel();
+
+  if (referralCode) {
+    return <SuccessView referralCode={referralCode} />;
+  }
 
   return (
     <main className="min-h-screen text-white flex flex-col items-start px-6 py-6 md:px-16 lg:px-24 xl:px-50">

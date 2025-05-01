@@ -49,6 +49,7 @@ export const useWaitlistViewModel = () => {
   const [states, setStates] = useState<{ name: string }[]>([]);
   const [step, setStep] = useState(1);
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
+  const [referralCode, setReferralCode] = useState<string | null>(null);
 
   const startTime = useRef(Date.now());
 
@@ -205,8 +206,12 @@ export const useWaitlistViewModel = () => {
     console.log("Submitting form data:", submissionData);
 
     try {
-      await waitlistRepository.submit(submissionData);
-      alert("Submission successful!");
+      const response = await waitlistRepository.submit(submissionData);
+      const generatedCode = response.data?.userReferralCode;
+
+      if (generatedCode) {
+        setReferralCode(generatedCode);
+      }
     } catch (err: any) {
       console.error(err);
       setError(err.message || "Something went wrong.");
@@ -227,5 +232,6 @@ export const useWaitlistViewModel = () => {
     handleSubmit,
     error,
     invalidFields,
+    referralCode,
   };
 };
