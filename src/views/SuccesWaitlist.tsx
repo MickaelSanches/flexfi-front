@@ -6,7 +6,7 @@ type Props = {
 
 const SuccessView: React.FC<Props> = ({ referralCode }) => {
   const tweetMessage = encodeURIComponent(
-    `I just joined the FlexFi Founders Tribe 🚀🎉\nMy referral code: ${referralCode}\nJoin now: https://flexfi.xyz`
+    `I just joined the FlexFi Founders Tribe 🚀🎉\nMy referral code: ${referralCode}\nJoin now: https://flexfi.io`
   );
 
   const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetMessage}`;
