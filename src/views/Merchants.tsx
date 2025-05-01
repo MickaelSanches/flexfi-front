@@ -3,9 +3,9 @@ import JoinWaitlistButton from "../components/JoinWaitlistButton";
 
 const Merchants = () => {
   return (
-    <main className="w-full px-6 pt-20 md:px-16 lg:px-24 xl:px-40 bg-gradient-to-b text-white overflow-hidden">
+    <main className="w-full pt-20  bg-gradient-to-b text-white overflow-hidden">
       {/* Header */}
-      <section className="mb-20">
+      <section className="mb-20 px-6  md:px-16 lg:px-24 xl:px-40">
         <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6">
           For merchants,
           <br />
@@ -17,7 +17,7 @@ const Merchants = () => {
       </section>
 
       {/* Billboard image */}
-      <section className="mb-20">
+      <section className="mb-20 ">
         <img
           src="/images/billboards.webp"
           alt="FlexFi Billboard"
@@ -26,7 +26,7 @@ const Merchants = () => {
       </section>
 
       {/* Main Content */}
-      <section className="py-20">
+      <section className="py-20 px-6  md:px-16 lg:px-24 xl:px-40">
         <h2 className="text-2xl md:text-4xl font-bold leading-tight text-start mb-30">
           At FlexFi, we don’t just build for merchants –<br />
           <span className="text-white">We are merchants.</span>
