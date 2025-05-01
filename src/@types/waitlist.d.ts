@@ -30,6 +30,6 @@ export interface WaitlistFormData {
   consentMarketing: boolean;
   consentAdult: boolean;
   consent_data_sharing: boolean;
-  consent_data_sharing_date: Date;
+  consent_data_sharing_date: string;
   experienceBnplRating: number;
 }

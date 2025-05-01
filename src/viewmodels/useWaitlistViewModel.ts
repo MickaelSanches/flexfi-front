@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { waitlistRepository } from "../repository/waitlistRepository";
 
 type Country = {
@@ -38,7 +38,7 @@ const initialFormData = {
   consentMarketing: false,
   consentAdult: false,
   consent_data_sharing: false,
-  consent_data_sharing_date: new Date(),
+  consent_data_sharing_date: new Date().toISOString(),
   experienceBnplRating: 0,
 };
 
@@ -49,6 +49,8 @@ export const useWaitlistViewModel = () => {
   const [states, setStates] = useState<{ name: string }[]>([]);
   const [step, setStep] = useState(1);
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
+
+  const startTime = useRef(Date.now());
 
   useEffect(() => {
     fetch("https://countriesnow.space/api/v0.1/countries/states")
@@ -62,6 +64,16 @@ export const useWaitlistViewModel = () => {
     const country = countries.find((c) => c.name === formData.country);
     setStates(country ? country.states : []);
   }, [formData.country, countries]);
+
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      utmSource: "waitlist",
+      utmMedium: "form",
+      utmCampaign: "launch",
+      landingVariant: "v1",
+    }));
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -90,13 +102,23 @@ export const useWaitlistViewModel = () => {
     } else {
       setFormData((prev) => ({
         ...prev,
-        [name]: value == "Yes" ? true : value == "No" ? false : value,
+        [name]:
+          name === "experienceBnplRating"
+            ? Number(value)
+            : value === "Yes"
+            ? true
+            : value === "No"
+            ? false
+            : value,
       }));
     }
   };
 
   const handleRadioChange = (name: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value === "Yes",
+    }));
   };
 
   const validateStep = (step: number): boolean => {
@@ -110,18 +132,31 @@ export const useWaitlistViewModel = () => {
         "stateProvince",
         "preferredLanguage",
       ];
+
+      if (formData.phoneNumber && !/^\+\d{6,15}$/.test(formData.phoneNumber)) {
+        setError(
+          "Please enter a valid phone number with international code (e.g. +33612345678)"
+        );
+        setInvalidFields(["phoneNumber"]);
+        return false;
+      }
     } else if (step === 2) {
       requiredFields = [
         "ageGroup",
         "employmentStatus",
         "monthlyIncome",
         "educationLevel",
-        "hasCreditCard",
+
         "avgOnlineSpend",
         "mainReason",
       ];
     } else if (step === 3) {
-      requiredFields = ["cryptoLevel", "walletType"];
+      requiredFields = [
+        "cryptoLevel",
+        "walletType",
+        "portfolioSize",
+        "experienceBnplRating",
+      ];
     }
 
     const invalids = requiredFields.filter(
@@ -148,19 +183,33 @@ export const useWaitlistViewModel = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!validateStep(step)) {
+      return;
+    }
+
     const { consentMarketing, consentAdult, consent_data_sharing } = formData;
     if (!consentMarketing || !consentAdult || !consent_data_sharing) {
       setError("Please accept all required consents to proceed.");
       return;
     }
 
-    console.log("Submitting form data:", formData);
+    const submissionData = {
+      ...formData,
+
+      timeToCompletionSeconds: Math.floor(
+        (Date.now() - startTime.current) / 1000
+      ),
+      consent_data_sharing_date: new Date().toISOString(),
+    };
+
+    console.log("Submitting form data:", submissionData);
 
     try {
-      await waitlistRepository.submit(formData);
+      await waitlistRepository.submit(submissionData);
       alert("Submission successful!");
     } catch (err: any) {
       console.error(err);
+      setError(err.message || "Something went wrong.");
       alert(err.message || "Something went wrong.");
     }
   };

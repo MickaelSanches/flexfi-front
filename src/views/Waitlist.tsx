@@ -66,6 +66,11 @@ const Waitlist = () => {
                 />
               </div>
 
+              <input type="hidden" name="utmSource" value="waitlist" />
+              <input type="hidden" name="utmMedium" value="form" />
+              <input type="hidden" name="utmCampaign" value="launch" />
+              <input type="hidden" name="landingVariant" value="v1" />
+
               {/* Name */}
               <div className="flex flex-col gap-2">
                 <label
@@ -187,7 +192,7 @@ const Waitlist = () => {
                   id="phoneNumber"
                   name="phoneNumber"
                   type="text"
-                  placeholder="Enter your mobile number"
+                  placeholder="with country code"
                   value={formData.phoneNumber}
                   onChange={handleChange}
                   className="p-3 rounded-lg bg-white text-black placeholder-gray-400 outline-none"
@@ -450,7 +455,7 @@ const Waitlist = () => {
                         type="radio"
                         name="hasCreditCard"
                         value={option}
-                        checked={formData.hasCreditCard}
+                        checked={formData.hasCreditCard === (option === "Yes")}
                         onChange={() =>
                           handleRadioChange("hasCreditCard", option)
                         }
@@ -702,6 +707,57 @@ const Waitlist = () => {
                   onChange={handleChange}
                   className="p-3 rounded-lg bg-white text-black outline-none"
                 />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="portfolioSize"
+                  className="text-sm font-semibold text-[#00FEFB]"
+                >
+                  Crypto Portfolio Size *
+                </label>
+                <select
+                  id="portfolioSize"
+                  name="portfolioSize"
+                  required
+                  aria-placeholder="Select your portfolio size"
+                  value={formData.portfolioSize}
+                  onChange={handleChange}
+                  className={`p-3 rounded-lg text-black placeholder-gray-400 outline-none ${
+                    invalidFields.includes("portfolioSize")
+                      ? "bg-red-200"
+                      : "bg-white"
+                  }`}
+                >
+                  <option value="">Select a size</option>
+                  <option value="Less than $1,000">Less than $1,000</option>
+                  <option value="$1,000 – $9,999">$1,000 – $9,999</option>
+                  <option value="$10,000 – $49,999">$10,000 – $49,999</option>
+                  <option value="$50,000 or more">$50,000 or more</option>
+                </select>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-[#00FEFB]">
+                  Your experience with BNPL (1–5) *
+                </label>
+                <select
+                  name="experienceBnplRating"
+                  value={formData.experienceBnplRating}
+                  onChange={handleChange}
+                  className={`p-3 rounded-lg text-black ${
+                    invalidFields.includes("experienceBnplRating")
+                      ? "bg-red-200"
+                      : "bg-white"
+                  }`}
+                >
+                  <option value="">Select a rating</option>
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <option key={n} value={n}>
+                      {n}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               {/* Hidden Referral Code */}
