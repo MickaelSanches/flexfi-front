@@ -1,9 +1,17 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { UserPlus, CreditCard, TrendingUp, Award } from "lucide-react";
-import FlexFiCard3D from "../components/RotatingCard1";
+import FlexFiCard3D from "./RotatingCard1";
+import { JSX } from "react";
 
-const steps = [
+interface Step {
+  icon: JSX.Element;
+  title: string;
+  description: string;
+  image?: string;
+  component?: JSX.Element;
+}
+
+const steps: Step[] = [
   {
     icon: <UserPlus className="w-8 h-8 text-cyan-400" />,
     title: "Sign Up & Deposit",
@@ -34,25 +42,24 @@ const steps = [
   },
 ];
 
-const HowItWorksSection: React.FC = () => {
+const HowItWorks = () => {
   return (
     <section
       className="text-white px-6 py-10 md:px-16 lg:px-24 xl:px-50"
       id="how-it-works"
     >
-      <div className="max-w-7xl mx-auto text-start space-y-10">
+      <div className="max-w-7xl mx-auto space-y-10">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold"
+          className="text-3xl md:text-5xl font-bold"
         >
           How FlexFi Works
         </motion.h2>
 
-        {/* Steps Section */}
-        <div className="flex flex-col gap-20 mt-16">
+        <div className="flex flex-col gap-40 mt-16">
           {steps.map((step, index) => (
             <motion.div
               key={index}
@@ -62,33 +69,30 @@ const HowItWorksSection: React.FC = () => {
               transition={{ delay: index * 0.2, duration: 0.5 }}
               className={`flex flex-col md:flex-row ${
                 index % 2 !== 0 ? "md:flex-row-reverse" : ""
-              } items-center gap-10`}
+              } items-center justify-between gap-30`}
             >
               <div className="flex-1">
-                <div className="bg-white/5 backdrop-blur-md border border-gray-800 rounded-3xl p-8 shadow-2xl">
+                <div className="bg-[#0C1D26] rounded-xl p-6 text-center border border-[#1E2E36] hover:border-[#00FEFB] transition duration-300 shadow-none hover:shadow-[0_0_15px_#00FEFB] hover:scale-105">
                   <div className="flex items-center gap-4 mb-6">
                     {step.icon}
-                    <h3 className="text-2xl font-semibold text-white">
-                      {step.title}
-                    </h3>
+                    <h3 className="text-2xl font-semibold">{step.title}</h3>
                   </div>
                   <p className="text-gray-400 text-lg leading-relaxed">
                     {step.description}
                   </p>
                 </div>
               </div>
+
               <div className="flex-1 hidden md:flex justify-center">
-                <>
-                  {step.component ? (
-                    <div className="w-full h-full">{step.component}</div>
-                  ) : (
-                    <img
-                      src={step.image}
-                      alt={step.title}
-                      className="w-full h-full object-contain"
-                    />
-                  )}
-                </>
+                {step.component ? (
+                  <div className="w-full h-full">{step.component}</div>
+                ) : (
+                  <img
+                    src={step.image}
+                    alt={step.title}
+                    className="w-full h-full object-contain rounded-2xl"
+                  />
+                )}
               </div>
             </motion.div>
           ))}
@@ -98,4 +102,4 @@ const HowItWorksSection: React.FC = () => {
   );
 };
 
-export default HowItWorksSection;
+export default HowItWorks;

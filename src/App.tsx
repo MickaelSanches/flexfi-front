@@ -16,7 +16,6 @@ import LegalNotice from "./views/LegalNotice";
 
 import Customers from "./views/Customers";
 
-
 function App() {
   return (
     <Router>
@@ -32,12 +31,11 @@ function App() {
             <Route path="/howitworks" element={<HowItWorks />} />
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/team" element={<Team />} />
-            <Route path="/termsofuse" element={<TermsOfUse />} />
-            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-            <Route path="/legalnotice" element={<LegalNotice />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/legal-notice" element={<LegalNotice />} />
 
             <Route path="/customers" element={<Customers />} />
-
           </Routes>
         </main>
         <Footer />
