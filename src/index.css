@@ -18,3 +18,78 @@ body {
 .backface-hidden {
   backface-visibility: hidden;
 }
+
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
+}
+
+.glitch-text {
+  position: relative;
+}
+.glitch-text::after,
+.glitch-text::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  opacity: 0.3;
+}
+.glitch-text::before {
+  color: #0ff;
+  animation: glitch-left 2s infinite;
+  top: -1px;
+}
+.glitch-text::after {
+  color: #f0f;
+  animation: glitch-right 2s infinite;
+  top: 1px;
+}
+
+@keyframes glitch-left {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-2px);
+  }
+  40% {
+    transform: translateX(0);
+  }
+  60% {
+    transform: translateX(-1px);
+  }
+  80% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-2px);
+  }
+}
+@keyframes glitch-right {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(2px);
+  }
+  40% {
+    transform: translateX(0);
+  }
+  60% {
+    transform: translateX(1px);
+  }
+  80% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(2px);
+  }
+}

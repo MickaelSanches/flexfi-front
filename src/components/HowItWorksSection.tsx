@@ -2,12 +2,14 @@ import { motion } from "framer-motion";
 import { UserPlus, CreditCard, TrendingUp, Award } from "lucide-react";
 import FlexFiCard3D from "./RotatingCard1";
 import { JSX } from "react";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 interface Step {
   icon: JSX.Element;
   title: string;
   description: string;
   image?: string;
+  lottie?: string;
   component?: JSX.Element;
 }
 
@@ -31,7 +33,7 @@ const steps: Step[] = [
     title: "Grow with FlexYield",
     description:
       "Every payment unlocks smart rewards. Your money keeps working while you spend.",
-    image: "/images/howitworks-grow.webp",
+    lottie: "/lotties/grow.json",
   },
   {
     icon: <Award className="w-8 h-8 text-yellow-400" />,
@@ -54,7 +56,7 @@ const HowItWorks = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-5xl font-bold"
+          className="text-3xl md:text-5xl font-bold font-days-one"
         >
           How FlexFi Works
         </motion.h2>
@@ -75,7 +77,9 @@ const HowItWorks = () => {
                 <div className="bg-[#0C1D26] rounded-xl p-6 text-center border border-[#1E2E36] hover:border-[#00FEFB] transition duration-300 shadow-none hover:shadow-[0_0_15px_#00FEFB] hover:scale-105">
                   <div className="flex items-center gap-4 mb-6">
                     {step.icon}
-                    <h3 className="text-2xl font-semibold">{step.title}</h3>
+                    <h3 className="text-2xl font-semibold font-days-one">
+                      {step.title}
+                    </h3>
                   </div>
                   <p className="text-gray-400 text-lg leading-relaxed">
                     {step.description}
@@ -86,6 +90,13 @@ const HowItWorks = () => {
               <div className="flex-1 hidden md:flex justify-center">
                 {step.component ? (
                   <div className="w-full h-full">{step.component}</div>
+                ) : step.lottie ? (
+                  <Player
+                    autoplay
+                    loop
+                    src="/lotties/grow.json"
+                    className="h-10 w-10 md:h-70 md:w-70"
+                  />
                 ) : (
                   <img
                     src={step.image}
