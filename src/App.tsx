@@ -67,9 +67,7 @@ function App() {
                 isConnected ? (
                   <DashboardView />
                 ) : (
-                  <div className="flex justify-center items-center h-screen text-white">
-                    <h1 className="text-3xl font-bold">Please log in</h1>
-                  </div>
+                  <LoginView setIsConnected={setIsConnected} />
                 )
               }
             />
