@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import RotatingCard1 from "../components/RotatingCard1";
 
 const HeroBanner = () => {
   return (
@@ -27,14 +28,7 @@ const HeroBanner = () => {
         </motion.p>
       </div>
 
-      <motion.img
-        src="/images/CB.webp"
-        alt="card flexfi"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.6, duration: 0.7 }}
-        className="w-64 sm:w-80 md:w-2/4 object-contain"
-      />
+      <RotatingCard1 />
     </section>
   );
 };
