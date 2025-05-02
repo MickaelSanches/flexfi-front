@@ -71,9 +71,9 @@ const TeamCarousel = () => {
         {teamMembers.map((member, index) => (
           <SwiperSlide
             key={index}
-            className="w-full md:!w-[800px] px-2 box-border"
+            className="w-full md:!w-[800px] px-2 box-border  rounded-2xl"
           >
-            <div className="bg-[#002933] rounded-2xl p-6 sm:p-10 shadow-lg min-h-[520px]">
+            <div className="bg-[#0C1D26] rounded-2xl p-6 sm:p-10 shadow-lg min-h-[520px] border border-[#00FEFB] ">
               <div
                 className={`flex flex-col md:flex-row ${
                   index % 2 !== 0 ? "md:flex-row-reverse" : ""

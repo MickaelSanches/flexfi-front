@@ -2,11 +2,13 @@ import { useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import RegisterForm from "../components/RegisterForm";
 import SuccessView from "./SuccesWaitlistView";
-import { div } from "framer-motion/client";
 
-const Register = () => {
+interface RegisterProps {
+  setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Register = ({ setIsConnected }: RegisterProps) => {
   const [isRegistered, setIsRegistered] = useState(false);
-  const [token, setTokken] = useState<string | null>(null);
 
   return (
     <main className="min-h-screen text-white flex flex-col items-start px-6 py-10 md:px-16 lg:px-24 xl:px-50">
@@ -37,7 +39,10 @@ const Register = () => {
           </section>
 
           <section className="w-full max-w-2xl mx-auto">
-            <RegisterForm setIsRegistered={setIsRegistered} />
+            <RegisterForm
+              setIsRegistered={setIsRegistered}
+              setIsConnected={setIsConnected}
+            />
           </section>
 
           <section className="text-center mx-auto">

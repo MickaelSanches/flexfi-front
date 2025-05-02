@@ -40,7 +40,8 @@ const SuccessView: React.FC = () => {
   return (
     <div className="text-center text-white mt-20 space-y-6 mb-40">
       <h1 className="text-3xl md:text-4xl font-bold">
-        Congratulations {userFirstName}, you’re in!
+        Congratulations <span className="text-[#00FEFB]">{userFirstName}</span>,
+        you’re in!
       </h1>
 
       {/* <p className="text-lg">

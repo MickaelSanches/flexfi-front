@@ -19,13 +19,25 @@ import ScrollToTop from "./components/ScrollTop";
 import WaitlistCounter from "./components/WaitlistCounter";
 
 import Register from "./views/RegisterView";
+import ContestInfoButton from "./components/ContestInfoButton";
+import { useEffect, useState } from "react";
+import { getToken } from "./utils/storage";
+import NotFoundView from "./views/NotFoundView";
+import LoginView from "./views/LoginView";
 
 function App() {
+  const [isConnected, setIsConnected] = useState(false);
+
+  useEffect(() => {
+    const token = getToken();
+    setIsConnected(!!token);
+  }, [isConnected]);
+
   return (
     <Router>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen">
-        <Navbar />
+        <Navbar isConnected={isConnected} setIsConnected={setIsConnected} />
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -40,12 +52,24 @@ function App() {
 
             <Route path="/customers" element={<Customers />} />
 
-            <Route path="/register" element={<Register />} />
+            <Route
+              path="/register"
+              element={<Register setIsConnected={setIsConnected} />}
+            />
+            <Route
+              path="/login"
+              element={<LoginView setIsConnected={setIsConnected} />}
+            />
             <Route path="/waitlist" element={<Waitlist />} />
+            <Route path="*" element={<NotFoundView />} />
           </Routes>
         </main>
         <Footer />
       </div>
+      <div className="fixed bottom-4 left-4 z-50 ">
+        <ContestInfoButton />
+      </div>
+
       <div className="fixed bottom-4 right-4 z-50">
         <WaitlistCounter />
       </div>

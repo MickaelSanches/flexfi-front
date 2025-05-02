@@ -32,7 +32,8 @@ export const authRepository = {
     if (!res.ok) {
       throw new Error(data.message || "Échec de l’inscription");
     }
-
+    localStorage.setItem("token", data.data.token);
+    localStorage.setItem("firstName", data.data.user.firstName);
     return data;
   },
 
@@ -49,11 +50,14 @@ export const authRepository = {
       throw new Error(data.message || "Échec de la connexion");
     }
 
-    localStorage.setItem("token", data.token);
-    if (data.user.firstName) {
-      localStorage.setItem("firstName", data.user.firstName);
-    }
+    localStorage.setItem("token", data.data.token);
+    localStorage.setItem("firstName", data.data.user.firstName);
 
     return data;
+  },
+
+  logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("firstName");
   },
 };
