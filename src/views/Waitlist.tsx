@@ -23,7 +23,7 @@ const Waitlist = () => {
 
   return (
     <main className="min-h-screen text-white flex flex-col items-start px-6 py-6 md:px-16 lg:px-24 xl:px-50">
-      <div className="text-start mt-20 mb-10">
+      <div className="text-start mt-20 mb-40">
         <h1 className="text-3xl md:text-5xl font-bold flex items-center justify-start gap-3">
           Join the <span className="text-white">FlexFi Founders</span>
           <span className="text-[#00FEFB] flex items-center">
@@ -42,7 +42,7 @@ const Waitlist = () => {
         </p>
       </div>
 
-      <h2 className="mx-auto text-lg font-bold mb-6 flex gap-2">
+      <h2 className="mx-auto text-lg font-bold mb-6 flex gap-2 font-days-one">
         Identity <span className="text-[#00FEFB]">{step}</span>/3
       </h2>
 
@@ -854,7 +854,7 @@ const Waitlist = () => {
         </form>
       </div>
 
-      <h2 className="text-[#001A22] text-5xl font-bold mx-auto my-16 text-center">
+      <h2 className="text-[#001A22] text-5xl font-bold mx-auto my-16 text-center font-days-one mt-40 mb-30">
         Join the crypto <br /> payment revolution.
       </h2>
     </main>

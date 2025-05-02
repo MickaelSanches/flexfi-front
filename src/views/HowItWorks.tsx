@@ -3,7 +3,10 @@ import FAQFlexFi from "../components/FAQFlexFi";
 
 const HowItWorksPage = () => {
   return (
-    <div className="flex flex-col w-full px-6 pt-16 py-10 md:px-16 lg:px-24 xl:px-50 text-white bg-gradient-to-b mb-20">
+    <div
+      id="#"
+      className="flex flex-col w-full px-6 pt-16 py-10 md:px-16 lg:px-24 xl:px-50 text-white bg-gradient-to-b mb-20"
+    >
       <div className="max-w-7xl mx-auto space-y-20">
         {/* Intro Section */}
         <section className="space-y-6">

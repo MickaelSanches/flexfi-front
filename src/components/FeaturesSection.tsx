@@ -38,7 +38,7 @@ const FeaturesSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-3xl md:text-4xl font-bold text-start mb-16"
+        className="text-3xl md:text-4xl font-bold text-start mb-16 font-days-one"
       >
         Why choose FlexFi ?
       </motion.h2>
@@ -56,7 +56,9 @@ const FeaturesSection = () => {
             <div className="text-4xl text-accent mb-4 flex justify-center">
               {feature.icon}
             </div>
-            <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+            <h3 className="text-lg font-semibold mb-2 font-days-one">
+              {feature.title}
+            </h3>
             <p className="text-gray-400 text-sm">{feature.description}</p>
           </motion.div>
         ))}

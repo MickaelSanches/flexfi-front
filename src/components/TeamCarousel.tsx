@@ -47,7 +47,7 @@ const TeamCarousel = () => {
     <div className="w-full px-6 pt-16 py-10 md:px-16 lg:px-24 xl:px-50 bg-gradient-to-b text-white overflow-hidden">
       <div className="space-y-6 max-w-3xl">
         <h2 className="text-white text-4xl font-bold text-left mb-16">
-          FlexFi Team
+          FlexFi <span className="text-[#71FFFF]">Team</span>
         </h2>
       </div>
       <Swiper
@@ -85,7 +85,9 @@ const TeamCarousel = () => {
                   className="rounded-xl w-[280px] h-[340px] object-cover shadow-lg"
                 />
                 <div className="text-white space-y-4 text-left">
-                  <h3 className="text-2xl font-bold">{member.name}</h3>
+                  <h3 className="text-2xl font-bold font-days-one">
+                    {member.name}
+                  </h3>
                   {member.description.split("\n").map((line, i) => (
                     <p key={i} className="text-gray-300 leading-relaxed">
                       {line}

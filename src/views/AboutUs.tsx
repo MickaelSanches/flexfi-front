@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import JoinWaitlistButton from "../components/JoinWaitlistButton";
 
-
 const AboutUs = () => {
   return (
     <main className="min-h-screen text-white flex flex-col items-start">
@@ -21,7 +20,7 @@ const AboutUs = () => {
       />
 
       <div className="px-6 md:px-16 lg:px-24 xl:px-50">
-        <h2 className="text-2xl md:text-4xl font-bold leading-tight mb-20 mt-22">
+        <h2 className="text-2xl md:text-4xl font-bold leading-tight mb-20 mt-22 font-days-one">
           <span className="text-[#00FEFB]">"</span>A new way to approach <br />
           payments, free from the <br /> traditional constraints of the <br />{" "}
           banking system.
@@ -47,7 +46,7 @@ const AboutUs = () => {
           transparent platform that meets the needs of today and tomorrow.
         </p>
 
-        <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-10 mt-22">
+        <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-10 mt-22 font-days-one">
           From Colosseum's Radar
         </h3>
         <div className="flex flex-col items-end">
@@ -65,7 +64,7 @@ const AboutUs = () => {
           </a>
         </div>
 
-        <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-20 mt-22 text-end">
+        <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-20 mt-22 text-end font-days-one">
           To <span className="text-[#00FEFB]">Breakout</span>.
         </h3>
         <div className="flex flex-col items-start">
@@ -83,7 +82,7 @@ const AboutUs = () => {
           </a>
         </div>
 
-        <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-5 mt-22">
+        <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-5 mt-22 font-days-one">
           From Superteam <span className="text-[#00FEFB]">France</span>.
         </h3>
         <div className="flex flex-col items-center">
@@ -102,7 +101,7 @@ const AboutUs = () => {
         </div>
 
         <div className="flex flex-col items-center">
-          <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-20 mt-22">
+          <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-20 mt-22 font-days-one">
             to pitching in front of global VCs
             <span className="text-[#00FEFB]">.</span>
           </h3>
@@ -124,7 +123,7 @@ const AboutUs = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center mx-auto gap-5 mt-20 mb-20">
+      <div className="flex flex-col items-center mx-auto gap-5 mt-20 mb-20 font-days-one">
         <h4 className="text-[#001A22] font-bold text-2xl md:text-4xl">
           With you.
         </h4>

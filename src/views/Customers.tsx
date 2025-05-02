@@ -24,7 +24,7 @@ const Customers = () => {
 
       <section className="text-white px-6 pt-20 md:px-16 lg:px-24 xl:px-40 mb-20 space-y-16">
         <div className="flex flex-col items-start">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 flex items-center gap-2 font-days-one">
             <FaRocket className="text-pink-500" />
             <span>Split payments instantly</span>
           </h2>
@@ -35,7 +35,7 @@ const Customers = () => {
         </div>
 
         <div className="flex flex-col items-end">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 flex items-center gap-2 font-days-one">
             <FaSeedling className="text-green-400" />
             <span>Earn while you spend</span>
           </h2>
@@ -45,7 +45,7 @@ const Customers = () => {
         </div>
 
         <div className="flex flex-col items-start">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 flex items-center gap-2 font-days-one">
             <FaLock className="text-yellow-400" />
             <span>No debt. No surprises.</span>
           </h2>
@@ -98,12 +98,13 @@ const Customers = () => {
           </p>
         </div>
 
-        <h4 className="text-xl md:text-3xl text-center mb-20 leading-relaxed">
-          Enjoy exclusive 0% payment options from selected merchants. <br />
+        <h4 className="text-xl md:text-3xl text-center mb-20 leading-relaxed font-days-one">
+          Enjoy exclusive 0% payment <br /> options from selected <br />{" "}
+          merchants. <br />
           <br />
-          With FlexBoost, you pay later — without any hidden cost. <br />
+          With FlexBoost, you pay later <br /> — without any hidden cost. <br />
           <br />
-          Discover the FlexBoost Marketplace inside the app.
+          Discover the FlexBoost <br /> Marketplace inside the app.
         </h4>
       </section>
 
@@ -114,7 +115,7 @@ const Customers = () => {
       />
 
       <section className="text-center text-[#001A22] mb-32 px-6">
-        <h5 className="text-2xl md:text-4xl font-bold mb-4">
+        <h5 className="text-2xl md:text-4xl font-bold mb-4 font-days-one">
           Ready to unlock your crypto freedom?
         </h5>
         <p className="text-lg md:text-xl mb-10">
