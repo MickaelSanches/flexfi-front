@@ -11,7 +11,8 @@ const HowItWorksPage = () => {
         {/* Intro Section */}
         <section className="space-y-6">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6">
-            FlexFi turns your crypto into a real financial superpower.
+            FlexFi turns your crypto into a real financial{" "}
+            <span className="text-[#00FEFB]">superpower</span>.
           </h1>
           <p className="text-base md:text-xl text-gray-300 mb-12">
             Split payments, earn rewards, unlock freedom — instantly.
