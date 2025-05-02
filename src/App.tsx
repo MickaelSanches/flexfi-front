@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { getToken } from "./utils/storage";
 import NotFoundView from "./views/NotFoundView";
 import LoginView from "./views/LoginView";
+import DashboardView from "./views/DashboardView";
 
 function App() {
   const [isConnected, setIsConnected] = useState(false);
@@ -59,6 +60,18 @@ function App() {
             <Route
               path="/login"
               element={<LoginView setIsConnected={setIsConnected} />}
+            />
+            <Route
+              path="/dashboard"
+              element={
+                isConnected ? (
+                  <DashboardView />
+                ) : (
+                  <div className="flex justify-center items-center h-screen text-white">
+                    <h1 className="text-3xl font-bold">Please log in</h1>
+                  </div>
+                )
+              }
             />
             <Route path="/waitlist" element={<Waitlist />} />
             <Route path="*" element={<NotFoundView />} />
