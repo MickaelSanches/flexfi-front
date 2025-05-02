@@ -50,7 +50,7 @@ const Navbar = () => {
           </Link>
 
           <Link
-            to="/waitlist"
+            to="/register"
             className="text-sm rounded-2xl border border-[#00FEFB] px-4 py-2 hover:bg-[#00FEFB] hover:text-black transition duration-300"
           >
             Join Waitlist

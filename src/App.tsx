@@ -2,21 +2,23 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Home from "./views/Home";
-import Waitlist from "./views/Waitlist";
-import AboutUs from "./views/AboutUs";
-import Merchants from "./views/Merchants";
+import Home from "./views/HomeView";
+import Waitlist from "./views/WaitlistView";
+import AboutUs from "./views/AboutUsView";
+import Merchants from "./views/MerchantsView";
 
-import HowItWorks from "./views/HowItWorks";
-import Roadmap from "./views/Roadmap";
-import Team from "./views/Team";
-import TermsOfUse from "./views/TermsOfUse";
-import PrivacyPolicy from "./views/PrivacyPolicy";
-import LegalNotice from "./views/LegalNotice";
+import HowItWorks from "./views/HowItWorksView";
+import Roadmap from "./views/RoadmapView";
+import Team from "./views/TeamView";
+import TermsOfUse from "./views/TermsOfUseView";
+import PrivacyPolicy from "./views/PrivacyPolicyView";
+import LegalNotice from "./views/LegalNoticeView";
 
-import Customers from "./views/Customers";
+import Customers from "./views/CustomersView";
 import ScrollToTop from "./components/ScrollTop";
 import WaitlistCounter from "./components/WaitlistCounter";
+
+import Register from "./views/RegisterView";
 
 function App() {
   return (
@@ -28,7 +30,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
-            <Route path="/waitlist" element={<Waitlist />} />
             <Route path="/merchants" element={<Merchants />} />
             <Route path="/howitworks" element={<HowItWorks />} />
             <Route path="/roadmap" element={<Roadmap />} />
@@ -38,6 +39,9 @@ function App() {
             <Route path="/legal-notice" element={<LegalNotice />} />
 
             <Route path="/customers" element={<Customers />} />
+
+            <Route path="/register" element={<Register />} />
+            <Route path="/waitlist" element={<Waitlist />} />
           </Routes>
         </main>
         <Footer />

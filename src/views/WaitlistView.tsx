@@ -1,6 +1,6 @@
 import { Player } from "@lottiefiles/react-lottie-player";
 import { useWaitlistViewModel } from "../viewmodels/useWaitlistViewModel";
-import SuccessView from "./SuccesWaitlist";
+import SuccessView from "./SuccesWaitlistView";
 
 const Waitlist = () => {
   const {
@@ -14,12 +14,7 @@ const Waitlist = () => {
     error,
     handleSubmit,
     invalidFields,
-    referralCode,
   } = useWaitlistViewModel();
-
-  if (referralCode) {
-    return <SuccessView referralCode={referralCode} />;
-  }
 
   return (
     <main className="min-h-screen text-white flex flex-col items-start px-6 py-6 md:px-16 lg:px-24 xl:px-50">
@@ -50,58 +45,6 @@ const Waitlist = () => {
         <form className="flex flex-col gap-6">
           {step === 1 && (
             <>
-              {/* Email */}
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="email"
-                  className="text-sm font-semibold text-[#00FEFB]"
-                >
-                  Email *
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
-                    invalidFields.includes("email") ? "bg-red-200" : "bg-white"
-                  }`}
-                />
-              </div>
-
-              <input type="hidden" name="utmSource" value="waitlist" />
-              <input type="hidden" name="utmMedium" value="form" />
-              <input type="hidden" name="utmCampaign" value="launch" />
-              <input type="hidden" name="landingVariant" value="v1" />
-
-              {/* Name */}
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="firstName"
-                  className="text-sm font-semibold text-[#00FEFB]"
-                >
-                  First Name / Handle *
-                </label>
-                <input
-                  id="firstName"
-                  name="firstName"
-                  type="text"
-                  placeholder="Enter your name or handle"
-                  required
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
-                    invalidFields.includes("firstName")
-                      ? "bg-red-200  "
-                      : "bg-white"
-                  }`}
-                />
-              </div>
-
-              {/* Country Dropdown */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="country"
@@ -158,7 +101,6 @@ const Waitlist = () => {
                 </select>
               </div>
 
-              {/* Preferred Language Dropdown */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="preferredLanguage"
@@ -186,7 +128,6 @@ const Waitlist = () => {
                 </select>
               </div>
 
-              {/* Mobile Phone (optional) */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="phoneNumber"
@@ -205,7 +146,6 @@ const Waitlist = () => {
                 />
               </div>
 
-              {/* Telegram / Discord ID (optional) */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="telegramOrDiscordId"
@@ -246,7 +186,6 @@ const Waitlist = () => {
                 Your profile
               </h2>
 
-              {/* Age Group */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="ageGroup"
@@ -274,7 +213,6 @@ const Waitlist = () => {
                 </select>
               </div>
 
-              {/* Employment Status */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="employmentStatus"
@@ -334,7 +272,6 @@ const Waitlist = () => {
                 </select>
               </div>
 
-              {/* Monthly Income */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="monthlyIncome"
@@ -364,7 +301,6 @@ const Waitlist = () => {
                 </select>
               </div>
 
-              {/* Education Level */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="educationLevel"
@@ -413,7 +349,6 @@ const Waitlist = () => {
                 </select>
               </div>
 
-              {/* BNPL Services Used */}
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-[#00FEFB]">
                   BNPL Services Used (you can select multiple)
@@ -449,7 +384,6 @@ const Waitlist = () => {
                 </div>
               </div>
 
-              {/* Credit Card Toggle */}
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-[#00FEFB]">
                   Do you have a Credit Card?
@@ -473,7 +407,6 @@ const Waitlist = () => {
                 </div>
               </div>
 
-              {/* Average Online Spend Monthly */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="avgOnlineSpend"
@@ -506,7 +439,6 @@ const Waitlist = () => {
                 </select>
               </div>
 
-              {/* Reason for Signing Up */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="mainReason"
@@ -596,7 +528,6 @@ const Waitlist = () => {
                 Your crypto profile
               </h2>
 
-              {/* Crypto Proficiency */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="cryptoLevel"
@@ -625,7 +556,6 @@ const Waitlist = () => {
                 </select>
               </div>
 
-              {/* Primary Wallet Type */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="walletType"
@@ -659,7 +589,6 @@ const Waitlist = () => {
                 </select>
               </div>
 
-              {/* Favorite Chains */}
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-[#00FEFB]">
                   Favorite Chains (select multiple)
@@ -696,7 +625,6 @@ const Waitlist = () => {
                 </div>
               </div>
 
-              {/* Public Wallet Address */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="publicWallet"
@@ -766,7 +694,6 @@ const Waitlist = () => {
                 </select>
               </div>
 
-              {/* Hidden Referral Code */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="referralCodeUsed"
@@ -784,7 +711,6 @@ const Waitlist = () => {
                 />
               </div>
 
-              {/* Consent Checkboxes */}
               <div className="space-y-4 text-sm text-white">
                 <label className="flex items-start gap-2">
                   <input
