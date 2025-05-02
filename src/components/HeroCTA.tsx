@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HeroCTA = () => {
   return (
-    <section className="text-[#001A22] text-center px-6 font-bold py-20">
+    <section className="text-[#001A22] text-center px-6 font-bold py-20 font-days-one">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}

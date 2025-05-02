@@ -19,7 +19,7 @@ const Home = () => {
         {/* <ProductSection /> */}
         <BuiltForMerchants />
         <div className="relative -mt-15  md:-mt-18 lg:-mt-25  flex justify-center">
-          <button className="cursor-pointer rounded-2xl bg-[#71FFFF] text-black text-lg px-8 py-4  shadow-lg hover:scale-105 transition-all duration-300 font-bold">
+          <button className="cursor-pointer rounded-2xl bg-[#71FFFF] text-black text-lg px-8 py-4  shadow-lg hover:scale-105 transition-all duration-300 font-bold font-days-one">
             Start with FlexBoost
           </button>
         </div>

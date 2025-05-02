@@ -15,10 +15,13 @@ import PrivacyPolicy from "./views/PrivacyPolicy";
 import LegalNotice from "./views/LegalNotice";
 
 import Customers from "./views/Customers";
+import ScrollToTop from "./components/ScrollTop";
+import WaitlistCounter from "./components/WaitlistCounter";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-1">
@@ -27,7 +30,6 @@ function App() {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/waitlist" element={<Waitlist />} />
             <Route path="/merchants" element={<Merchants />} />
-
             <Route path="/howitworks" element={<HowItWorks />} />
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/team" element={<Team />} />
@@ -39,6 +41,9 @@ function App() {
           </Routes>
         </main>
         <Footer />
+      </div>
+      <div className="fixed bottom-4 right-4 z-50">
+        <WaitlistCounter />
       </div>
     </Router>
   );

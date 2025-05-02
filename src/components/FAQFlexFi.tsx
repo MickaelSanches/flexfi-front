@@ -1,4 +1,3 @@
-import { usePageStore } from "@/store/usePageStore";
 import { useEffect, useRef, useState } from "react";
 
 interface FAQItem {
@@ -12,9 +11,6 @@ const FAQFlexFi = () => {
   const toggle = (index: number) => {
     setOpen(open === index ? null : index);
   };
-
-  usePageStore.getState().setIsShopper(true);
-
 
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
@@ -105,7 +101,7 @@ const FAQFlexFi = () => {
     <section ref={sectionRef} id="faq-section" className="py-12">
       <div className="container mx-auto px-4 md:px-32">
         <h2
-          className={`font-display text-4xl font-extrabold text-[#001A22] mb-4 ${
+          className={`font-display text-4xl font-extrabold text-[#001A22] mb-4 font-days-one ${
             isVisible
               ? "motion-preset-slide-right motion-delay-[400ms]"
               : "opacity-0 translate-y-10"
@@ -127,7 +123,7 @@ const FAQFlexFi = () => {
               onClick={() => toggle(index)}
             >
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-[#001A22] font-display">
+                <h3 className="text-lg font-semibold text-[#001A22] font-display font-days-one">
                   {faq.question}
                 </h3>
                 <span className="text-[#001A22]">
@@ -135,7 +131,7 @@ const FAQFlexFi = () => {
                 </span>
               </div>
               {open === index && (
-                <p className="mt-4 text-[#001A22] text-base sm:text-xl whitespace-pre-line">
+                <p className="mt-4 text-[#001A22] text-base whitespace-pre-line">
                   {faq.answer}
                 </p>
               )}

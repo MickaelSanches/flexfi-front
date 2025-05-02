@@ -53,7 +53,7 @@ const SystemFixSection = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="rounded-2xl p-6 mx-auto"
           >
-            <p className="font-bold text-2xl text-[#00FEFB] text-start mb-4">
+            <p className="font-bold text-2xl text-[#00FEFB] text-start mb-4 font-days-one">
               FlexFi offers real financial sovereignty:
             </p>
             <ul className="text-lg font-bold flex flex-col items-start">

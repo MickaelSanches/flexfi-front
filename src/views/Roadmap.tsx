@@ -20,17 +20,19 @@ const RoadmapPage = () => {
       </section>
 
       <section className="w-full">
-        <img
-          src="/images/breakpoint.webp"
-          alt="Breakpoint 2025"
-          className="w-full object-cover"
-        />
+        <a href="https://solana.com/fr/breakpoint" target="_blank">
+          <img
+            src="/images/breakpoint.webp"
+            alt="Breakpoint 2025"
+            className="w-full object-cover"
+          />
+        </a>
       </section>
 
       <section className="w-full bg-gradient-to-b from-[#00161C] to-[#013847] px-6 py-20">
         <div className="max-w-7xl mx-auto flex flex-col gap-20">
           <div className="max-w-xl">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight space-y-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight space-y-3 font-days-one">
               <p>We are building the MVP.</p>
               <p>
                 <span className="text-[#00FEFB]">
@@ -55,7 +57,7 @@ const RoadmapPage = () => {
         <Roadmap />
       </section>
 
-      <section className="flex flex-col items-center text-center bg-gradient-to-b from-[#013847] to-[#007E91] px-6 py-20">
+      <section className="flex flex-col items-center text-center bg-gradient-to-b from-[#013847] to-[#007E91] px-6 py-20 font-days-one">
         <h2 className="text-black text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
           Back FlexFi.
           <br />
