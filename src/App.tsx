@@ -6,6 +6,8 @@ import Home from "./views/HomeView";
 import Waitlist from "./views/WaitlistView";
 import AboutUs from "./views/AboutUsView";
 import Merchants from "./views/MerchantsView";
+import LOI from "./views/LetterOfIntent";
+import LoiIntroPage from "./views/LoiIntroPage";
 
 import HowItWorks from "./views/HowItWorksView";
 import Roadmap from "./views/RoadmapView";
@@ -50,6 +52,8 @@ function App() {
             <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/legal-notice" element={<LegalNotice />} />
+            <Route path="/letter-of-intent" element={<LOI />} />
+            <Route path="/loi-intro-page" element={<LoiIntroPage />} />
 
             <Route path="/customers" element={<Customers />} />
 
