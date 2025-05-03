@@ -5,6 +5,7 @@ interface RegisterPayload {
   password: string;
   firstName?: string;
   lastName?: string;
+  referralCodeUsed?: string;
 }
 
 interface AuthResponse {
@@ -14,6 +15,7 @@ interface AuthResponse {
     email: string;
     firstName?: string;
     lastName?: string;
+    userReferralCode: string;
   };
 }
 
@@ -33,7 +35,7 @@ export const authRepository = {
       throw new Error(data.message || "Échec de l’inscription");
     }
     localStorage.setItem("token", data.data.token);
-    localStorage.setItem("firstName", data.data.user.firstName);
+    localStorage.setItem("user", JSON.stringify(data.data.user));
     return data;
   },
 
@@ -51,13 +53,13 @@ export const authRepository = {
     }
 
     localStorage.setItem("token", data.data.token);
-    localStorage.setItem("firstName", data.data.user.firstName);
+    localStorage.setItem("user", JSON.stringify(data.data.user));
 
     return data;
   },
 
   logout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("firstName");
+    localStorage.removeItem("user");
   },
 };

@@ -1,16 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+// src/viewmodels/useWaitlistViewModel.ts
+import { useState, useEffect, useRef, useCallback } from "react";
+import { WaitlistFormData } from "../@types/waitlist";
 import { waitlistRepository } from "../repository/waitlistRepository";
 
-type Country = {
-  name: string;
-  states: { name: string }[];
-};
-
-const initialFormData = {
+const initialFormData: WaitlistFormData = {
   email: "",
-  firstName: "",
-  phoneNumber: "",
-  telegramOrDiscordId: "",
+  phoneNumber: undefined,
+  telegramOrDiscordId: undefined,
   preferredLanguage: "",
   country: "",
   stateProvince: "",
@@ -19,219 +15,214 @@ const initialFormData = {
   monthlyIncome: "",
   educationLevel: "",
   hasCreditCard: false,
-  bnplServices: [] as string[],
+  bnplServices: [],
   avgOnlineSpend: "",
   cryptoLevel: "",
   walletType: "",
   portfolioSize: "",
-  favoriteChains: [] as string[],
-  publicWallet: "",
+  favoriteChains: [],
+  publicWallet: undefined,
   mainReason: "",
-  firstPurchase: "",
-  referralCodeUsed: "",
-  userReferralCode: "",
-  utmSource: "",
-  utmMedium: "",
-  utmCampaign: "",
-  landingVariant: "",
+  firstPurchase: undefined,
+  utmSource: "waitlist",
+  utmMedium: "form",
+  utmCampaign: "launch",
   timeToCompletionSeconds: 0,
-  consentMarketing: false,
+  experienceBnplRating: 0,
   consentAdult: false,
   consent_data_sharing: false,
-  consent_data_sharing_date: new Date().toISOString(),
-  experienceBnplRating: 0,
+  consent_data_sharing_date: new Date(),
+  consentMarketing: false,
+  signupTimeStamp: new Date(),
 };
 
 export const useWaitlistViewModel = () => {
-  const [formData, setFormData] = useState(initialFormData);
-  const [error, setError] = useState("");
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [states, setStates] = useState<{ name: string }[]>([]);
-  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState<WaitlistFormData>(initialFormData);
+  const [step, setStep] = useState<number>(1);
+  const [error, setError] = useState<string>("");
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
+  const [countries, setCountries] = useState<
+    { name: string; states: { name: string }[] }[]
+  >([]);
+  const [states, setStates] = useState<{ name: string }[]>([]);
   const [referralCode, setReferralCode] = useState<string | null>(null);
+  const startTime = useRef<number>(Date.now());
 
-  const startTime = useRef(Date.now());
-
+  // Charger la liste des pays et états
   useEffect(() => {
     fetch("https://countriesnow.space/api/v0.1/countries/states")
       .then((res) => res.json())
-      .then((data) => {
-        setCountries(data.data);
-      });
+      .then((data) => setCountries(data.data))
+      .catch(() => {});
   }, []);
 
+  // Mettre à jour les états/provinces quand le pays change
   useEffect(() => {
-    const country = countries.find((c) => c.name === formData.country);
-    setStates(country ? country.states : []);
+    const countryObj = countries.find((c) => c.name === formData.country);
+    setStates(countryObj ? countryObj.states : []);
+    setFormData((prev) => ({ ...prev, stateProvince: "" }));
   }, [formData.country, countries]);
 
-  useEffect(() => {
-    setFormData((prev) => ({
-      ...prev,
-      utmSource: "waitlist",
-      utmMedium: "form",
-      utmCampaign: "launch",
-      landingVariant: "v1",
-    }));
-  }, []);
+  // Gestion des changements de champ
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      const { name, type, value, checked } = e.target as HTMLInputElement;
+      setFormData((prev) => {
+        // Checkbox pour tableaux
+        if (type === "checkbox") {
+          if (name === "bnplServices") {
+            const arr = prev.bnplServices;
+            return {
+              ...prev,
+              bnplServices: checked
+                ? [...arr, value]
+                : arr.filter((v) => v !== value),
+            } as WaitlistFormData;
+          }
+          if (name === "favoriteChains") {
+            const arr = prev.favoriteChains;
+            return {
+              ...prev,
+              favoriteChains: checked
+                ? [...arr, value]
+                : arr.filter((v) => v !== value),
+            } as WaitlistFormData;
+          }
+          // Booleans
+          return { ...prev, [name]: checked } as WaitlistFormData;
+        }
+        // Radio hasCreditCard
+        if (type === "radio") {
+          return { ...prev, [name]: value === "Yes" } as WaitlistFormData;
+        }
+        // Champ numérique
+        if (name === "experienceBnplRating") {
+          return {
+            ...prev,
+            experienceBnplRating: Number(value),
+          } as WaitlistFormData;
+        }
+        // Champs optionnels
+        if (
+          [
+            "phoneNumber",
+            "telegramOrDiscordId",
+            "firstPurchase",
+            "publicWallet",
+          ].includes(name)
+        ) {
+          return { ...prev, [name]: value || undefined } as WaitlistFormData;
+        }
+        // Valeur par défaut
+        return { ...prev, [name]: value } as WaitlistFormData;
+      });
+    },
+    []
+  );
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const target = e.target;
-    const { name, value } = target;
-
-    if (target instanceof HTMLInputElement && target.type === "checkbox") {
-      if (name === "bnplServices") {
-        setFormData((prev) => ({
-          ...prev,
-          bnplServices: target.checked
-            ? [...prev.bnplServices, value]
-            : prev.bnplServices.filter((s) => s !== value),
-        }));
-      } else if (name === "favoriteChains") {
-        setFormData((prev) => ({
-          ...prev,
-          favoriteChains: target.checked
-            ? [...prev.favoriteChains, value]
-            : prev.favoriteChains.filter((c) => c !== value),
-        }));
-      } else {
-        setFormData((prev) => ({ ...prev, [name]: target.checked }));
-      }
-    } else {
+  const handleRadioChange = useCallback(
+    (name: keyof WaitlistFormData, value: string) => {
       setFormData((prev) => ({
         ...prev,
-        [name]:
-          name === "experienceBnplRating"
-            ? Number(value)
-            : value === "Yes"
-            ? true
-            : value === "No"
-            ? false
-            : value,
+        [name]: value === "Yes",
       }));
-    }
-  };
+    },
+    []
+  );
 
-  const handleRadioChange = (name: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value === "Yes",
-    }));
-  };
-
-  const validateStep = (step: number): boolean => {
-    let requiredFields: string[] = [];
-
-    if (step === 1) {
-      requiredFields = [
-        "email",
-        "firstName",
-        "country",
-        "stateProvince",
-        "preferredLanguage",
-      ];
-
-      if (formData.phoneNumber && !/^\+\d{6,15}$/.test(formData.phoneNumber)) {
-        setError(
-          "Please enter a valid phone number with international code (e.g. +33612345678)"
-        );
-        setInvalidFields(["phoneNumber"]);
+  // Validation par étape
+  const validateStep = useCallback(
+    (currentStep: number): boolean => {
+      let required: (keyof WaitlistFormData)[] = [];
+      if (currentStep === 1) {
+        required = ["email", "preferredLanguage", "country", "stateProvince"];
+        if (
+          formData.phoneNumber &&
+          !/^\+\d{6,15}$/.test(formData.phoneNumber)
+        ) {
+          setError("Numéro de téléphone invalide");
+          setInvalidFields(["phoneNumber"]);
+          return false;
+        }
+      } else if (currentStep === 2) {
+        required = [
+          "ageGroup",
+          "employmentStatus",
+          "monthlyIncome",
+          "educationLevel",
+          "avgOnlineSpend",
+          "mainReason",
+        ];
+      } else if (currentStep === 3) {
+        required = [
+          "cryptoLevel",
+          "walletType",
+          "portfolioSize",
+          "experienceBnplRating",
+        ];
+      }
+      const missing = required.filter((field) => !formData[field]);
+      if (missing.length) {
+        setInvalidFields(missing as string[]);
+        setError("Merci de compléter tous les champs requis");
         return false;
       }
-    } else if (step === 2) {
-      requiredFields = [
-        "ageGroup",
-        "employmentStatus",
-        "monthlyIncome",
-        "educationLevel",
+      setError("");
+      setInvalidFields([]);
+      return true;
+    },
+    [formData]
+  );
 
-        "avgOnlineSpend",
-        "mainReason",
-      ];
-    } else if (step === 3) {
-      requiredFields = [
-        "cryptoLevel",
-        "walletType",
-        "portfolioSize",
-        "experienceBnplRating",
-      ];
-    }
+  const nextStep = useCallback(() => {
+    if (validateStep(step)) setStep((s) => s + 1);
+  }, [step, validateStep]);
 
-    const invalids = requiredFields.filter(
-      (field) => !formData[field as keyof typeof formData]
-    );
+  const prevStep = useCallback(() => {
+    if (step > 1) setStep((s) => s - 1);
+  }, [step]);
 
-    setInvalidFields(invalids);
-
-    if (invalids.length > 0) {
-      setError("Please fill in all required fields.");
-      return false;
-    }
-
-    setError("");
-    return true;
-  };
-
-  const nextStep = () => {
-    if (validateStep(step)) {
-      setStep((prev) => prev + 1);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validateStep(step)) {
-      return;
-    }
-
-    const { consentMarketing, consentAdult, consent_data_sharing } = formData;
-    if (!consentMarketing || !consentAdult || !consent_data_sharing) {
-      setError("Please accept all required consents to proceed.");
-      return;
-    }
-
-    const submissionData = {
-      ...formData,
-
-      timeToCompletionSeconds: Math.floor(
-        (Date.now() - startTime.current) / 1000
-      ),
-      consent_data_sharing_date: new Date().toISOString(),
-    };
-
-    console.log("Submitting form data:", submissionData);
-
-    try {
-      const response = await waitlistRepository.submit(submissionData);
-      const generatedCode = response.data?.userReferralCode;
-
-      if (generatedCode) {
-        setReferralCode(generatedCode);
+  // Soumission finale
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!validateStep(step)) return;
+      const { consentMarketing, consentAdult, consent_data_sharing } = formData;
+      if (!consentMarketing || !consentAdult || !consent_data_sharing) {
+        setError("Merci d'accepter tous les consentements requis");
+        return;
       }
-    } catch (err: any) {
-      console.error(err);
-      setError(err.message || "Something went wrong.");
-      alert(err.message || "Something went wrong.");
-    }
-  };
+      const submission: WaitlistFormData = {
+        ...formData,
+        timeToCompletionSeconds: Math.floor(
+          (Date.now() - startTime.current) / 1000
+        ),
+        consent_data_sharing_date: new Date(),
+        signupTimeStamp: new Date(),
+      };
+      try {
+        const res = await waitlistRepository.submit(submission);
+        if (res.data.userReferralCode)
+          setReferralCode(res.data.userReferralCode);
+      } catch (err: any) {
+        setError(err.message || "Échec de l'envoi");
+      }
+    },
+    [formData, step, validateStep]
+  );
 
   return {
     formData,
-    setFormData,
-    countries,
-    states,
     step,
-    setStep,
-    handleChange,
-    handleRadioChange,
-    nextStep,
-    handleSubmit,
     error,
     invalidFields,
+    countries,
+    states,
     referralCode,
+    handleChange,
+    nextStep,
+    prevStep,
+    handleSubmit,
+    handleRadioChange,
   };
 };

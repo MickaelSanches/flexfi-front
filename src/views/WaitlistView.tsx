@@ -694,23 +694,6 @@ const Waitlist = () => {
                 </select>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="referralCodeUsed"
-                  className="text-sm font-semibold text-[#00FEFB]"
-                >
-                  Referral Code (Optional)
-                </label>
-                <input
-                  type="text"
-                  name="referralCodeUsed"
-                  placeholder="Enter your referral code"
-                  id="referralCode"
-                  value={formData.referralCodeUsed}
-                  className="p-3 rounded-lg bg-white text-black outline-none"
-                />
-              </div>
-
               <div className="space-y-4 text-sm text-white">
                 <label className="flex items-start gap-2">
                   <input
