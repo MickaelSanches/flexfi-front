@@ -1,4 +1,4 @@
-import JoinWaitlistButton from "../components/JoinWaitlistButton";
+import MoreInfoLOI from "../components/MoreInfoLOI";
 
 const Merchants = () => {
   return (
@@ -61,11 +61,11 @@ const Merchants = () => {
 
         <div className="mt-40 text-center">
           <p className="text-[#001A22] font-bold text-2xl md:text-4xl mb-6 font-days-one">
-            Built by people
+          Want to be among the first?
             <br />
-            who’ve been there.
+            Sign the Letter of Intent (LOI)
           </p>
-          <JoinWaitlistButton />
+          <MoreInfoLOI />
         </div>
       </section>
     </main>
