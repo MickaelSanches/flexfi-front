@@ -240,7 +240,7 @@ const DashboardView = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-[#0C1D26]/80 border border-cyan-500/20 rounded-2xl p-6 shadow-lg h-[440px] flex flex-col"
+          className="bg-[#0C1D26]/80 mb-20 border border-cyan-500/20 rounded-2xl p-6 shadow-lg h-[440px] flex flex-col"
         >
           <h2 className="text-xl font-semibold text-cyan-300 mb-4">
             Upcoming Missions
