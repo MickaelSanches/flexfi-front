@@ -61,6 +61,7 @@ const LoginView = ({ setIsConnected }: LoginFormProps) => {
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
           <button
+            id="btn-login"
             type="submit"
             className="mt-6 bg-[#71FFFF] text-[#001A22] font-bold py-3 rounded-xl hover:bg-[#00FEFB] transition duration-300"
           >
