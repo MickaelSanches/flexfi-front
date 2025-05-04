@@ -45,8 +45,6 @@ export const authRepository = {
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
 
-    console.log("User Referral Code:", user.userReferralCode);
-
     return { token, user };
   },
 
@@ -65,7 +63,6 @@ export const authRepository = {
 
     localStorage.setItem("token", data.data.token);
     localStorage.setItem("user", JSON.stringify(data.data.user));
-    console.log("User data stored in localStorage:", data.data.user);
 
     return data;
   },

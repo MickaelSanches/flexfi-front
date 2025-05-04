@@ -52,7 +52,6 @@ export const useWaitlistViewModel = () => {
 
   const navigate = useNavigate();
 
-  // Charger la liste des pays et états
   useEffect(() => {
     fetch("https://countriesnow.space/api/v0.1/countries/states")
       .then((res) => res.json())
@@ -60,19 +59,16 @@ export const useWaitlistViewModel = () => {
       .catch(() => {});
   }, []);
 
-  // Mettre à jour les états/provinces quand le pays change
   useEffect(() => {
     const countryObj = countries.find((c) => c.name === formData.country);
     setStates(countryObj ? countryObj.states : []);
     setFormData((prev) => ({ ...prev, stateProvince: "" }));
   }, [formData.country, countries]);
 
-  // Gestion des changements de champ
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const { name, type, value, checked } = e.target as HTMLInputElement;
       setFormData((prev) => {
-        // Checkbox pour tableaux
         if (type === "checkbox") {
           if (name === "bnplServices") {
             const arr = prev.bnplServices;
@@ -81,7 +77,7 @@ export const useWaitlistViewModel = () => {
               bnplServices: checked
                 ? [...arr, value]
                 : arr.filter((v) => v !== value),
-            } as WaitlistFormData;
+            };
           }
           if (name === "favoriteChains") {
             const arr = prev.favoriteChains;
@@ -90,23 +86,16 @@ export const useWaitlistViewModel = () => {
               favoriteChains: checked
                 ? [...arr, value]
                 : arr.filter((v) => v !== value),
-            } as WaitlistFormData;
+            };
           }
-          // Booleans
-          return { ...prev, [name]: checked } as WaitlistFormData;
+          return { ...prev, [name]: checked };
         }
-        // Radio hasCreditCard
         if (type === "radio") {
-          return { ...prev, [name]: value === "Yes" } as WaitlistFormData;
+          return { ...prev, [name]: value === "Yes" };
         }
-        // Champ numérique
         if (name === "experienceBnplRating") {
-          return {
-            ...prev,
-            experienceBnplRating: Number(value),
-          } as WaitlistFormData;
+          return { ...prev, experienceBnplRating: Number(value) };
         }
-        // Champs optionnels
         if (
           [
             "phoneNumber",
@@ -115,10 +104,9 @@ export const useWaitlistViewModel = () => {
             "publicWallet",
           ].includes(name)
         ) {
-          return { ...prev, [name]: value || undefined } as WaitlistFormData;
+          return { ...prev, [name]: value || undefined };
         }
-        // Valeur par défaut
-        return { ...prev, [name]: value } as WaitlistFormData;
+        return { ...prev, [name]: value };
       });
     },
     []
@@ -126,15 +114,11 @@ export const useWaitlistViewModel = () => {
 
   const handleRadioChange = useCallback(
     (name: keyof WaitlistFormData, value: string) => {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value === "Yes",
-      }));
+      setFormData((prev) => ({ ...prev, [name]: value === "Yes" }));
     },
     []
   );
 
-  // Validation par étape
   const validateStep = useCallback(
     (currentStep: number): boolean => {
       let required: (keyof WaitlistFormData)[] = [];
@@ -160,23 +144,21 @@ export const useWaitlistViewModel = () => {
           "avgOnlineSpend",
           "mainReason",
         ];
-
         if (formData.bnplServices.length === 0) {
           setError("Please select at least one BNPL service.");
           setInvalidFields(["bnplServices"]);
           return false;
         }
       } else if (currentStep === 3) {
-        required = [
-          "cryptoLevel",
-          "walletType",
-          "portfolioSize",
-          "experienceBnplRating",
-        ];
-
+        required = ["cryptoLevel", "walletType", "portfolioSize"];
         if (formData.favoriteChains.length === 0) {
           setError("Please select at least one favorite blockchain.");
           setInvalidFields(["favoriteChains"]);
+          return false;
+        }
+        if (!formData.experienceBnplRating) {
+          setError("Please rate your BNPL experience.");
+          setInvalidFields(["experienceBnplRating"]);
           return false;
         }
       }
@@ -203,11 +185,11 @@ export const useWaitlistViewModel = () => {
     if (step > 1) setStep((s) => s - 1);
   }, [step]);
 
-  // Soumission finale
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
       if (!validateStep(step)) return;
+
       const { consentMarketing, consentAdult, consent_data_sharing } = formData;
       if (!consentMarketing || !consentAdult || !consent_data_sharing) {
         setError("Please accept all required consents");
@@ -215,34 +197,34 @@ export const useWaitlistViewModel = () => {
       }
 
       const currentUser = getUser();
-
       if (!currentUser?.email) {
         setError("Missing email. Please log in again.");
         return;
       }
-      const submission: WaitlistFormData = {
-        ...formData,
-        email: currentUser.email,
-        timeToCompletionSeconds: Math.floor(
-          (Date.now() - startTime.current) / 1000
-        ),
-        consent_data_sharing_date: new Date().toISOString(),
-        signupTimestamp: new Date().toISOString(),
-      };
+
+      const submission: WaitlistFormData = Object.fromEntries(
+        Object.entries({
+          ...formData,
+          email: currentUser.email,
+          timeToCompletionSeconds: Math.floor(
+            (Date.now() - startTime.current) / 1000
+          ),
+          consent_data_sharing_date: new Date().toISOString(),
+          signupTimestamp: new Date().toISOString(),
+        }).filter(([, v]) => v !== undefined)
+      ) as WaitlistFormData;
+
       try {
         console.log("Submitting waitlist form", submission);
         const res = await waitlistRepository.submit(submission);
         if (res.data.userReferralCode)
           setReferralCode(res.data.userReferralCode);
-
-        const currentUser = getUser();
         if (currentUser) {
           localStorage.setItem(
             "user",
             JSON.stringify({ ...currentUser, formFullfilled: true })
           );
         }
-
         navigate("/dashboard");
       } catch (err: any) {
         setError(err.message || "Submission failed");
