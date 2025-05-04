@@ -759,6 +759,7 @@ const Waitlist = () => {
               )}
 
               <button
+                id="btn-submit-waitlist"
                 type="submit"
                 onClick={handleSubmit}
                 className="mt-6 bg-[#71FFFF] text-[#001A22] font-bold py-3 rounded-xl hover:bg-[#00FEFB] transition duration-300"

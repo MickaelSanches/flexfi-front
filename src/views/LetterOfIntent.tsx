@@ -100,6 +100,7 @@ const LOI = () => {
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
           <button
+            id="btn-submit-loi"
             type="submit"
             className="mt-6 bg-[#71FFFF] text-[#001A22] font-bold py-3 rounded-xl hover:bg-[#00FEFB] transition duration-300"
           >
