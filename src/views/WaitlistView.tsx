@@ -335,10 +335,10 @@ const Waitlist = () => {
                   <option value="Some college / University (no degree yet)">
                     Some college / University (no degree yet)
                   </option>
-                  <option value="Bachelor’s degree (BA, BS, etc.)">
+                  <option value="Bachelor's degree (BA, BS, etc.)">
                     Bachelor’s degree (BA, BS, etc.)
                   </option>
-                  <option value="Master’s degree (MA, MSc, MBA, etc.)">
+                  <option value="Master's degree (MA, MSc, MBA, etc.)">
                     Master’s degree (MA, MSc, MBA, etc.)
                   </option>
                   <option value="Doctorate / PhD">Doctorate / PhD</option>

@@ -22,8 +22,16 @@ export const useLoiViewModel = () => {
   };
 
   const validate = (): boolean => {
-    const requiredFields = ["fullName", "company", "email", "country", "sector"];
-    const invalids = requiredFields.filter((field) => !formData[field as keyof typeof formData]);
+    const requiredFields = [
+      "fullName",
+      "company",
+      "email",
+      "country",
+      "sector",
+    ];
+    const invalids = requiredFields.filter(
+      (field) => !formData[field as keyof typeof formData]
+    );
     setInvalidFields(invalids);
 
     if (invalids.length > 0) {
@@ -44,7 +52,6 @@ export const useLoiViewModel = () => {
       submittedAt: new Date().toISOString(),
     };
 
-    console.log("Submitting LOI:", submissionData);
     // TODO: Send to backend or email or generate PDF
   };
 
