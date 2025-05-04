@@ -1,5 +1,3 @@
-import MoreInfoLOI from "../components/MoreInfoLOI";
-
 const Merchants = () => {
   return (
     <main className="w-full pt-20  bg-gradient-to-b text-white overflow-hidden">

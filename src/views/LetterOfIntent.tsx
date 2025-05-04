@@ -4,19 +4,17 @@ import SignatureCanvas from "react-signature-canvas";
 import { useRef } from "react";
 
 const LOI = () => {
-  const {
-    formData,
-    handleChange,
-    handleSubmit,
-    invalidFields,
-    error,
-  } = useLoiViewModel();
+  const { formData, handleChange, handleSubmit, invalidFields, error } =
+    useLoiViewModel();
 
   const sigCanvas = useRef<SignatureCanvas>(null);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const signature = sigCanvas.current?.getTrimmedCanvas().toDataURL("image/png") ?? "";
+
+    const signature =
+      sigCanvas.current?.getTrimmedCanvas().toDataURL("image/png") ?? "";
+
     handleSubmit(signature);
   };
 
@@ -33,70 +31,41 @@ const LOI = () => {
           />
         </h1>
         <p className="text-gray-300 max-w-xl text-sm md:text-base">
-          Become a pioneer partner and help shape the future of crypto-native payments.
+          Become a pioneer partner and help shape the future of crypto-native
+          payments.
         </p>
       </div>
 
       <div className="bg-[#0C1D26] p-8 rounded-2xl shadow-lg w-full max-w-2xl space-y-6 mx-auto">
         <form className="flex flex-col gap-6" onSubmit={onSubmit}>
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-semibold text-[#00FEFB]">Full Name *</label>
-            <input
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              required
-              className={`p-3 rounded-lg text-black ${invalidFields.includes("fullName") ? "bg-red-200" : "bg-white"}`}
-            />
-          </div>
+          {[
+            { name: "fullName", label: "Full Name *" },
+            { name: "company", label: "Company Name *" },
+            { name: "email", label: "Email *", type: "email" },
+            { name: "country", label: "Country *" },
+            { name: "sector", label: "Business Sector *" },
+          ].map(({ name, label, type }) => (
+            <div key={name} className="flex flex-col gap-2">
+              <label className="text-sm font-semibold text-[#00FEFB]">
+                {label}
+              </label>
+              <input
+                type={type || "text"}
+                name={name}
+                value={(formData as any)[name]}
+                onChange={handleChange}
+                required
+                className={`p-3 rounded-lg text-black ${
+                  invalidFields.includes(name) ? "bg-red-200" : "bg-white"
+                }`}
+              />
+            </div>
+          ))}
 
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-semibold text-[#00FEFB]">Company Name *</label>
-            <input
-              name="company"
-              value={formData.company}
-              onChange={handleChange}
-              required
-              className={`p-3 rounded-lg text-black ${invalidFields.includes("company") ? "bg-red-200" : "bg-white"}`}
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-semibold text-[#00FEFB]">Email *</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className={`p-3 rounded-lg text-black ${invalidFields.includes("email") ? "bg-red-200" : "bg-white"}`}
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-semibold text-[#00FEFB]">Country *</label>
-            <input
-              name="country"
-              value={formData.country}
-              onChange={handleChange}
-              required
-              className={`p-3 rounded-lg text-black ${invalidFields.includes("country") ? "bg-red-200" : "bg-white"}`}
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-semibold text-[#00FEFB]">Business Sector *</label>
-            <input
-              name="sector"
-              value={formData.sector}
-              onChange={handleChange}
-              required
-              className={`p-3 rounded-lg text-black ${invalidFields.includes("sector") ? "bg-red-200" : "bg-white"}`}
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-semibold text-[#00FEFB]">Additional Notes (Optional)</label>
+            <label className="text-sm font-semibold text-[#00FEFB]">
+              Additional Notes (Optional)
+            </label>
             <textarea
               name="comments"
               value={formData.comments}
@@ -107,15 +76,21 @@ const LOI = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-semibold text-[#00FEFB]">Signature *</label>
+            <label className="text-sm font-semibold text-[#00FEFB]">
+              Signature *
+            </label>
             <SignatureCanvas
               ref={sigCanvas}
               penColor="#00FEFB"
-              canvasProps={{ width: 500, height: 200, className: "bg-white rounded-lg" }}
+              canvasProps={{
+                width: 500,
+                height: 200,
+                className: "bg-white rounded-lg",
+              }}
             />
             <button
               type="button"
-              onClick={() => sigCanvas.current.clear()}
+              onClick={() => sigCanvas.current?.clear()}
               className="text-xs underline text-[#00FEFB] mt-2"
             >
               Clear signature

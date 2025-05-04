@@ -6,8 +6,8 @@ import Home from "./views/HomeView";
 import Waitlist from "./views/WaitlistView";
 import AboutUs from "./views/AboutUsView";
 import Merchants from "./views/MerchantsView";
-import LOI from "./views/LetterOfIntent";
-import LoiIntroPage from "./views/LoiIntroPage";
+// import LOI from "./views/LetterOfIntent";
+// import LoiIntroPage from "./views/LoiIntroPage";
 
 import HowItWorks from "./views/HowItWorksView";
 import Roadmap from "./views/RoadmapView";
