@@ -34,7 +34,7 @@ const Navbar = ({ isConnected, setIsConnected }: NavbarProps) => {
           {isConnected ? (
             <Link
               to="/dashboard"
-              className="text-sm rounded-2xl border border-[#00FEFB] px-4 py-2 text-white hover:bg-[#00FEFB] hover:text-black transition duration-300"
+              className="text-sm rounded-2xl ml-10 border border-[#00FEFB] px-4 py-2 text-white hover:bg-[#00FEFB] hover:text-black transition duration-300"
             >
               Dashboard
             </Link>

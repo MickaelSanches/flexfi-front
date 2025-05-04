@@ -16,11 +16,11 @@ const ContestInfoButton = () => {
       </button>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#0F1E29] rounded-2xl shadow-lg max-w-3xl w-full p-6 relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#0F1E29] rounded-2xl shadow-lg p-6">
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-3 right-4 text-gray-300 hover:text-white text-2xl"
+              className="absolute top-3 right-4 text-gray-300 hover:text-white text-2xl z-10"
             >
               &times;
             </button>
