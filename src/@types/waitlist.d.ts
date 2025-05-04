@@ -26,7 +26,7 @@ export interface WaitlistFormData {
   experienceBnplRating: number;
   consentAdult: boolean;
   consent_data_sharing: boolean;
-  consent_data_sharing_date: Date;
+  consent_data_sharing_date: string;
   consentMarketing: boolean;
-  signupTimeStamp: Date;
+  signupTimestamp: string;
 }

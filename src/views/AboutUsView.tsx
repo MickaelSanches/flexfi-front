@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import JoinWaitlistButton from "../components/JoinWaitlistButton";
 
 const AboutUs = () => {

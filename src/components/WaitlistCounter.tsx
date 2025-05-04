@@ -86,7 +86,7 @@ const WaitlistCounter = () => {
               transition={{ duration: 0.4, ease: "anticipate" }}
               className="text-lg sm:text-2xl font-bold font-mono text-center text-cyan-400 tracking-widest relative z-10"
             >
-              <span className="glitch-text font-days-one">{count + 987}</span>
+              <span className="glitch-text font-days-one">{count}</span>
             </motion.div>
           </AnimatePresence>
         </div>

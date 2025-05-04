@@ -1,6 +1,5 @@
 import { Player } from "@lottiefiles/react-lottie-player";
 import { useWaitlistViewModel } from "../viewmodels/useWaitlistViewModel";
-import SuccessView from "./SuccesWaitlistView";
 
 const Waitlist = () => {
   const {
@@ -351,7 +350,7 @@ const Waitlist = () => {
 
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-[#00FEFB]">
-                  BNPL Services Used (you can select multiple)
+                  BNPL Services Used (you can select multiple) *
                 </label>
                 <div className="flex flex-wrap gap-4">
                   {[
@@ -376,7 +375,11 @@ const Waitlist = () => {
                         value={service}
                         checked={formData.bnplServices.includes(service)}
                         onChange={handleChange}
-                        className="w-5 h-5"
+                        className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                          invalidFields.includes("avgOnlineSpend")
+                            ? "bg-red-200  "
+                            : "bg-white"
+                        }`}
                       />
                       {service}
                     </label>
@@ -591,7 +594,7 @@ const Waitlist = () => {
 
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-[#00FEFB]">
-                  Favorite Chains (select multiple)
+                  Favorite Chains (select multiple) *
                 </label>
                 <div className="flex flex-wrap gap-4">
                   {[
@@ -617,7 +620,11 @@ const Waitlist = () => {
                         value={chain}
                         checked={formData.favoriteChains.includes(chain)}
                         onChange={handleChange}
-                        className="w-5 h-5"
+                        className={`p-3 rounded-lg  text-black placeholder-gray-400 outline-none ${
+                          invalidFields.includes("avgOnlineSpend")
+                            ? "bg-red-200  "
+                            : "bg-white"
+                        }`}
                       />
                       {chain}
                     </label>

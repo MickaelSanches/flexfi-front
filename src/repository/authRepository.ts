@@ -16,31 +16,42 @@ interface AuthResponse {
     firstName?: string;
     lastName?: string;
     userReferralCode: string;
+    referralCodeUsed?: string;
+    formFullfilled?: boolean;
+    points?: number;
+    kycStatus?: string;
+    wallets?: any[];
+    authMethod?: string;
   };
 }
-
-const API_URL = "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const authRepository = {
   async register(payload: RegisterPayload): Promise<AuthResponse> {
-    const res = await fetch(`${API_URL}/api/auth/register`, {
+    const res = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
-    const data = await res.json();
+    const responseBody = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.message || "Échec de l’inscription");
+      throw new Error(responseBody.message || "Échec de l’inscription");
     }
-    localStorage.setItem("token", data.data.token);
-    localStorage.setItem("user", JSON.stringify(data.data.user));
-    return data;
+
+    const { token, user } = responseBody.data;
+
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    console.log("User Referral Code:", user.userReferralCode);
+
+    return { token, user };
   },
 
   async login(email: string, password: string): Promise<AuthResponse> {
-    const res = await fetch(`${API_URL}/api/auth/login`, {
+    const res = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -54,6 +65,7 @@ export const authRepository = {
 
     localStorage.setItem("token", data.data.token);
     localStorage.setItem("user", JSON.stringify(data.data.user));
+    console.log("User data stored in localStorage:", data.data.user);
 
     return data;
   },
@@ -61,5 +73,65 @@ export const authRepository = {
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+  },
+
+  async getUser(): Promise<AuthResponse | null> {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+
+    const res = await fetch(`${API_URL}/auth/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch user data");
+    }
+
+    const data = await res.json();
+    return data;
+  },
+
+  async getCurrentUserPoints() {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+
+    const res = await fetch(`${API_URL}/auth/points`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch user data");
+    }
+
+    const data = await res.json();
+    return data;
+  },
+
+  async getCurrentUserRank() {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+
+    const res = await fetch(`${API_URL}/auth/rank`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch user data");
+    }
+
+    const data = await res.json();
+    return data;
   },
 };

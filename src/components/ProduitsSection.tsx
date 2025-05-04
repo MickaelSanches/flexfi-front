@@ -6,8 +6,7 @@ const Card = ({
   price,
   apr,
   features,
-  highlight,
-  buttonColor,
+
   hoverColor,
 }: {
   title: string;

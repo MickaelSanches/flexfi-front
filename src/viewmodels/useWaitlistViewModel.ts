@@ -2,6 +2,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { WaitlistFormData } from "../@types/waitlist";
 import { waitlistRepository } from "../repository/waitlistRepository";
+import { getUser } from "../utils/storage";
+import { useNavigate } from "react-router-dom";
 
 const initialFormData: WaitlistFormData = {
   email: "",
@@ -31,9 +33,9 @@ const initialFormData: WaitlistFormData = {
   experienceBnplRating: 0,
   consentAdult: false,
   consent_data_sharing: false,
-  consent_data_sharing_date: new Date(),
+  consent_data_sharing_date: new Date().toISOString(),
   consentMarketing: false,
-  signupTimeStamp: new Date(),
+  signupTimestamp: new Date().toISOString(),
 };
 
 export const useWaitlistViewModel = () => {
@@ -47,6 +49,8 @@ export const useWaitlistViewModel = () => {
   const [states, setStates] = useState<{ name: string }[]>([]);
   const [referralCode, setReferralCode] = useState<string | null>(null);
   const startTime = useRef<number>(Date.now());
+
+  const navigate = useNavigate();
 
   // Charger la liste des pays et états
   useEffect(() => {
@@ -134,13 +138,16 @@ export const useWaitlistViewModel = () => {
   const validateStep = useCallback(
     (currentStep: number): boolean => {
       let required: (keyof WaitlistFormData)[] = [];
+
       if (currentStep === 1) {
-        required = ["email", "preferredLanguage", "country", "stateProvince"];
+        required = ["preferredLanguage", "country", "stateProvince"];
         if (
           formData.phoneNumber &&
           !/^\+\d{6,15}$/.test(formData.phoneNumber)
         ) {
-          setError("Numéro de téléphone invalide");
+          setError(
+            "Invalid phone number format. Use international format with country code."
+          );
           setInvalidFields(["phoneNumber"]);
           return false;
         }
@@ -153,6 +160,12 @@ export const useWaitlistViewModel = () => {
           "avgOnlineSpend",
           "mainReason",
         ];
+
+        if (formData.bnplServices.length === 0) {
+          setError("Please select at least one BNPL service.");
+          setInvalidFields(["bnplServices"]);
+          return false;
+        }
       } else if (currentStep === 3) {
         required = [
           "cryptoLevel",
@@ -160,13 +173,21 @@ export const useWaitlistViewModel = () => {
           "portfolioSize",
           "experienceBnplRating",
         ];
+
+        if (formData.favoriteChains.length === 0) {
+          setError("Please select at least one favorite blockchain.");
+          setInvalidFields(["favoriteChains"]);
+          return false;
+        }
       }
+
       const missing = required.filter((field) => !formData[field]);
       if (missing.length) {
         setInvalidFields(missing as string[]);
-        setError("Merci de compléter tous les champs requis");
+        setError("Please complete all required fields.");
         return false;
       }
+
       setError("");
       setInvalidFields([]);
       return true;
@@ -189,23 +210,42 @@ export const useWaitlistViewModel = () => {
       if (!validateStep(step)) return;
       const { consentMarketing, consentAdult, consent_data_sharing } = formData;
       if (!consentMarketing || !consentAdult || !consent_data_sharing) {
-        setError("Merci d'accepter tous les consentements requis");
+        setError("Please accept all required consents");
+        return;
+      }
+
+      const currentUser = getUser();
+
+      if (!currentUser?.email) {
+        setError("Missing email. Please log in again.");
         return;
       }
       const submission: WaitlistFormData = {
         ...formData,
+        email: currentUser.email,
         timeToCompletionSeconds: Math.floor(
           (Date.now() - startTime.current) / 1000
         ),
-        consent_data_sharing_date: new Date(),
-        signupTimeStamp: new Date(),
+        consent_data_sharing_date: new Date().toISOString(),
+        signupTimestamp: new Date().toISOString(),
       };
       try {
+        console.log("Submitting waitlist form", submission);
         const res = await waitlistRepository.submit(submission);
         if (res.data.userReferralCode)
           setReferralCode(res.data.userReferralCode);
+
+        const currentUser = getUser();
+        if (currentUser) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ ...currentUser, formFullfilled: true })
+          );
+        }
+
+        navigate("/dashboard");
       } catch (err: any) {
-        setError(err.message || "Échec de l'envoi");
+        setError(err.message || "Submission failed");
       }
     },
     [formData, step, validateStep]
