@@ -59,14 +59,14 @@ const Merchants = () => {
           </p>
         </div>
 
-        <div className="mt-40 text-center">
+        {/* <div className="mt-40 text-center">
           <p className="text-[#001A22] font-bold text-2xl md:text-4xl mb-6 font-days-one">
           Want to be among the first?
             <br />
             Sign the Letter of Intent (LOI)
           </p>
           <MoreInfoLOI />
-        </div>
+        </div> */}
       </section>
     </main>
   );
