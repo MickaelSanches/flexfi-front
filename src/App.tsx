@@ -52,8 +52,8 @@ function App() {
             <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/legal-notice" element={<LegalNotice />} />
-            <Route path="/letter-of-intent" element={<LOI />} />
-            <Route path="/loi-intro-page" element={<LoiIntroPage />} />
+            {/* <Route path="/letter-of-intent" element={<LOI />} />
+            <Route path="/loi-intro-page" element={<LoiIntroPage />} /> */}
 
             <Route path="/customers" element={<Customers />} />
 
