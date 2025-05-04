@@ -20,15 +20,19 @@ const Footer = () => {
           </p>
           <div className="flex gap-4 text-[#00FEFBCC] text-xl items-center">
             <Link
+              id="btn-linkedin"
               target="_blank"
               to="https://www.linkedin.com/company/flexfiofficial/posts/?feedView=all"
             >
               <FaLinkedinIn className="cursor-pointer hover:text-white" />
             </Link>
-            <Link target="_blank" to="https://x.com/FlexFi_/">
+            <Link 
+            id="btn-x"
+            target="_blank" to="https://x.com/FlexFi_/">
               <FaXTwitter className="cursor-pointer hover:text-white" />
             </Link>
             <a
+              id="btn-mail"
               href="mailto:contact@flex-fi.io"
               aria-label="Send an email"
               className="cursor-pointer hover:text-white"
