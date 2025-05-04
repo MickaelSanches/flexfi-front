@@ -1,8 +1,7 @@
 export interface WaitlistFormData {
   email: string;
-  firstName: string;
-  phoneNumber?: string;
-  telegramOrDiscordId?: string;
+  phoneNumber: string | undefined;
+  telegramOrDiscordId: string | undefined;
   preferredLanguage: string;
   country: string;
   stateProvince: string;
@@ -17,19 +16,17 @@ export interface WaitlistFormData {
   walletType: string;
   portfolioSize: string;
   favoriteChains: string[];
-  publicWallet?: string;
+  publicWallet: string | undefined;
   mainReason: string;
-  firstPurchase?: string;
-  referralCodeUsed?: string;
-  userReferralCode?: string;
+  firstPurchase: string | undefined;
   utmSource: string;
   utmMedium: string;
   utmCampaign: string;
-  landingVariant: string;
   timeToCompletionSeconds: number;
-  consentMarketing: boolean;
+  experienceBnplRating: number;
   consentAdult: boolean;
   consent_data_sharing: boolean;
   consent_data_sharing_date: string;
-  experienceBnplRating: number;
+  consentMarketing: boolean;
+  signupTimestamp: string;
 }

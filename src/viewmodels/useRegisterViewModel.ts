@@ -32,23 +32,27 @@ export const useRegisterViewModel = () => {
       !form.password ||
       !form.confirmPassword
     ) {
-      setError("Veuillez remplir tous les champs requis.");
+      setError("Please fill in all required fields.");
       return false;
     }
+
     if (form.password !== form.confirmPassword) {
-      setError("Les mots de passe ne correspondent pas.");
+      setError("Passwords do not match.");
       return false;
     }
+
     if (!isPasswordStrong(form.password)) {
       setError(
-        "Le mot de passe doit faire au moins 12 caractères et inclure majuscule, minuscule, chiffre et caractère spécial."
+        "Password must be at least 12 characters long and include uppercase, lowercase, a number, and a special character."
       );
       return false;
     }
+
     if (!form.consentMarketing || !form.consent_data_sharing) {
-      setError("Veuillez accepter les consentements requis.");
+      setError("Please accept all required consents.");
       return false;
     }
+
     setError(null);
     return true;
   };
@@ -60,6 +64,7 @@ export const useRegisterViewModel = () => {
         password: form.password,
         firstName: form.firstName,
         lastName: form.lastName,
+        referralCodeUsed: form.referralCodeUsed,
       });
       return true;
     } catch (err: any) {
