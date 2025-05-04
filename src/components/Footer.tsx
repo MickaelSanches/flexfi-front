@@ -93,7 +93,7 @@ const Footer = () => {
               Be the first to access FlexFi when we launch. Early adopters get
               premium benefits.
             </p>
-            <Link to="/waitlist">
+            <Link to="/register">
               <button className="rounded-2xl border border-[#00FEFB] px-4 py-2 cursor-pointer hover:bg-[#00FEFB] hover:text-black transition duration-300 font-days-one">
                 Join Waitlist
               </button>
