@@ -52,6 +52,8 @@ export const useLoiViewModel = () => {
       submittedAt: new Date().toISOString(),
     };
 
+    console.log("Submission Data:", submissionData);
+
     // TODO: Send to backend or email or generate PDF
   };
 
