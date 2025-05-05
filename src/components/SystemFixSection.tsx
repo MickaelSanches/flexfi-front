@@ -25,6 +25,7 @@ const SystemFixSection = () => {
             className="flex flex-col md:flex-row items-center justify-center gap-8"
           >
             <img
+              loading="lazy"
               className="h-72 md:h-96 object-contain"
               src="/images/iPhone.webp"
               alt="Iphone"

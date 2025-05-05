@@ -23,6 +23,7 @@ const Navbar = ({ isConnected, setIsConnected }: NavbarProps) => {
       <nav className="px-6 py-6 md:px-16 lg:px-24 xl:px-40 flex items-center justify-between relative font-days-one">
         <Link to="/" aria-label="Go to homepage">
           <img
+            loading="lazy"
             src="/logo/flexfi-logo.webp"
             alt="FlexFi logo"
             className="h-10 lg:h-16 cursor-pointer transition-transform duration-300 hover:scale-105"

@@ -22,6 +22,7 @@ const RoadmapPage = () => {
       <section className="w-full">
         <a href="https://solana.com/fr/breakpoint" target="_blank">
           <img
+            loading="lazy"
             src="/images/breakpoint.webp"
             alt="Breakpoint 2025"
             className="w-full object-cover"

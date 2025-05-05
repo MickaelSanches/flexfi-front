@@ -13,6 +13,7 @@ const AboutUs = () => {
       </div>
 
       <img
+        loading="lazy"
         src="/images/MacBook-flexfi.webp"
         alt="computer"
         className="w-full object-cover"
@@ -56,6 +57,7 @@ const AboutUs = () => {
             className="block"
           >
             <img
+              loading="lazy"
               className="rounded-3xl"
               src="/images/radar.webp"
               alt="Radar Colloseum"
@@ -74,6 +76,7 @@ const AboutUs = () => {
             className="block"
           >
             <img
+              loading="lazy"
               className="rounded-3xl"
               src="/images/breakOut.webp"
               alt="Radar Colloseum"
@@ -92,6 +95,7 @@ const AboutUs = () => {
             className="block"
           >
             <img
+              loading="lazy"
               className="rounded-3xl"
               src="/logo/logo-STF-1.webp"
               alt="Superteam France logo"
@@ -106,6 +110,7 @@ const AboutUs = () => {
           </h3>
 
           <img
+            loading="lazy"
             className="mb-24 rounded-3xl"
             src="/images/demo-day.webp"
             alt="Radar Colloseum"

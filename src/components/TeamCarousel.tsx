@@ -80,6 +80,7 @@ const TeamCarousel = () => {
                 } items-center gap-10`}
               >
                 <img
+                  loading="lazy"
                   src={member.image}
                   alt={member.name}
                   className="rounded-xl w-[280px] h-[340px] object-cover shadow-lg"

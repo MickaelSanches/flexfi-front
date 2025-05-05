@@ -109,6 +109,7 @@ const Customers = () => {
       </section>
 
       <img
+        loading="lazy"
         src="/images/iPhone16-2.png"
         alt="iphone"
         className="w-full h-auto object-cover mb-20"
