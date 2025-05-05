@@ -33,6 +33,7 @@ const RotatingCard = () => {
       >
         {/* Recto */}
         <img
+          loading="lazy"
           src={frontCard}
           alt="Front FlexFi"
           width={600}
