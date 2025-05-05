@@ -23,6 +23,7 @@ const RotatingCard = () => {
       >
         {/* Recto */}
         <img
+          loading="lazy"
           src={frontCard}
           alt="Front FlexFi"
           className="absolute w-full h-full object-cover backface-hidden rounded-2xl"
@@ -30,6 +31,7 @@ const RotatingCard = () => {
 
         {/* Verso */}
         <img
+          loading="lazy"
           src={backCard}
           alt="Back FlexFi"
           className="absolute w-full h-full object-cover backface-hidden rounded-2xl"

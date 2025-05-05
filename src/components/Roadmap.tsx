@@ -3,6 +3,7 @@ const Roadmap = () => {
     <section className="py-12">
       <div className="max-w-6xl mx-auto px-4">
         <img
+          loading="lazy"
           src="/images/roadmap.webp"
           alt="Roadmap"
           className="w-full h-auto object-contain"
