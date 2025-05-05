@@ -10,6 +10,7 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row md:justify-between gap-12">
         <div className="md:w-1/3">
           <img
+            loading="lazy"
             className="h-10 lg:h-20"
             src="/logo/flexfi-logo.webp"
             alt="logo flexfi"

@@ -74,6 +74,7 @@ const DashboardView = () => {
       value: points,
       icon: (
         <img
+          loading="lazy"
           src="/logo/flexpoint.webp"
           alt="FlexPoints"
           className="w-8 h-8 object-contain"
@@ -226,6 +227,7 @@ const DashboardView = () => {
                 <div className="flex items-center gap-1 bg-cyan-800/30 text-cyan-300 text-xs font-bold px-2 py-1 rounded-full shadow-inner">
                   +5
                   <img
+                    loading="lazy"
                     src="/logo/flexpoint.webp"
                     alt="FlexPoint"
                     className="w-4 h-4 ml-1"
@@ -283,6 +285,7 @@ const DashboardView = () => {
                   <span className="flex items-center bg-teal-800 text-teal-300 text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
                     +20
                     <img
+                      loading="lazy"
                       src="/logo/flexpoint.webp"
                       alt="FlexPoint"
                       className="w-4 h-4 ml-1"
@@ -305,6 +308,7 @@ const DashboardView = () => {
                   <span className="flex items-center bg-yellow-700 text-yellow-200 text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
                     +2 to +10
                     <img
+                      loading="lazy"
                       src="/logo/flexpoint.webp"
                       alt="FlexPoint"
                       className="w-4 h-4 ml-1"

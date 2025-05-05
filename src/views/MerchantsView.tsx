@@ -16,6 +16,7 @@ const Merchants = () => {
       {/* Billboard image */}
       <section className="mb-20 ">
         <img
+          loading="lazy"
           src="/images/billboards.webp"
           alt="FlexFi Billboard"
           className="w-full h-auto object-cover"

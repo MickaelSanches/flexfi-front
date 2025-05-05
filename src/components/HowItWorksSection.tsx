@@ -99,6 +99,7 @@ const HowItWorks = () => {
                   />
                 ) : (
                   <img
+                    loading="lazy"
                     src={step.image}
                     alt={step.title}
                     className="w-full h-full object-contain rounded-2xl"

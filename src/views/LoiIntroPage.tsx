@@ -20,6 +20,7 @@ const LoiIntroPage = () => {
       {/* Billboard image */}
       <section className="mb-20 flex justify-end">
         <img
+          loading="lazy"
           src="/images/folder.webp"
           alt="FlexFi Billboard"
           className="w-auto h-auto object-cover"
