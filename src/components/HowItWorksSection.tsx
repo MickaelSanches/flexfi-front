@@ -39,7 +39,7 @@ const steps: Step[] = [
     icon: <Award className="w-8 h-8 text-yellow-400" />,
     title: "Level Up Your Life",
     description:
-      "Boost your score. Unlock premium cards, perks, exclusive 0% offers. Control your crypto-powered future.",
+      "Boost your score. Unlock premium cards, perks, exclusive offers. Control your crypto-powered future.",
     component: <FlexFiCard3D />,
   },
 ];
