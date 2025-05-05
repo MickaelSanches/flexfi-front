@@ -18,7 +18,6 @@ const RotatingCard = () => {
 
   return (
     <div className="relative w-full max-w-[600px] aspect-[600/410] mx-auto perspective-[2000px] flex items-center justify-center">
-
       {/* Gradient lumineux dynamique au survol */}
       <div className="absolute w-full h-full rounded-2xl z-[-1]" />
 
@@ -32,12 +31,12 @@ const RotatingCard = () => {
           rotateZ: "-15deg",
         }}
       >
-
         {/* Recto */}
         <img
-          loading="lazy"
           src={frontCard}
           alt="Front FlexFi"
+          width={600}
+          height={410}
           className="absolute w-full h-full object-cover rounded-2xl shadow-xl backface-hidden z-[1]"
         />
 
@@ -46,6 +45,8 @@ const RotatingCard = () => {
           loading="lazy"
           src={backCard}
           alt="Back FlexFi"
+          width={600}
+          height={410}
           className="absolute w-full h-full object-cover rounded-2xl backface-hidden z-[1]"
           style={{ transform: "rotateY(180deg)" }}
         />
