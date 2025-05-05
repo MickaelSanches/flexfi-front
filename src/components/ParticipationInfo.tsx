@@ -7,6 +7,7 @@ import {
   ShieldAlert,
   CheckCircle,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ParticipationInfo = () => {
   return (
@@ -39,7 +40,7 @@ const ParticipationInfo = () => {
           The leaderboard is based on the total number of{" "}
           <strong>FlexPoints</strong> earned until the end of the contest. Each
           action earns a specific number of points (see scoring on the{" "}
-          <span className="text-[#71FFFF] underline">Missions</span> page).
+          <Link to="/missions" className="text-[#71FFFF] underline" >Missions</Link> page).
         </p>
       </div>
 

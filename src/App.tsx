@@ -8,6 +8,7 @@ import Merchants from "./views/MerchantsView";
 import Waitlist from "./views/WaitlistView";
 // import LOI from "./views/LetterOfIntent";
 // import LoiIntroPage from "./views/LoiIntroPage";
+import Missions from "./views/MissionsView";
 
 import HowItWorks from "./views/HowItWorksView";
 import LegalNotice from "./views/LegalNoticeView";
@@ -55,6 +56,7 @@ function App() {
             <Route path="/legal-notice" element={<LegalNotice />} />
             {/* <Route path="/letter-of-intent" element={<LOI />} />
             <Route path="/loi-intro-page" element={<LoiIntroPage />} /> */}
+            <Route path="/missions" element={<Missions />} />
 
             <Route path="/customers" element={<Customers />} />
 
