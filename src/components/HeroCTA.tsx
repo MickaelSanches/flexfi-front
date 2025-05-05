@@ -15,7 +15,7 @@ const HeroCTA = () => {
         <br /> payment revolution.
       </motion.h1>
 
-      <Link to="/waitlist">
+      <Link to="/register">
         <motion.button
           id="btn-join-waitlist"
           initial={{ opacity: 0, y: 20 }}
