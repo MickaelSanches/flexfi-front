@@ -3,7 +3,7 @@ import RotatingCard1 from "../components/RotatingCard1";
 
 const HeroBanner = () => {
   return (
-    <section className="flex flex-col items-center justify-center gap-10 px-6 py-6 md:flex-row md:justify-between md:px-16 lg:px-24 xl:px-50 min-h-[80vh] overflow-hidden">
+    <section className=" flex flex-col items-center justify-center gap-10 px-6 pb-20 py-6 md:flex-row md:justify-between md:px-16 lg:px-24 xl:px-50 min-h-[80vh] overflow-hidden">
       <div className="text-center md:text-left space-y-6">
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
