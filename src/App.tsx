@@ -11,6 +11,13 @@ import Waitlist from "./views/WaitlistView";
 import Missions from "./views/MissionsView";
 import WhyFlexFi from "./views/WhyFlexFi";
 
+import EducationView from "./views/EducationView";
+import FlexFiView from "./views/FlexFiView";
+import Web3Explained from "./views/Web3Explained";
+import StablecoinsView from "./views/StablecoinsView";
+import FlexFiBNPLView from "./views/FlexFiBNPLView";
+import WalletView from "./views/WalletView";
+
 import HowItWorks from "./views/HowItWorksView";
 import LegalNotice from "./views/LegalNoticeView";
 import PrivacyPolicy from "./views/PrivacyPolicyView";
@@ -59,6 +66,13 @@ function App() {
             <Route path="/loi-intro-page" element={<LoiIntroPage />} /> */}
             <Route path="/missions" element={<Missions />} />
             <Route path="/why-flexfi" element={<WhyFlexFi />} />
+
+            <Route path="/education" element={<EducationView />} />
+            <Route path="/education/flexfi" element={<FlexFiView />} />
+            <Route path="/education/web3-explained" element={<Web3Explained />} />
+            <Route path="/education/stablecoins" element={<StablecoinsView />} />
+            <Route path="/education/bnpl" element={<FlexFiBNPLView />} />
+            <Route path="/education/wallets" element={<WalletView />} />
 
             <Route path="/customers" element={<Customers />} />
 
