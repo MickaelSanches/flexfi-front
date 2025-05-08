@@ -46,6 +46,32 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col md:flex-row gap-12">
+        <div>
+            <h4 className="text-white font-semibold mb-4 font-days-one text-lg">
+              Learn With FlexFi
+            </h4>
+            <ul className="text-[#E0E0E0] space-y-2 flex flex-col">
+              <Link to="/education">
+                <li className="cursor-pointer hover:text-[#00FEFBCC]">
+                  Education
+                </li>
+              </Link>
+              </ul>
+              </div>
+
+          <div>
+            <h4 className="text-white font-semibold mb-4 font-days-one text-lg">
+              Offer
+            </h4>
+            <ul className="text-[#E0E0E0] space-y-2 flex flex-col">
+              <Link to="/why-flexfi">
+                <li className="cursor-pointer hover:text-[#00FEFBCC]">
+                  Why FlexFi ?
+                </li>
+              </Link>
+              </ul>
+              </div>
+
           <div>
             <h4 className="text-white font-semibold mb-4 font-days-one text-lg">
               Product
