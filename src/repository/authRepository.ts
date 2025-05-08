@@ -166,4 +166,18 @@ export const authRepository = {
     const data = await res.json();
     return data;
   },
+
+  async resendVerificationEmail(email: string) {
+    return await fetch(`${import.meta.env.VITE_API_URL}/auth/send-code`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    }).then(async (res) => {
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Failed to resend email");
+      }
+      return res.json();
+    });
+  },
 };

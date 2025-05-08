@@ -1,5 +1,7 @@
 import { useEffect, useState, JSX } from "react";
 import { motion } from "framer-motion";
+import { HiCheckBadge } from "react-icons/hi2";
+import { MdMarkEmailRead } from "react-icons/md";
 import {
   TrendingUp,
   Users,
@@ -19,17 +21,25 @@ const DashboardView = () => {
   const [userReferralCode, setUserReferralCode] = useState<string>("");
   const [copied, setCopied] = useState(false);
   const [formFullfilled, setFormFullfilled] = useState<boolean | null>(null);
+  const [isVerified, setIsVerified] = useState(false);
   const [points, setPoints] = useState<number>(0);
   const [rank, setRank] = useState<number>(0);
   const [referralsCount, setReferralsCount] = useState<number>(0);
+  const [isResending, setIsResending] = useState(false);
+  const [resendSuccess, setResendSuccess] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const user = getUser();
         if (user?.userReferralCode) setUserReferralCode(user.userReferralCode);
+
         if (typeof user?.formFullfilled === "boolean") {
           setFormFullfilled(user.formFullfilled);
+        }
+
+        if (typeof user?.isVerified === "boolean") {
+          setIsVerified(user.isVerified);
         }
 
         const userPoints = await authRepository.getCurrentUserPoints();
@@ -51,6 +61,20 @@ const DashboardView = () => {
 
     fetchUserInfo();
   }, []);
+
+  const handleResendVerification = async () => {
+    try {
+      setIsResending(true);
+      const user = getUser();
+      if (!user?.email) throw new Error("Missing email");
+      await authRepository.resendVerificationEmail(user.email);
+      setResendSuccess(true);
+    } catch (error) {
+      console.error("Resend error:", error);
+    } finally {
+      setIsResending(false);
+    }
+  };
 
   const handleCopy = () => {
     if (userReferralCode) {
@@ -112,6 +136,82 @@ const DashboardView = () => {
         Welcome to Your Dashboard
       </h1>
 
+      <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-10 px-2 sm:px-4">
+        {!isVerified && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-8 text-center w-full max-w-xs sm:max-w-md"
+          >
+            <div className="bg-red-900/10 border border-red-500/20 p-3 sm:p-5 rounded-lg shadow-sm sm:shadow-md">
+              <div className="flex items-center justify-center gap-2 mb-2 sm:mb-3">
+                <MdMarkEmailRead className="text-red-300 w-5 h-5" />
+                <p className="text-sm sm:text-base text-red-300 font-semibold">
+                  Email not verified
+                </p>
+              </div>
+              <p className="text-xs text-gray-400 mb-4 sm:mb-5">
+                Verify now and earn bonus points.
+              </p>
+              {resendSuccess ? (
+                <p className="text-xs text-green-400 font-medium">
+                  Verification email sent!
+                </p>
+              ) : (
+                <button
+                  onClick={handleResendVerification}
+                  disabled={isResending}
+                  className="inline-flex items-center justify-center gap-1 bg-[#00FEFB] text-[#001A22] hover:bg-[#71FFFF] font-bold text-xs px-3 py-1.5 rounded-full shadow transition disabled:opacity-50"
+                >
+                  {isResending ? "Sending..." : "Resend Email"}
+                  <span className="flex items-center gap-1 text-[10px] font-semibold text-teal-700">
+                    +100
+                    <img
+                      src="/logo/flexpoint.webp"
+                      alt="FlexPoint"
+                      className="w-3 h-3"
+                    />
+                  </span>
+                </button>
+              )}
+            </div>
+          </motion.div>
+        )}
+
+        {formFullfilled === false && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-8 text-center w-full max-w-xs sm:max-w-md"
+          >
+            <div className="bg-yellow-900/10 border border-yellow-400/20 p-3 sm:p-5 rounded-lg shadow-sm sm:shadow-md">
+              <p className="text-sm text-yellow-300 font-semibold mb-2">
+                Profile incomplete
+              </p>
+              <p className="text-xs text-gray-400 mb-4">
+                Finish now to get your bonus points.
+              </p>
+              <Link
+                to="/waitlist"
+                className="inline-flex items-center justify-center gap-1 bg-[#00FEFB] text-[#001A22] hover:bg-[#71FFFF] font-bold text-xs px-3 py-1.5 rounded-full shadow transition"
+              >
+                Complete
+                <span className="flex items-center gap-1 text-[10px] font-semibold text-teal-700">
+                  +20
+                  <img
+                    src="/logo/flexpoint.webp"
+                    alt="FlexPoint"
+                    className="w-3 h-3"
+                  />
+                </span>
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-12">
         {baseStats.map((stat) => (
           <motion.div
@@ -145,38 +245,6 @@ const DashboardView = () => {
           </motion.div>
         ))}
       </div>
-
-      {formFullfilled === false && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-16 text-center"
-        >
-          <div className="inline-block bg-yellow-900/20 border border-yellow-400/30 p-6 rounded-xl shadow-lg">
-            <p className="text-lg text-yellow-300 font-semibold mb-4">
-              You haven’t completed your profile yet!
-            </p>
-            <p className="text-sm text-gray-300 mb-6">
-              Finalize it now and instantly earn bonus points.
-            </p>
-            <Link
-              to="/waitlist"
-              className="inline-flex items-center justify-center gap-2 bg-[#00FEFB] text-[#001A22] hover:bg-[#71FFFF] font-bold px-6 py-3 rounded-full shadow-md transition"
-            >
-              Complete Your Profile
-              <span className="inline-flex items-center gap-1 text-sm font-semibold text-teal-700">
-                +20
-                <img
-                  src="/logo/flexpoint.webp"
-                  alt="FlexPoint"
-                  className="w-5 h-5"
-                />
-              </span>
-            </Link>
-          </div>
-        </motion.div>
-      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-h-3xl overflow-hidden scroll">
         <motion.div
@@ -250,6 +318,56 @@ const DashboardView = () => {
           </h2>
 
           <ul className="space-y-6 text-gray-300 text-sm sm:text-base overflow-y-auto pr-1 custom-scrollbar flex-1">
+            {!isVerified && (
+              <li className="flex flex-col sm:flex-row sm:items-start gap-4 bg-[#112B36] rounded-xl p-4 hover:bg-[#173545] transition duration-300">
+                <div className="flex-shrink-0">
+                  <HiCheckBadge className="text-cyan-400 w-6 h-6 sm:w-7 sm:h-7" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-white font-semibold text-base sm:text-lg">
+                    Email Verified
+                  </span>
+                  <div className="flex flex-wrap items-center gap-2 mt-1">
+                    <span>Verify your email to earn</span>
+                    <span className="flex items-center bg-cyan-800 text-cyan-300 text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
+                      +100
+                      <img
+                        loading="lazy"
+                        src="/logo/flexpoint.webp"
+                        alt="FlexPoint"
+                        className="w-4 h-4 ml-1"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </li>
+            )}
+
+            {!formFullfilled && (
+              <li className="flex flex-col sm:flex-row sm:items-start gap-4 bg-[#112B36] rounded-xl p-4 hover:bg-[#173545] transition duration-300">
+                <div className="flex-shrink-0">
+                  <FaWpforms className="text-teal-400 w-6 h-6 sm:w-7 sm:h-7" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-white font-semibold text-base sm:text-lg">
+                    Completed Profile
+                  </span>
+                  <div className="flex flex-wrap items-center gap-2 mt-1">
+                    <span>Fill out your profile and earn</span>
+                    <span className="flex items-center bg-teal-800 text-teal-300 text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
+                      +20
+                      <img
+                        loading="lazy"
+                        src="/logo/flexpoint.webp"
+                        alt="FlexPoint"
+                        className="w-4 h-4 ml-1"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </li>
+            )}
+
             <li className="flex flex-col sm:flex-row sm:items-start gap-4 bg-[#112B36] rounded-xl p-4 hover:bg-[#173545] transition duration-300">
               <div className="flex-shrink-0">
                 <FaUserFriends className="text-cyan-400 w-6 h-6 sm:w-7 sm:h-7" />
@@ -269,29 +387,6 @@ const DashboardView = () => {
                     />
                   </span>
                   <span className="text-gray-400">per friend</span>
-                </div>
-              </div>
-            </li>
-
-            <li className="flex flex-col sm:flex-row sm:items-start gap-4 bg-[#112B36] rounded-xl p-4 hover:bg-[#173545] transition duration-300">
-              <div className="flex-shrink-0">
-                <FaWpforms className="text-teal-400 w-6 h-6 sm:w-7 sm:h-7" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-white font-semibold text-base sm:text-lg">
-                  Completed Profile
-                </span>
-                <div className="flex flex-wrap items-center gap-2 mt-1">
-                  <span>Fill out your profile and earn</span>
-                  <span className="flex items-center bg-teal-800 text-teal-300 text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
-                    +20
-                    <img
-                      loading="lazy"
-                      src="/logo/flexpoint.webp"
-                      alt="FlexPoint"
-                      className="w-4 h-4 ml-1"
-                    />
-                  </span>
                 </div>
               </div>
             </li>
