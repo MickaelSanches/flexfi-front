@@ -17,36 +17,19 @@ const RegisterForm = ({
   setIsRegistered,
   setIsConnected,
 }: RegisterFormProps) => {
-  const {
-    form,
-    code,
-    setCode,
-    step,
-    error,
-    handleChange,
-    validateForm,
-    sendVerificationCode,
-    verifyCode,
-    registerUser,
-  } = useRegisterViewModel();
+  const { form, error, handleChange, validateForm, registerUser } =
+    useRegisterViewModel();
 
   const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (step === "form") {
-      if (validateForm()) {
-        await sendVerificationCode();
-      }
-    } else if (step === "verify") {
-      const verified = await verifyCode();
-      if (verified) {
-        const registered = await registerUser();
-        if (registered) {
-          setIsRegistered(true);
-          setIsConnected(true);
-        }
+    if (validateForm()) {
+      const registered = await registerUser();
+      if (registered) {
+        setIsRegistered(true);
+        setIsConnected(true);
       }
     }
   };
@@ -59,186 +42,164 @@ const RegisterForm = ({
           className="bg-[#0C1D26] text-white p-8 rounded-2xl w-full max-w-md shadow-xl border border-cyan-500/20"
         >
           <h2 className="text-2xl font-bold mb-6 text-center text-cyan-300 font-days-one">
-            {step === "verify" ? "Verify your email" : "Create your account"}
+            Create your account
           </h2>
 
-          {step === "form" ? (
-            <div className="flex flex-col gap-4">
-              {/* Email */}
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cyan-300 font-semibold">Email *</span>
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                  required
-                />
-              </label>
+          <div className="flex flex-col gap-4">
+            {/* Email */}
+            <label className="flex flex-col gap-1 text-sm">
+              <span className="text-cyan-300 font-semibold">Email *</span>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="you@example.com"
+                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
+                required
+              />
+            </label>
 
-              {/* First name */}
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cyan-300 font-semibold">First Name</span>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={form.firstName}
-                  onChange={handleChange}
-                  placeholder="Your name or @handle"
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                  required
-                />
-              </label>
+            {/* First name */}
+            <label className="flex flex-col gap-1 text-sm">
+              <span className="text-cyan-300 font-semibold">First Name</span>
+              <input
+                type="text"
+                name="firstName"
+                value={form.firstName}
+                onChange={handleChange}
+                placeholder="Your name or @handle"
+                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
+                required
+              />
+            </label>
 
-              {/* Last name */}
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cyan-300 font-semibold">Last Name</span>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={form.lastName}
-                  onChange={handleChange}
-                  placeholder="Your name or @handle"
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                  required
-                />
-              </label>
+            {/* Last name */}
+            <label className="flex flex-col gap-1 text-sm">
+              <span className="text-cyan-300 font-semibold">Last Name</span>
+              <input
+                type="text"
+                name="lastName"
+                value={form.lastName}
+                onChange={handleChange}
+                placeholder="Your name or @handle"
+                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
+                required
+              />
+            </label>
 
-              {/* Referral code */}
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cyan-300 font-semibold">
-                  Referral Code (optional)
-                </span>
-                <input
-                  type="text"
-                  name="referralCodeUsed"
-                  value={form.referralCodeUsed}
-                  onChange={handleChange}
-                  placeholder="Referral code"
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                />
-              </label>
+            {/* Referral code */}
+            <label className="flex flex-col gap-1 text-sm">
+              <span className="text-cyan-300 font-semibold">
+                Referral Code (optional)
+              </span>
+              <input
+                type="text"
+                name="referralCodeUsed"
+                value={form.referralCodeUsed}
+                onChange={handleChange}
+                placeholder="Referral code"
+                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
+              />
+            </label>
 
-              {/* Password */}
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cyan-300 font-semibold">Password *</span>
-                <input
-                  type="password"
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
-                  placeholder="********"
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                  required
-                />
-              </label>
+            {/* Password */}
+            <label className="flex flex-col gap-1 text-sm">
+              <span className="text-cyan-300 font-semibold">Password *</span>
+              <input
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                placeholder="********"
+                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
+                required
+              />
+            </label>
 
-              {/* Confirm password */}
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cyan-300 font-semibold">
-                  Confirm Password *
-                </span>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={form.confirmPassword}
-                  onChange={handleChange}
-                  placeholder="********"
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                  required
-                />
-              </label>
+            {/* Confirm password */}
+            <label className="flex flex-col gap-1 text-sm">
+              <span className="text-cyan-300 font-semibold">
+                Confirm Password *
+              </span>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                placeholder="********"
+                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
+                required
+              />
+            </label>
 
-              {/* Consents */}
-              <label className="flex items-start gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  name="consentMarketing"
-                  checked={form.consentMarketing}
-                  onChange={handleChange}
-                  className="w-5 h-5 mt-1"
-                  required
-                />
-                I agree to receive marketing emails (GDPR)
-              </label>
+            {/* Consents */}
+            <label className="flex items-start gap-2 text-sm">
+              <input
+                type="checkbox"
+                name="consentMarketing"
+                checked={form.consentMarketing}
+                onChange={handleChange}
+                className="w-5 h-5 mt-1"
+                required
+              />
+              I agree to receive marketing emails (GDPR)
+            </label>
 
-              <label className="flex items-start gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  name="consent_data_sharing"
-                  checked={form.consent_data_sharing}
-                  onChange={handleChange}
-                  className="w-5 h-5 mt-1"
-                  required
-                />
-                I accept the{" "}
-                <a
-                  href="/privacy-policy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline text-[#71FFFF]"
-                >
-                  Privacy Policy
-                </a>
-              </label>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-4">
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cyan-300 font-semibold">
-                  Enter the code sent to <strong>{form.email}</strong>
-                </span>
-                <input
-                  type="text"
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  placeholder="123456"
-                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                  required
-                />
-              </label>
-            </div>
-          )}
+            <label className="flex items-start gap-2 text-sm">
+              <input
+                type="checkbox"
+                name="consent_data_sharing"
+                checked={form.consent_data_sharing}
+                onChange={handleChange}
+                className="w-5 h-5 mt-1"
+                required
+              />
+              I accept the{" "}
+              <a
+                href="/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline text-[#71FFFF]"
+              >
+                Privacy Policy
+              </a>
+            </label>
+          </div>
 
           {/* Errors */}
           {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
 
           {/* Info + CTA */}
-          {step === "form" && (
-            <div className="bg-[#112B36] border border-cyan-500/30 rounded-lg p-4 text-sm text-white/90 mt-4">
-              <p className="mb-2 font-semibold text-cyan-400 flex items-center gap-2">
-                <TbTargetArrow className="text-lg" /> Earn FlexPoints by:
-              </p>
-              <ul className="list-disc list-inside pl-4 space-y-1">
-                <li className="flex items-center gap-2">
-                  <HiOutlineUserAdd /> Inviting friends with your referral code
-                </li>
-                <li className="flex items-center gap-2">
-                  <HiOutlineClipboardList /> Completing your founder profile
-                </li>
-                <li className="flex items-center gap-2">
-                  <HiOutlineSparkles /> Joining campaigns
-                </li>
-              </ul>
-              <button
-                onClick={() => setShowModal(true)}
-                type="button"
-                className="cursor-pointer mt-3 text-xs underline text-[#71FFFF] hover:text-white"
-              >
-                See more about the contest
-              </button>
-            </div>
-          )}
+          <div className="bg-[#112B36] border border-cyan-500/30 rounded-lg p-4 text-sm text-white/90 mt-4">
+            <p className="mb-2 font-semibold text-cyan-400 flex items-center gap-2">
+              <TbTargetArrow className="text-lg" /> Earn FlexPoints by:
+            </p>
+            <ul className="list-disc list-inside pl-4 space-y-1">
+              <li className="flex items-center gap-2">
+                <HiOutlineUserAdd /> Inviting friends with your referral code
+              </li>
+              <li className="flex items-center gap-2">
+                <HiOutlineClipboardList /> Completing your founder profile
+              </li>
+              <li className="flex items-center gap-2">
+                <HiOutlineSparkles /> Joining campaigns
+              </li>
+            </ul>
+            <button
+              onClick={() => setShowModal(true)}
+              type="button"
+              className="cursor-pointer mt-3 text-xs underline text-[#71FFFF] hover:text-white"
+            >
+              See more about the contest
+            </button>
+          </div>
 
           <button
             type="submit"
             className="mt-6 bg-[#71FFFF] text-[#001A22] font-bold py-3 px-2 rounded-xl hover:bg-[#00FEFB] transition duration-300"
           >
-            {step === "verify"
-              ? "Verify Email & Register"
-              : "Send Verification Code"}
+            Create My Account
           </button>
         </form>
       </div>

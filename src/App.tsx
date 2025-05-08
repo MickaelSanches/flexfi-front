@@ -35,9 +35,12 @@ import Chatbot from "./components/Chatbot";
 import ContestInfoButton from "./components/ContestInfoButton";
 import { getToken } from "./utils/storage";
 import DashboardView from "./views/DashboardView";
+
 import LoginView from "./views/LoginView";
 import NotFoundView from "./views/NotFoundView";
 import Register from "./views/RegisterView";
+
+import ActivateAccount from "./views/ActivateAccount";
 
 function App() {
   const [isConnected, setIsConnected] = useState(false);
@@ -53,7 +56,7 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <Navbar isConnected={isConnected} setIsConnected={setIsConnected} />
         <main className="flex-1">
-        {/*<LaunchPopup />*/}
+          {/*<LaunchPopup />*/}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
@@ -71,8 +74,14 @@ function App() {
 
             <Route path="/education" element={<EducationView />} />
             <Route path="/education/flexfi" element={<FlexFiView />} />
-            <Route path="/education/web3-explained" element={<Web3Explained />} />
-            <Route path="/education/stablecoins" element={<StablecoinsView />} />
+            <Route
+              path="/education/web3-explained"
+              element={<Web3Explained />}
+            />
+            <Route
+              path="/education/stablecoins"
+              element={<StablecoinsView />}
+            />
             <Route path="/education/bnpl" element={<FlexFiBNPLView />} />
             <Route path="/education/wallets" element={<WalletView />} />
 
@@ -82,6 +91,8 @@ function App() {
               path="/register"
               element={<Register setIsConnected={setIsConnected} />}
             />
+            <Route path="/activate" element={<ActivateAccount />} />
+
             <Route
               path="/login"
               element={<LoginView setIsConnected={setIsConnected} />}

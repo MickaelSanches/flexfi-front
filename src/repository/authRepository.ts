@@ -65,13 +65,13 @@ export const authRepository = {
   },
 
   async verifyEmailCode(
-    email: string,
+    id: string,
     code: string
   ): Promise<{ success: boolean }> {
-    const res = await fetch(`${API_URL}/auth/verify-code`, {
+    const res = await fetch(`${API_URL}/auth/verify-code/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, code }),
+      body: JSON.stringify({ code }),
     });
 
     const data = await res.json();
