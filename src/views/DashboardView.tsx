@@ -13,6 +13,7 @@ import { getUser } from "../utils/storage";
 import { Link } from "react-router-dom";
 import { waitlistRepository } from "../repository/waitlistRepository";
 import { authRepository } from "../repository/authRepository";
+import { RiSwordLine } from "react-icons/ri";
 
 const DashboardView = () => {
   const [userReferralCode, setUserReferralCode] = useState<string>("");
@@ -295,7 +296,7 @@ const DashboardView = () => {
               </div>
             </li>
 
-            {/* <li className="flex flex-col sm:flex-row sm:items-start gap-4 bg-[#112B36] rounded-xl p-4 hover:bg-[#173545] transition duration-300">
+            <li className="flex flex-col sm:flex-row sm:items-start gap-4 bg-[#112B36] rounded-xl p-4 hover:bg-[#173545] transition duration-300">
               <div className="flex-shrink-0">
                 <RiSwordLine className="text-yellow-400 w-6 h-6 sm:w-7 sm:h-7" />
               </div>
@@ -317,7 +318,7 @@ const DashboardView = () => {
                   <span className="text-gray-400">(quiz, post, retweet…)</span>
                 </div>
               </div>
-            </li> */}
+            </li>
           </ul>
         </motion.div>
       </div>

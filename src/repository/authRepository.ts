@@ -37,7 +37,7 @@ export const authRepository = {
     const responseBody = await res.json();
 
     if (!res.ok) {
-      throw new Error(responseBody.message || "Échec de l’inscription");
+      throw new Error(responseBody.message || "Registration failed");
     }
 
     const { token, user } = responseBody.data;
@@ -46,6 +46,41 @@ export const authRepository = {
     localStorage.setItem("user", JSON.stringify(user));
 
     return { token, user };
+  },
+
+  async sendVerificationCode(email: string): Promise<{ success: boolean }> {
+    const res = await fetch(`${API_URL}/auth/send-code`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Failed to send verification code");
+    }
+
+    return data;
+  },
+
+  async verifyEmailCode(
+    email: string,
+    code: string
+  ): Promise<{ success: boolean }> {
+    const res = await fetch(`${API_URL}/auth/verify-code`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, code }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Invalid verification code");
+    }
+
+    return data;
   },
 
   async login(email: string, password: string): Promise<AuthResponse> {
@@ -58,7 +93,7 @@ export const authRepository = {
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.message || "Échec de la connexion");
+      throw new Error(data.message || "Login failed");
     }
 
     localStorage.setItem("token", data.data.token);

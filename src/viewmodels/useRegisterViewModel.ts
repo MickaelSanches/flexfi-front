@@ -1,4 +1,3 @@
-// src/viewmodels/useRegisterViewModel.ts
 import { useState } from "react";
 import { isPasswordStrong } from "../utils/validators";
 import { authRepository } from "../repository/authRepository";
@@ -14,8 +13,13 @@ export const useRegisterViewModel = () => {
     consentMarketing: false,
     consent_data_sharing: false,
   });
-  const [error, setError] = useState<string | null>(null);
 
+  const [code, setCode] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [step, setStep] = useState<"form" | "verify" | "done">("form");
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+
+  // Handle form input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setForm((prev) => ({
@@ -24,6 +28,7 @@ export const useRegisterViewModel = () => {
     }));
   };
 
+  // Validate form fields before sending email code
   const validateForm = (): boolean => {
     if (
       !form.email ||
@@ -57,7 +62,46 @@ export const useRegisterViewModel = () => {
     return true;
   };
 
+  // Send verification code to the user's email
+  const sendVerificationCode = async (): Promise<boolean> => {
+    try {
+      await authRepository.sendVerificationCode(form.email);
+      setStep("verify");
+      return true;
+    } catch (err: any) {
+      setError(err.message || "Failed to send verification code.");
+      return false;
+    }
+  };
+
+  // Verify the code entered by the user
+  const verifyCode = async (): Promise<boolean> => {
+    try {
+      await authRepository.verifyEmailCode(form.email, code);
+      setIsEmailVerified(true);
+      return true;
+    } catch (err: any) {
+      const msg = err.message?.toLowerCase();
+
+      if (msg.includes("expired")) {
+        setError("Your code has expired. Please request a new one.");
+      } else if (msg.includes("used")) {
+        setError("This code has already been used.");
+      } else {
+        setError(err.message || "Invalid verification code.");
+      }
+
+      return false;
+    }
+  };
+
+  // Register the user only if email has been verified
   const registerUser = async (): Promise<boolean> => {
+    if (!isEmailVerified) {
+      setError("Please verify your email before registering.");
+      return false;
+    }
+
     try {
       await authRepository.register({
         email: form.email,
@@ -66,18 +110,26 @@ export const useRegisterViewModel = () => {
         lastName: form.lastName,
         referralCodeUsed: form.referralCodeUsed,
       });
+
+      setStep("done");
       return true;
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || "Registration failed.");
       return false;
     }
   };
 
   return {
     form,
+    code,
+    step,
     error,
+    isEmailVerified,
+    setCode,
     handleChange,
     validateForm,
+    sendVerificationCode,
+    verifyCode,
     registerUser,
   };
 };
