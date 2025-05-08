@@ -7,6 +7,7 @@ import ReadyToChange from "../components/ReadyToChange";
 import Roadmap from "../components/Roadmap";
 import SystemFixSection from "../components/SystemFixSection";
 import FAQFlexFi from "../components/FAQFlexFi";
+import ScrollingBanner from "../components/ScrollingBanner";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
       <HeroBanner />
       <div className="flex flex-col gap-10 lg:gap-20 relative">
         <OurVision />
+        <ScrollingBanner />
         <FeaturesSection />
         <SystemFixSection />
         {/* <ProductSection /> */}

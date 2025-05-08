@@ -66,7 +66,7 @@ const Footer = () => {
             <ul className="text-[#E0E0E0] space-y-2 flex flex-col">
               <Link to="/why-flexfi">
                 <li className="cursor-pointer hover:text-[#00FEFBCC]">
-                  Why FlexFi ?
+                  Why&nbsp;FlexFi&nbsp;?
                 </li>
               </Link>
               </ul>
