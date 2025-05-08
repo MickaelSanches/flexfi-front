@@ -1,24 +1,32 @@
-import { motion } from "framer-motion";
-import frontCard from "/images/Group.webp";
-import backCard from "/images/Group1.webp";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useRef } from "react";
+import frontCard from "/images/CBNft.webp";
 
 const RotatingCard = () => {
-  return (
-    <div className="relative w-[600px] h-[410px] mx-auto flex items-center justify-center">
-      {/* Halo lumineux derrière la carte */}
-      <div className="absolute w-50 h-50  opacity-30 animate-pulse" />
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
 
-      {/* Carte en rotation */}
+  // Transformer le scroll en rotation Y (de -30° à 30°)
+  const rotateY = useSpring(useTransform(scrollYProgress, [0, 1], [-30, 30]), {
+    stiffness: 80,
+    damping: 20,
+  });
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full max-w-[600px] aspect-[600/410] mx-auto perspective-[2000px] flex items-center justify-center"
+    >
       <motion.div
-        className="relative w-full h-full"
-        animate={{ rotateY: 360 }}
-        transition={{
-          repeat: Infinity,
-          duration: 12,
-          ease: "linear",
-        }}
+        className="relative w-full h-full scale-[0.9]"
         style={{
           transformStyle: "preserve-3d",
+          rotateX: "30deg",
+          rotateZ: "-10deg",
+          rotateY,
         }}
       >
         {/* Recto */}
@@ -26,16 +34,9 @@ const RotatingCard = () => {
           loading="lazy"
           src={frontCard}
           alt="Front FlexFi"
-          className="absolute w-full h-full object-cover backface-hidden rounded-2xl"
-        />
-
-        {/* Verso */}
-        <img
-          loading="lazy"
-          src={backCard}
-          alt="Back FlexFi"
-          className="absolute w-full h-full object-cover backface-hidden rounded-2xl"
-          style={{ transform: "rotateY(180deg)" }}
+          width={600}
+          height={410}
+          className="absolute w-full h-full object-cover rounded-2xl shadow-xl backface-hidden z-[1]"
         />
       </motion.div>
     </div>

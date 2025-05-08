@@ -9,6 +9,7 @@ import Waitlist from "./views/WaitlistView";
 // import LOI from "./views/LetterOfIntent";
 // import LoiIntroPage from "./views/LoiIntroPage";
 import Missions from "./views/MissionsView";
+import WhyFlexFi from "./views/WhyFlexFi";
 
 import HowItWorks from "./views/HowItWorksView";
 import LegalNotice from "./views/LegalNoticeView";
@@ -57,6 +58,7 @@ function App() {
             {/* <Route path="/letter-of-intent" element={<LOI />} />
             <Route path="/loi-intro-page" element={<LoiIntroPage />} /> */}
             <Route path="/missions" element={<Missions />} />
+            <Route path="/why-flexfi" element={<WhyFlexFi />} />
 
             <Route path="/customers" element={<Customers />} />
 
