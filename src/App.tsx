@@ -9,6 +9,7 @@ import Merchants from "./views/MerchantsView";
 // import LOI from "./views/LetterOfIntent";
 // import LoiIntroPage from "./views/LoiIntroPage";
 import Missions from "./views/MissionsView";
+import WhyFlexFi from "./views/WhyFlexFi";
 
 import HowItWorks from "./views/HowItWorksView";
 import Roadmap from "./views/RoadmapView";
@@ -56,6 +57,7 @@ function App() {
             {/* <Route path="/letter-of-intent" element={<LOI />} />
             <Route path="/loi-intro-page" element={<LoiIntroPage />} /> */}
             <Route path="/missions" element={<Missions />} />
+            <Route path="/why-flexfi" element={<WhyFlexFi />} />
 
             <Route path="/customers" element={<Customers />} />
 
