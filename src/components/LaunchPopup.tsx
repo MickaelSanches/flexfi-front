@@ -23,9 +23,9 @@ const WelcomePopup = () => {
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center px-4">
       <div
-        ref={modalRef}
-        className="relative w-full max-w-5xl bg-gradient-to-br from-[#001A22] via-[#002F36] to-[#001A22] border border-cyan-500/20 rounded-3xl p-6 md:p-12 text-white grid md:grid-cols-2 gap-6 overflow-hidden"
-      >
+  ref={modalRef}
+  className="relative w-full max-w-lg md:max-w-5xl bg-gradient-to-br from-[#001A22] via-[#002F36] to-[#001A22] border border-cyan-500/20 rounded-2xl md:rounded-3xl p-4 md:p-12 text-white flex flex-col md:grid md:grid-cols-2 gap-6 overflow-y-auto max-h-[90vh]"
+>
         {/* Visuel avec halo */}
         <div className="flex items-center justify-center relative">
           <div className="absolute -inset-4 blur-2xl bg-cyan-400/10 animate-pulse rounded-3xl z-0" />
