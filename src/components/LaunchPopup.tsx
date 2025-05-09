@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
-import { motion } from "framer-motion";
-import { FaRocket } from "react-icons/fa";
 import JoinWaitlistButton from "./JoinWaitlistButton1";
 
 const WelcomePopup = () => {
