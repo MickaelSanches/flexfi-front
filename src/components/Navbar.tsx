@@ -127,6 +127,9 @@ const Navbar = ({ isConnected, setIsConnected }: NavbarProps) => {
               Login
             </Link>
           )}
+          <Link to="/why-flexfi" onClick={() => setIsOpen(false)}>
+            Why FlexFi ?
+          </Link>
           <Link to="/customers" onClick={() => setIsOpen(false)}>
             Customers
           </Link>
@@ -138,6 +141,9 @@ const Navbar = ({ isConnected, setIsConnected }: NavbarProps) => {
           </Link>
           <Link to="/howitworks" onClick={() => setIsOpen(false)}>
             How it Works
+          </Link>
+          <Link to="/education" onClick={() => setIsOpen(false)}>
+            Education
           </Link>
           <Link to="/roadmap" onClick={() => setIsOpen(false)}>
             Roadmap
