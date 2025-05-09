@@ -4,7 +4,7 @@ import JoinWaitlistButton from "./JoinWaitlistButton1";
 
 const WelcomePopup = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const modalRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClose = () => setIsOpen(false);
 
@@ -51,7 +51,7 @@ const WelcomePopup = () => {
             <li>Climb the leaderboard, win exclusive rewards</li>
           </ul>
 
-          <JoinWaitlistButton onClick={handleClose}/>
+          <JoinWaitlistButton onClick={handleClose} />
         </div>
 
         {/* Fermeture */}
