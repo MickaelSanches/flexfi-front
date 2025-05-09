@@ -10,6 +10,7 @@ import Merchants from "./views/MerchantsView";
 // import LoiIntroPage from "./views/LoiIntroPage";
 import Missions from "./views/MissionsView";
 import WhyFlexFi from "./views/WhyFlexFi";
+import LaunchPopup from "./components/LaunchPopup";
 
 import EducationView from "./views/EducationView";
 import FlexFiView from "./views/FlexFiView";
@@ -51,6 +52,7 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <Navbar isConnected={isConnected} setIsConnected={setIsConnected} />
         <main className="flex-1">
+        <LaunchPopup />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
