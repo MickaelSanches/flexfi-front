@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { waitlistRepository } from "../repository/waitlistRepository";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
+import { authRepository } from "../repository/authRepository";
 
 const SuccessView: React.FC = () => {
   const user = useAuthStore((state) => state.user);
-  const [position, setPosition] = useState<number | null>(null);
+  const [rank, setRank] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const userFirstName = user?.firstName || null;
@@ -14,8 +14,8 @@ const SuccessView: React.FC = () => {
   useEffect(() => {
     const fetchPosition = async () => {
       try {
-        const result = await waitlistRepository.getWaitlistCount();
-        setPosition(result);
+        const userRank = await authRepository.getCurrentUserRank();
+        setRank(userRank.data.rank);
       } catch (err) {
         setError("Unable to load position");
       }
@@ -47,11 +47,10 @@ const SuccessView: React.FC = () => {
 
       {error && <p className="text-red-400 text-sm italic">{error}</p>}
 
-      {position !== null && (
+      {rank !== null && (
         <p className="text-sm text-cyan-300 font-mono">
-          You are user{" "}
-          <span className="text-[#00FEFB] font-bold">#{position}</span> on the
-          waitlist
+          You are user <span className="text-[#00FEFB] font-bold">#{rank}</span>{" "}
+          on the waitlist
         </p>
       )}
 

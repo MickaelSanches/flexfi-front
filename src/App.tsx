@@ -35,6 +35,9 @@ import ActivateAccount from "./views/ActivateAccount";
 import NotFoundView from "./views/NotFoundView";
 
 import { useAuthStore } from "./store/authStore";
+import LOI from "./views/LetterOfIntent";
+import LoiIntroPage from "./views/LoiIntroPage";
+import LoiSuccessView from "./views/LoiSuccessView";
 
 function App() {
   const token = useAuthStore((state) => state.token);
@@ -75,6 +78,11 @@ function App() {
             <Route path="/education/wallets" element={<WalletView />} />
 
             <Route path="/customers" element={<Customers />} />
+
+            <Route path="/loi-intro-page" element={<LoiIntroPage />} />
+            <Route path="/letter-of-intent" element={<LOI />} />
+            <Route path="/loi-success/:id" element={<LoiSuccessView />} />
+
             <Route path="/register" element={<Register />} />
             <Route path="/activate" element={<ActivateAccount />} />
             <Route path="/login" element={<LoginView />} />

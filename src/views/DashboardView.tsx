@@ -212,7 +212,8 @@ const DashboardView = () => {
               <li className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-cyan-400" />
                 <span className="flex items-center">
-                  You completed your profile +20{" "}
+                  You completed your profile{" "}
+                  <strong className="ml-2">+20</strong>{" "}
                   <img
                     src="/logo/flexpoint.webp"
                     alt="FlexPoints"
@@ -225,7 +226,8 @@ const DashboardView = () => {
               <li className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-cyan-400" />
                 <span className="flex items-center">
-                  You completed your profile +100{" "}
+                  You completed your profile{" "}
+                  <strong className="ml-2">+100</strong>{" "}
                   <img
                     src="/logo/flexpoint.webp"
                     alt="FlexPoints"
@@ -238,7 +240,7 @@ const DashboardView = () => {
               <li key={idx} className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-cyan-400" />
                 <span className="flex items-center">
-                  You referred a friend +5
+                  You referred a friend <strong className="ml-2">+5</strong>
                   <img
                     src="/logo/flexpoint.webp"
                     alt="FlexPoints"
@@ -301,13 +303,13 @@ const DashboardView = () => {
             <li className="flex items-start gap-4 bg-[#112B36] p-4 rounded-xl">
               <RiSwordLine className="text-yellow-400 w-6 h-6 flex-shrink-0" />
               <span className="flex flex-wrap items-center">
-                Complete Zealy missions (quiz, RT...) +2
+                Complete Zealy missions (quiz, RT...) <strong>+2</strong>
                 <img
                   src="/logo/flexpoint.webp"
                   alt="FlexPoints"
                   className="w-4 h-4 object-contain mx-1"
                 />
-                to +10
+                to <strong className="ml-1">+10</strong>
                 <img
                   src="/logo/flexpoint.webp"
                   alt="FlexPoints"

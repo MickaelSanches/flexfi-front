@@ -4,7 +4,7 @@ import SignatureCanvas from "react-signature-canvas";
 import { useRef } from "react";
 
 const LOI = () => {
-  const { formData, handleChange, handleSubmit, invalidFields, error } =
+  const { formData, handleChange, handleSubmit, invalidFields, error, loader } =
     useLoiViewModel();
 
   const sigCanvas = useRef<SignatureCanvas>(null);
@@ -13,8 +13,7 @@ const LOI = () => {
     e.preventDefault();
 
     const signature =
-      sigCanvas.current?.getTrimmedCanvas().toDataURL("image/png") ?? "";
-
+      sigCanvas.current?.getCanvas().toDataURL("image/png") || "";
     handleSubmit(signature);
   };
 
@@ -104,7 +103,7 @@ const LOI = () => {
             type="submit"
             className="mt-6 bg-[#71FFFF] text-[#001A22] font-bold py-3 rounded-xl hover:bg-[#00FEFB] transition duration-300"
           >
-            Submit LOI
+            {loader ? "Submitting..." : "Submit LOI"}
           </button>
         </form>
       </div>

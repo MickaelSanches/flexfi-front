@@ -46,14 +46,14 @@ const RegisterForm = ({ setIsRegistered }: RegisterFormProps) => {
                 required: true,
               },
               {
-                label: "First Name",
+                label: "First Name *",
                 name: "firstName",
                 type: "text",
                 placeholder: "Your name or @handle",
                 required: true,
               },
               {
-                label: "Last Name",
+                label: "Last Name *",
                 name: "lastName",
                 type: "text",
                 placeholder: "Your name or @handle",
