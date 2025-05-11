@@ -4,7 +4,7 @@ const Roadmap = () => {
       <div className="max-w-6xl mx-auto px-4">
         <img
           loading="lazy"
-          src="/images/roadmap.webp"
+          src="/images/roadmap1.webp"
           alt="Roadmap"
           className="w-full h-auto object-contain"
         />
