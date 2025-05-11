@@ -7,7 +7,7 @@ const WhatAreStablecoins = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="text-white px-6 md:px-16 lg:px-24 xl:px-40 py-20 space-y-20">
+    <section className="text-white px-6 md:px-12 lg:px-24 xl:px-40 py-20 space-y-20">
       <button
         onClick={() => navigate("/education")}
         className="flex items-center gap-2 text-[#00FEFB] mb-6 hover:underline"
@@ -16,12 +16,13 @@ const WhatAreStablecoins = () => {
         Back to Education
       </button>
 
+      {/* Intro */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="max-w-4xl mx-auto text-center space-y-4"
+        className="max-w-3xl mx-auto text-center space-y-4"
       >
         <h1 className="text-4xl md:text-6xl font-bold text-[#00FEFB]">
           Stablecoins: Digital money, Made Simple
@@ -32,23 +33,25 @@ const WhatAreStablecoins = () => {
         </p>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 gap-16 max-w-5xl mx-auto">
-        <div className="space-y-6">
-          <h2 className="text-2xl font-semibold text-white flex items-center gap-2">
+      {/* Sections en stack vertical */}
+      <div className="space-y-16 max-w-3xl mx-auto">
+
+        {/* Bloc 1 */}
+        <div className="space-y-4">
+          <h2 className="text-2xl font-semibold flex items-center gap-2 text-white">
             <FaDollarSign className="text-[#00FEFB]" />
             What makes stablecoins “stable”?
           </h2>
-          <p className="text-gray-400">
+          <p className="text-gray-400 leading-relaxed">
             Unlike Bitcoin or Ethereum, stablecoins are linked to a real-world currency, like the US dollar.
-            <br />
-            <strong>1 USDC = 1 dollar.</strong><br />
-            They don’t go up. They don’t crash.
-            They’re built for payment, not speculation.
+            <br /><strong>1 USDC = 1 dollar.</strong><br />
+            They don’t go up. They don’t crash. They’re built for payment, not speculation.
           </p>
         </div>
 
-        <div className="space-y-6">
-          <h2 className="text-2xl font-semibold text-white flex items-center gap-2">
+        {/* Bloc 2 */}
+        <div className="space-y-4">
+          <h2 className="text-2xl font-semibold flex items-center gap-2 text-white">
             <FaCheckCircle className="text-[#00FEFB]" />
             Why FlexFi uses stablecoins
           </h2>
@@ -64,12 +67,13 @@ const WhatAreStablecoins = () => {
           </p>
         </div>
 
-        <div className="space-y-6 col-span-2">
-          <h2 className="text-2xl font-semibold text-white flex items-center gap-2">
+        {/* Bloc 3 */}
+        <div className="space-y-4">
+          <h2 className="text-2xl font-semibold flex items-center gap-2 text-white">
             <FaBolt className="text-[#00FEFB]" />
             Faster than your bank, safer than cash
           </h2>
-          <p className="text-gray-400">
+          <p className="text-gray-400 leading-relaxed">
             No delays.<br />
             No conversion fees.<br />
             No bank to block your transfer.<br />
@@ -77,14 +81,12 @@ const WhatAreStablecoins = () => {
           </p>
         </div>
 
-        <div className="space-y-6 col-span-2">
+        {/* Bloc final */}
+        <div className="space-y-4">
           <p className="text-gray-400 text-lg leading-relaxed">
-            You don’t need to buy Bitcoin to use FlexFi.
-            <br />
-            You don’t need to invest.
-            <br />
-            You don’t need to understand charts.
-            <br />
+            You don’t need to buy Bitcoin to use FlexFi.<br />
+            You don’t need to invest.<br />
+            You don’t need to understand charts.<br />
             You just use your FlexFi card — and we handle the rest with stablecoins in the background.
           </p>
         </div>
