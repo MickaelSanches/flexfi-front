@@ -1,4 +1,8 @@
 // src/repository/authRepository.ts
+import { useAuthStore } from "../store/authStore";
+import { fetchWithAuth } from "../utils/useFetchWithAuth";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface RegisterPayload {
   email: string;
@@ -9,22 +13,10 @@ interface RegisterPayload {
 }
 
 interface AuthResponse {
+  data: { token: any; user: any };
   token: string;
-  user: {
-    _id: string;
-    email: string;
-    firstName?: string;
-    lastName?: string;
-    userReferralCode: string;
-    referralCodeUsed?: string;
-    formFullfilled?: boolean;
-    points?: number;
-    kycStatus?: string;
-    wallets?: any[];
-    authMethod?: string;
-  };
+  user: any; // adapte selon ton besoin
 }
-const API_URL = import.meta.env.VITE_API_URL;
 
 export const authRepository = {
   async register(payload: RegisterPayload): Promise<AuthResponse> {
@@ -34,21 +26,33 @@ export const authRepository = {
       body: JSON.stringify(payload),
     });
 
-    const responseBody = await res.json();
+    const { data, message } = await res.json();
+    if (!res.ok) throw new Error(message || "Registration failed");
 
-    if (!res.ok) {
-      throw new Error(responseBody.message || "Registration failed");
-    }
+    useAuthStore.getState().setToken(data.token);
+    useAuthStore.getState().setUser(data.user);
 
-    const { token, user } = responseBody.data;
-
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
-
-    return { token, user };
+    return data;
   },
 
-  async sendVerificationCode(email: string): Promise<{ success: boolean }> {
+  login: async (email: string, password: string) => {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || "Login failed");
+    }
+
+    return await res.json();
+  },
+
+  async sendVerificationCode(email: string) {
     const res = await fetch(`${API_URL}/auth/send-code`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -56,18 +60,12 @@ export const authRepository = {
     });
 
     const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.message || "Failed to send verification code");
-    }
+    if (!res.ok) throw new Error(data.message || "Failed to send code");
 
     return data;
   },
 
-  async verifyEmailCode(
-    id: string,
-    code: string
-  ): Promise<{ success: boolean }> {
+  async verifyEmailCode(id: string, code: string) {
     const res = await fetch(`${API_URL}/auth/verify-code/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -75,109 +73,47 @@ export const authRepository = {
     });
 
     const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Invalid code");
 
-    if (!res.ok) {
-      throw new Error(data.message || "Invalid verification code");
-    }
-
-    return data;
-  },
-
-  async login(email: string, password: string): Promise<AuthResponse> {
-    const res = await fetch(`${API_URL}/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.message || "Login failed");
-    }
-
-    localStorage.setItem("token", data.data.token);
-    localStorage.setItem("user", JSON.stringify(data.data.user));
-
-    return data;
-  },
-
-  logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-  },
-
-  async getUser(): Promise<AuthResponse | null> {
-    const token = localStorage.getItem("token");
-    if (!token) return null;
-
-    const res = await fetch(`${API_URL}/auth/me`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch user data");
-    }
-
-    const data = await res.json();
-    return data;
-  },
-
-  async getCurrentUserPoints() {
-    const token = localStorage.getItem("token");
-    if (!token) return null;
-
-    const res = await fetch(`${API_URL}/auth/points`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch user data");
-    }
-
-    const data = await res.json();
-    return data;
-  },
-
-  async getCurrentUserRank() {
-    const token = localStorage.getItem("token");
-    if (!token) return null;
-
-    const res = await fetch(`${API_URL}/auth/rank`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch user data");
-    }
-
-    const data = await res.json();
+    useAuthStore.getState().updateUser({ isVerified: true });
     return data;
   },
 
   async resendVerificationEmail(email: string) {
-    return await fetch(`${import.meta.env.VITE_API_URL}/auth/send-code`, {
+    const res = await fetch(`${API_URL}/auth/send-code`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
-    }).then(async (res) => {
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error || "Failed to resend email");
-      }
-      return res.json();
     });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Failed to resend");
+
+    return data;
+  },
+
+  async getUser() {
+    const res = await fetchWithAuth(`${API_URL}/auth/me`);
+    if (!res.ok) throw new Error("Failed to fetch user");
+
+    return await res.json();
+  },
+
+  async getCurrentUserPoints() {
+    const res = await fetchWithAuth(`${API_URL}/auth/points`);
+    if (!res.ok) throw new Error("Failed to fetch points");
+
+    return await res.json();
+  },
+
+  async getCurrentUserRank() {
+    const res = await fetchWithAuth(`${API_URL}/auth/rank`);
+    if (!res.ok) throw new Error("Failed to fetch rank");
+
+    return await res.json();
+  },
+
+  logout() {
+    useAuthStore.getState().logout();
   },
 };

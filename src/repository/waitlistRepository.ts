@@ -1,7 +1,9 @@
-import { WaitlistFormData } from "../@types/waitlist";
+// src/repository/waitlistRepository.ts
 
-const API_URL =
-  import.meta.env.VITE_API_URL || "https://flexfi-back.onrender.com/waitlist";
+import { WaitlistFormData } from "../@types/waitlist";
+import { fetchWithAuth } from "../utils/useFetchWithAuth";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 type WaitlistResponse = {
   status: string;
@@ -12,11 +14,8 @@ type WaitlistResponse = {
 
 export const waitlistRepository = {
   async submit(data: WaitlistFormData): Promise<WaitlistResponse> {
-    const res = await fetch(`${API_URL}/waitlist`, {
+    const res = await fetchWithAuth(`${API_URL}/waitlist`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(data),
     });
 
@@ -25,17 +24,11 @@ export const waitlistRepository = {
       throw new Error(error.message || "Submission failed");
     }
 
-    const responseData: WaitlistResponse = await res.json();
-    return responseData;
+    return await res.json();
   },
 
   async getWaitlistCount(): Promise<number> {
-    const res = await fetch(`${API_URL}/waitlist/count`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetchWithAuth(`${API_URL}/waitlist/count`);
 
     if (!res.ok) {
       const error = await res.json();
@@ -43,22 +36,18 @@ export const waitlistRepository = {
     }
 
     const json = await res.json();
-    const count = json.data.count;
-    return count;
+    return json.data.count;
   },
 
   async getReferralCount(code: string): Promise<number> {
-    const res = await fetch(`${API_URL}/waitlist/referral/${code}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
-
-    const data = await res.json();
+    const res = await fetchWithAuth(`${API_URL}/waitlist/referral/${code}`);
 
     if (!res.ok) {
-      throw new Error(data.message || "Failed to fetch referral count");
+      const error = await res.json();
+      throw new Error(error.message || "Failed to fetch referral count");
     }
 
+    const data = await res.json();
     return data.data.referrals;
   },
 };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { isPasswordStrong } from "../utils/validators";
-import { authRepository } from "../repository/authRepository";
+import { authRepository } from "../repository/authRepository"; // 👈 c'est un objet, pas un hook
 
 export const useRegisterViewModel = () => {
   const [form, setForm] = useState({
@@ -67,7 +67,6 @@ export const useRegisterViewModel = () => {
         referralCodeUsed: form.referralCodeUsed,
       });
 
-      // Le backend envoie déjà l'email d'activation automatiquement
       return true;
     } catch (err: any) {
       setError(err.message || "Registration failed.");

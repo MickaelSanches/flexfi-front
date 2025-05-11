@@ -1,93 +1,39 @@
-import { useEffect, useState, JSX } from "react";
 import { motion } from "framer-motion";
-import { HiCheckBadge } from "react-icons/hi2";
 import { MdMarkEmailRead } from "react-icons/md";
 import {
   TrendingUp,
   Users,
-  Clock,
   Link as LinkIcon,
   Copy as CopyIcon,
   Check as CheckIcon,
+  Clock,
 } from "lucide-react";
 import { FaUserFriends, FaWpforms } from "react-icons/fa";
-import { getUser } from "../utils/storage";
-import { Link } from "react-router-dom";
-import { waitlistRepository } from "../repository/waitlistRepository";
-import { authRepository } from "../repository/authRepository";
+import { HiCheckBadge } from "react-icons/hi2";
 import { RiSwordLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
+import { useDashboardViewModel } from "../viewmodels/useDashboardViewModel";
+import { JSX } from "react";
 
 const DashboardView = () => {
-  const [userReferralCode, setUserReferralCode] = useState<string>("");
-  const [copied, setCopied] = useState(false);
-  const [formFullfilled, setFormFullfilled] = useState<boolean | null>(null);
-  const [isVerified, setIsVerified] = useState(false);
-  const [points, setPoints] = useState<number>(0);
-  const [rank, setRank] = useState<number>(0);
-  const [referralsCount, setReferralsCount] = useState<number>(0);
-  const [isResending, setIsResending] = useState(false);
-  const [resendSuccess, setResendSuccess] = useState(false);
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const user = getUser();
-        if (user?.userReferralCode) setUserReferralCode(user.userReferralCode);
-
-        if (typeof user?.formFullfilled === "boolean") {
-          setFormFullfilled(user.formFullfilled);
-        }
-
-        if (typeof user?.isVerified === "boolean") {
-          setIsVerified(user.isVerified);
-        }
-
-        const userPoints = await authRepository.getCurrentUserPoints();
-        setPoints(userPoints.data.points);
-
-        const userRank = await authRepository.getCurrentUserRank();
-        setRank(userRank.data.rank);
-
-        if (user?.userReferralCode) {
-          const userReferralsCount = await waitlistRepository.getReferralCount(
-            user.userReferralCode
-          );
-          setReferralsCount(userReferralsCount);
-        }
-      } catch (err) {
-        console.error("Error fetching user dashboard data:", err);
-      }
-    };
-
-    fetchUserInfo();
-  }, []);
-
-  const handleResendVerification = async () => {
-    try {
-      setIsResending(true);
-      const user = getUser();
-      if (!user?.email) throw new Error("Missing email");
-      await authRepository.resendVerificationEmail(user.email);
-      setResendSuccess(true);
-    } catch (error) {
-      console.error("Resend error:", error);
-    } finally {
-      setIsResending(false);
-    }
-  };
-
-  const handleCopy = () => {
-    if (userReferralCode) {
-      navigator.clipboard.writeText(userReferralCode);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
+  const {
+    userReferralCode,
+    formFullfilled,
+    isVerified,
+    points,
+    rank,
+    referralsCount,
+    isResending,
+    resendSuccess,
+    copied,
+    handleCopy,
+    handleResendVerification,
+  } = useDashboardViewModel();
 
   type StatCard = {
     id: number;
     title: string;
-    value: string | number;
+    value: number | string;
     icon: JSX.Element;
     isReferral?: boolean;
   };
@@ -99,7 +45,6 @@ const DashboardView = () => {
       value: points,
       icon: (
         <img
-          loading="lazy"
           src="/logo/flexpoint.webp"
           alt="FlexPoints"
           className="w-8 h-8 object-contain"
@@ -144,7 +89,7 @@ const DashboardView = () => {
             transition={{ duration: 0.5 }}
             className="mb-8 text-center w-full max-w-xs sm:max-w-md"
           >
-            <div className="bg-red-900/10 border border-red-500/20 p-3 sm:p-5 rounded-lg shadow-sm sm:shadow-md">
+            <div className="bg-red-900/10 border border-red-500/20 p-3 sm:p-5 rounded-lg">
               <div className="flex items-center justify-center gap-2 mb-2 sm:mb-3">
                 <MdMarkEmailRead className="text-red-300 w-5 h-5" />
                 <p className="text-sm sm:text-base text-red-300 font-semibold">
@@ -186,7 +131,7 @@ const DashboardView = () => {
             transition={{ duration: 0.5 }}
             className="mb-8 text-center w-full max-w-xs sm:max-w-md"
           >
-            <div className="bg-yellow-900/10 border border-yellow-400/20 p-3 sm:p-5 rounded-lg shadow-sm sm:shadow-md">
+            <div className="bg-yellow-900/10 border border-yellow-400/20 p-3 sm:p-5 rounded-lg">
               <p className="text-sm text-yellow-300 font-semibold mb-2">
                 Profile incomplete
               </p>
@@ -253,55 +198,53 @@ const DashboardView = () => {
           transition={{ duration: 0.6 }}
           className="bg-gradient-to-br from-[#0C1D26]/60 to-[#071017]/60 backdrop-blur-md border border-cyan-500/20 rounded-2xl p-0 shadow-xl h-[440px] flex flex-col"
         >
-          <div className="sticky top-0 bg-[#0C1D26]/80 backdrop-blur-md px-6 pt-6 pb-3 rounded-t-2xl z-10 mb-5">
+          <div className="sticky top-0 px-6 pt-6 pb-3">
             <h2 className="text-xl font-bold text-cyan-300 tracking-wide">
               Activity Timeline
             </h2>
           </div>
-
-          <ul className="space-y-3 text-sm text-gray-300 px-6 pb-6 overflow-y-auto custom-scrollbar flex-1">
-            <li className="flex items-center justify-between border-b border-white/5 pb-2">
-              <div className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-cyan-400" />
-                <span>You joined the waitlist</span>
-              </div>
+          <ul className="space-y-3 text-sm text-gray-300 px-6 pb-6 overflow-y-auto flex-1">
+            <li className="flex items-center gap-3">
+              <Clock className="w-5 h-5 text-cyan-400" />
+              <span>You joined the waitlist</span>
             </li>
-
             {formFullfilled && (
-              <li className="flex items-center justify-between border-b border-white/5 pb-2">
-                <div className="flex items-center gap-3">
-                  <Clock className="w-5 h-5 text-cyan-400" />
-                  <span>You completed your profile</span>
-                </div>
-                <div className="flex items-center gap-1 bg-teal-800/30 text-teal-300 text-xs font-bold px-2 py-1 rounded-full shadow-inner">
-                  +20
+              <li className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-cyan-400" />
+                <span className="flex items-center">
+                  You completed your profile +20{" "}
                   <img
                     src="/logo/flexpoint.webp"
-                    alt="FlexPoint"
-                    className="w-4 h-4 ml-1"
+                    alt="FlexPoints"
+                    className="w-4 h-4 object-contain ml-2"
                   />
-                </div>
+                </span>
               </li>
             )}
-
-            {Array.from({ length: referralsCount }).map((_, idx) => (
-              <li
-                key={idx}
-                className="flex items-center justify-between border-b border-white/5 pb-2"
-              >
-                <div className="flex items-center gap-3">
-                  <Clock className="w-5 h-5 text-cyan-400" />
-                  <span>You referred a friend</span>
-                </div>
-                <div className="flex items-center gap-1 bg-cyan-800/30 text-cyan-300 text-xs font-bold px-2 py-1 rounded-full shadow-inner">
-                  +5
+            {isVerified && (
+              <li className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-cyan-400" />
+                <span className="flex items-center">
+                  You completed your profile +100{" "}
                   <img
-                    loading="lazy"
                     src="/logo/flexpoint.webp"
-                    alt="FlexPoint"
-                    className="w-4 h-4 ml-1"
+                    alt="FlexPoints"
+                    className="w-4 h-4 object-contain ml-2"
                   />
-                </div>
+                </span>
+              </li>
+            )}
+            {Array.from({ length: referralsCount }).map((_, idx) => (
+              <li key={idx} className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-cyan-400" />
+                <span className="flex items-center">
+                  You referred a friend +5
+                  <img
+                    src="/logo/flexpoint.webp"
+                    alt="FlexPoints"
+                    className="w-4 h-4 object-contain ml-2"
+                  />
+                </span>
               </li>
             ))}
           </ul>
@@ -311,108 +254,66 @@ const DashboardView = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-[#0C1D26]/80 mb-20 border border-cyan-500/20 rounded-2xl p-6 shadow-lg h-[440px] flex flex-col"
+          className="bg-[#0C1D26]/80 border border-cyan-500/20 rounded-2xl p-6 shadow-lg h-[440px] flex flex-col"
         >
           <h2 className="text-xl font-semibold text-cyan-300 mb-4">
             Upcoming Missions
           </h2>
-
-          <ul className="space-y-6 text-gray-300 text-sm sm:text-base overflow-y-auto pr-1 custom-scrollbar flex-1">
+          <ul className="space-y-6 text-gray-300 text-sm sm:text-base overflow-y-auto pr-1 flex-1">
             {!isVerified && (
-              <li className="flex flex-col sm:flex-row sm:items-start gap-4 bg-[#112B36] rounded-xl p-4 hover:bg-[#173545] transition duration-300">
-                <div className="flex-shrink-0">
-                  <HiCheckBadge className="text-cyan-400 w-6 h-6 sm:w-7 sm:h-7" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-white font-semibold text-base sm:text-lg">
-                    Email Verified
-                  </span>
-                  <div className="flex flex-wrap items-center gap-2 mt-1">
-                    <span>Verify your email to earn</span>
-                    <span className="flex items-center bg-cyan-800 text-cyan-300 text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
-                      +100
-                      <img
-                        loading="lazy"
-                        src="/logo/flexpoint.webp"
-                        alt="FlexPoint"
-                        className="w-4 h-4 ml-1"
-                      />
-                    </span>
-                  </div>
-                </div>
+              <li className="flex items-start gap-4 bg-[#112B36] p-4 rounded-xl">
+                <HiCheckBadge className="text-cyan-400 w-6 h-6 flex-shrink-0" />
+                <span className="flex flex-wrap items-center">
+                  Verify your email and earn&nbsp;<strong>+100</strong>
+                  <img
+                    src="/logo/flexpoint.webp"
+                    alt="FlexPoints"
+                    className="w-4 h-4 object-contain mx-1"
+                  />
+                </span>
               </li>
             )}
-
             {!formFullfilled && (
-              <li className="flex flex-col sm:flex-row sm:items-start gap-4 bg-[#112B36] rounded-xl p-4 hover:bg-[#173545] transition duration-300">
-                <div className="flex-shrink-0">
-                  <FaWpforms className="text-teal-400 w-6 h-6 sm:w-7 sm:h-7" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-white font-semibold text-base sm:text-lg">
-                    Completed Profile
-                  </span>
-                  <div className="flex flex-wrap items-center gap-2 mt-1">
-                    <span>Fill out your profile and earn</span>
-                    <span className="flex items-center bg-teal-800 text-teal-300 text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
-                      +20
-                      <img
-                        loading="lazy"
-                        src="/logo/flexpoint.webp"
-                        alt="FlexPoint"
-                        className="w-4 h-4 ml-1"
-                      />
-                    </span>
-                  </div>
-                </div>
+              <li className="flex items-start gap-4 bg-[#112B36] p-4 rounded-xl">
+                <FaWpforms className="text-teal-400 w-6 h-6 flex-shrink-0" />
+                <span className="flex flex-wrap items-center">
+                  Complete your profile and earn&nbsp;<strong>+20</strong>
+                  <img
+                    src="/logo/flexpoint.webp"
+                    alt="FlexPoints"
+                    className="w-4 h-4 object-contain mx-1"
+                  />
+                </span>
               </li>
             )}
-
-            <li className="flex flex-col sm:flex-row sm:items-start gap-4 bg-[#112B36] rounded-xl p-4 hover:bg-[#173545] transition duration-300">
-              <div className="flex-shrink-0">
-                <FaUserFriends className="text-cyan-400 w-6 h-6 sm:w-7 sm:h-7" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-white font-semibold text-base sm:text-lg">
-                  Referrals
-                </span>
-                <div className="flex flex-wrap items-center gap-2 mt-1">
-                  <span>Invite friends and earn</span>
-                  <span className="flex items-center bg-cyan-800 text-cyan-300 text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
-                    +5
-                    <img
-                      src="/logo/flexpoint.webp"
-                      alt="FlexPoint"
-                      className="w-4 h-4 ml-1"
-                    />
-                  </span>
-                  <span className="text-gray-400">per friend</span>
-                </div>
-              </div>
+            <li className="flex items-start gap-4 bg-[#112B36] p-4 rounded-xl">
+              <FaUserFriends className="text-cyan-400 w-6 h-6 flex-shrink-0" />
+              <span className="flex flex-wrap items-center">
+                Invite friends and earn&nbsp;<strong>+5</strong>
+                <img
+                  src="/logo/flexpoint.webp"
+                  alt="FlexPoints"
+                  className="w-4 h-4 object-contain mx-1"
+                />
+                each
+              </span>
             </li>
-
-            <li className="flex flex-col sm:flex-row sm:items-start gap-4 bg-[#112B36] rounded-xl p-4 hover:bg-[#173545] transition duration-300">
-              <div className="flex-shrink-0">
-                <RiSwordLine className="text-yellow-400 w-6 h-6 sm:w-7 sm:h-7" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-white font-semibold text-base sm:text-lg">
-                  Zealy Missions
-                </span>
-                <div className="flex flex-wrap items-center gap-2 mt-1">
-                  <span>Complete tasks and earn</span>
-                  <span className="flex items-center bg-yellow-700 text-yellow-200 text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
-                    +2 to +10
-                    <img
-                      loading="lazy"
-                      src="/logo/flexpoint.webp"
-                      alt="FlexPoint"
-                      className="w-4 h-4 ml-1"
-                    />
-                  </span>
-                  <span className="text-gray-400">(quiz, post, retweet…)</span>
-                </div>
-              </div>
+            <li className="flex items-start gap-4 bg-[#112B36] p-4 rounded-xl">
+              <RiSwordLine className="text-yellow-400 w-6 h-6 flex-shrink-0" />
+              <span className="flex flex-wrap items-center">
+                Complete Zealy missions (quiz, RT...) +2
+                <img
+                  src="/logo/flexpoint.webp"
+                  alt="FlexPoints"
+                  className="w-4 h-4 object-contain mx-1"
+                />
+                to +10
+                <img
+                  src="/logo/flexpoint.webp"
+                  alt="FlexPoints"
+                  className="w-4 h-4 object-contain mx-1"
+                />
+              </span>
             </li>
           </ul>
         </motion.div>

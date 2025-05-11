@@ -267,7 +267,7 @@ const Waitlist = () => {
                   <option value="Government / Public Sector Employee">
                     Government / Public Sector Employee
                   </option>
-                  <option value="Other">Other (please specify)</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
 

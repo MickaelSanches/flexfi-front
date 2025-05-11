@@ -1,22 +1,26 @@
 import { useState } from "react";
+import { useAuthStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
 import { authRepository } from "../repository/authRepository";
 
-interface LoginFormProps {
-  setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const LoginView = ({ setIsConnected }: LoginFormProps) => {
+const LoginView = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const setToken = useAuthStore((state) => state.setToken);
+  const setUser = useAuthStore((state) => state.setUser);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await authRepository.login(email, password);
-      setIsConnected(true);
+      const res = await authRepository.login(email, password);
+      const { token, user } = res.data;
+
+      setToken(token);
+      setUser(user);
+
       navigate("/dashboard");
     } catch (err: any) {
       setError(err.message || "Login failed");

@@ -2,21 +2,20 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, LogOut } from "lucide-react";
 import { authRepository } from "../repository/authRepository";
+import { useAuthStore } from "../store/authStore";
 
-interface NavbarProps {
-  isConnected?: boolean;
-  setIsConnected?: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Navbar = ({ isConnected, setIsConnected }: NavbarProps) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
+  const token = useAuthStore((state) => state.token);
+
   const handleLogout = () => {
     authRepository.logout();
-    setIsConnected?.(false);
     navigate("/");
   };
+
+  const isConnected = !!token;
 
   return (
     <>
@@ -30,7 +29,7 @@ const Navbar = ({ isConnected, setIsConnected }: NavbarProps) => {
           />
         </Link>
 
-        {/* CENTRE - CTA mobile */}
+        {/* Centre - CTA mobile */}
         <div className="md:hidden absolute left-1/2 transform -translate-x-1/2">
           {isConnected ? (
             <Link
@@ -42,7 +41,7 @@ const Navbar = ({ isConnected, setIsConnected }: NavbarProps) => {
           ) : (
             <Link
               to="/register"
-              className=" ml-10 text-white text-sm rounded-2xl border border-[#00FEFB] px-4 py-2 hover:bg-[#00FEFB] hover:text-black transition duration-300"
+              className="ml-10 text-white text-sm rounded-2xl border border-[#00FEFB] px-4 py-2 hover:bg-[#00FEFB] hover:text-black transition duration-300"
             >
               Join Waitlist
             </Link>
@@ -168,11 +167,9 @@ const Navbar = ({ isConnected, setIsConnected }: NavbarProps) => {
               </button>
             </>
           ) : (
-            <>
-              <Link to="/register" onClick={() => setIsOpen(false)}>
-                Join Waitlist
-              </Link>
-            </>
+            <Link to="/register" onClick={() => setIsOpen(false)}>
+              Join Waitlist
+            </Link>
           )}
         </div>
       )}

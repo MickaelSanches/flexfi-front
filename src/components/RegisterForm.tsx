@@ -10,27 +10,18 @@ import ParticipationInfo from "./ParticipationInfo";
 
 interface RegisterFormProps {
   setIsRegistered: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RegisterForm = ({
-  setIsRegistered,
-  setIsConnected,
-}: RegisterFormProps) => {
+const RegisterForm = ({ setIsRegistered }: RegisterFormProps) => {
   const { form, error, handleChange, validateForm, registerUser } =
     useRegisterViewModel();
-
   const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (validateForm()) {
       const registered = await registerUser();
-      if (registered) {
-        setIsRegistered(true);
-        setIsConnected(true);
-      }
+      if (registered) setIsRegistered(true);
     }
   };
 
@@ -46,94 +37,61 @@ const RegisterForm = ({
           </h2>
 
           <div className="flex flex-col gap-4">
-            {/* Email */}
-            <label className="flex flex-col gap-1 text-sm">
-              <span className="text-cyan-300 font-semibold">Email *</span>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="you@example.com"
-                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                required
-              />
-            </label>
+            {[
+              {
+                label: "Email *",
+                name: "email",
+                type: "email",
+                placeholder: "you@example.com",
+                required: true,
+              },
+              {
+                label: "First Name",
+                name: "firstName",
+                type: "text",
+                placeholder: "Your name or @handle",
+                required: true,
+              },
+              {
+                label: "Last Name",
+                name: "lastName",
+                type: "text",
+                placeholder: "Your name or @handle",
+                required: true,
+              },
+              {
+                label: "Referral Code (optional)",
+                name: "referralCodeUsed",
+                type: "text",
+                placeholder: "Referral code",
+              },
+              {
+                label: "Password *",
+                name: "password",
+                type: "password",
+                placeholder: "********",
+                required: true,
+              },
+              {
+                label: "Confirm Password *",
+                name: "confirmPassword",
+                type: "password",
+                placeholder: "********",
+                required: true,
+              },
+            ].map(({ label, name, ...rest }) => (
+              <label key={name} className="flex flex-col gap-1 text-sm">
+                <span className="text-cyan-300 font-semibold">{label}</span>
+                <input
+                  name={name}
+                  value={(form as any)[name]}
+                  onChange={handleChange}
+                  className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
+                  {...rest}
+                />
+              </label>
+            ))}
 
-            {/* First name */}
-            <label className="flex flex-col gap-1 text-sm">
-              <span className="text-cyan-300 font-semibold">First Name</span>
-              <input
-                type="text"
-                name="firstName"
-                value={form.firstName}
-                onChange={handleChange}
-                placeholder="Your name or @handle"
-                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                required
-              />
-            </label>
-
-            {/* Last name */}
-            <label className="flex flex-col gap-1 text-sm">
-              <span className="text-cyan-300 font-semibold">Last Name</span>
-              <input
-                type="text"
-                name="lastName"
-                value={form.lastName}
-                onChange={handleChange}
-                placeholder="Your name or @handle"
-                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                required
-              />
-            </label>
-
-            {/* Referral code */}
-            <label className="flex flex-col gap-1 text-sm">
-              <span className="text-cyan-300 font-semibold">
-                Referral Code (optional)
-              </span>
-              <input
-                type="text"
-                name="referralCodeUsed"
-                value={form.referralCodeUsed}
-                onChange={handleChange}
-                placeholder="Referral code"
-                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-              />
-            </label>
-
-            {/* Password */}
-            <label className="flex flex-col gap-1 text-sm">
-              <span className="text-cyan-300 font-semibold">Password *</span>
-              <input
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                placeholder="********"
-                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                required
-              />
-            </label>
-
-            {/* Confirm password */}
-            <label className="flex flex-col gap-1 text-sm">
-              <span className="text-cyan-300 font-semibold">
-                Confirm Password *
-              </span>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={form.confirmPassword}
-                onChange={handleChange}
-                placeholder="********"
-                className="p-3 rounded-lg bg-white text-black placeholder-gray-400"
-                required
-              />
-            </label>
-
-            {/* Consents */}
             <label className="flex items-start gap-2 text-sm">
               <input
                 type="checkbox"
@@ -167,10 +125,8 @@ const RegisterForm = ({
             </label>
           </div>
 
-          {/* Errors */}
           {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
 
-          {/* Info + CTA */}
           <div className="bg-[#112B36] border border-cyan-500/30 rounded-lg p-4 text-sm text-white/90 mt-4">
             <p className="mb-2 font-semibold text-cyan-400 flex items-center gap-2">
               <TbTargetArrow className="text-lg" /> Earn FlexPoints by:

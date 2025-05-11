@@ -1,60 +1,50 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import AboutUs from "./views/AboutUsView";
 import Home from "./views/HomeView";
 import Merchants from "./views/MerchantsView";
-import Waitlist from "./views/WaitlistView";
 // import LOI from "./views/LetterOfIntent";
 // import LoiIntroPage from "./views/LoiIntroPage";
 import Missions from "./views/MissionsView";
 import WhyFlexFi from "./views/WhyFlexFi";
 // import LaunchPopup from "./components/LaunchPopup";
-
 import EducationView from "./views/EducationView";
 import FlexFiView from "./views/FlexFiView";
 import Web3Explained from "./views/Web3Explained";
 import StablecoinsView from "./views/StablecoinsView";
 import FlexFiBNPLView from "./views/FlexFiBNPLView";
 import WalletView from "./views/WalletView";
-
 import HowItWorks from "./views/HowItWorksView";
-import LegalNotice from "./views/LegalNoticeView";
-import PrivacyPolicy from "./views/PrivacyPolicyView";
 import Roadmap from "./views/RoadmapView";
 import Team from "./views/TeamView";
 import TermsOfUse from "./views/TermsOfUseView";
-
 import ScrollToTop from "./components/ScrollTop";
 import WaitlistCounter from "./components/WaitlistCounter";
-import Customers from "./views/CustomersView";
-
-import { useEffect, useState } from "react";
 import Chatbot from "./components/Chatbot";
 import ContestInfoButton from "./components/ContestInfoButton";
-import { getToken } from "./utils/storage";
+import PrivacyPolicy from "./views/PrivacyPolicyView";
+import LegalNotice from "./views/LegalNoticeView";
+import Customers from "./views/CustomersView";
+import Waitlist from "./views/WaitlistView";
 import DashboardView from "./views/DashboardView";
-
 import LoginView from "./views/LoginView";
-import NotFoundView from "./views/NotFoundView";
 import Register from "./views/RegisterView";
-
 import ActivateAccount from "./views/ActivateAccount";
+import NotFoundView from "./views/NotFoundView";
+
+import { useAuthStore } from "./store/authStore";
 
 function App() {
-  const [isConnected, setIsConnected] = useState(false);
-
-  useEffect(() => {
-    const token = getToken();
-    setIsConnected(!!token);
-  }, [isConnected]);
+  const token = useAuthStore((state) => state.token);
+  const isConnected = !!token;
 
   return (
     <Router>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen">
-        <Navbar isConnected={isConnected} setIsConnected={setIsConnected} />
+        <Navbar />
         <main className="flex-1">
           {/*<LaunchPopup />*/}
           <Routes>
@@ -67,9 +57,8 @@ function App() {
             <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/legal-notice" element={<LegalNotice />} />
-            {/* <Route path="/letter-of-intent" element={<LOI />} />
-            <Route path="/loi-intro-page" element={<LoiIntroPage />} /> */}
             <Route path="/missions" element={<Missions />} />
+
             <Route path="/why-flexfi" element={<WhyFlexFi />} />
 
             <Route path="/education" element={<EducationView />} />
@@ -86,26 +75,12 @@ function App() {
             <Route path="/education/wallets" element={<WalletView />} />
 
             <Route path="/customers" element={<Customers />} />
-
-            <Route
-              path="/register"
-              element={<Register setIsConnected={setIsConnected} />}
-            />
+            <Route path="/register" element={<Register />} />
             <Route path="/activate" element={<ActivateAccount />} />
-
-            <Route
-              path="/login"
-              element={<LoginView setIsConnected={setIsConnected} />}
-            />
+            <Route path="/login" element={<LoginView />} />
             <Route
               path="/dashboard"
-              element={
-                isConnected ? (
-                  <DashboardView />
-                ) : (
-                  <LoginView setIsConnected={setIsConnected} />
-                )
-              }
+              element={isConnected ? <DashboardView /> : <LoginView />}
             />
             <Route path="/waitlist" element={<Waitlist />} />
             <Route path="*" element={<NotFoundView />} />
@@ -113,7 +88,8 @@ function App() {
         </main>
         <Footer />
       </div>
-      <div className="fixed bottom-4 left-4 z-50 ">
+
+      <div className="fixed bottom-4 left-4 z-50">
         <ContestInfoButton />
       </div>
 
