@@ -153,7 +153,7 @@ const RegisterForm = ({ setIsRegistered }: RegisterFormProps) => {
 
           <button
             type="submit"
-            className="mt-6 bg-[#71FFFF] text-[#001A22] font-bold py-3 px-2 rounded-xl hover:bg-[#00FEFB] transition duration-300"
+            className="cursor-pointer mt-6 bg-[#71FFFF] text-[#001A22] font-bold py-3 px-2 rounded-xl hover:bg-[#00FEFB] transition duration-300"
           >
             Create My Account
           </button>

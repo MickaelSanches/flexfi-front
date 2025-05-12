@@ -3,7 +3,7 @@ import { waitlistRepository } from "../repository/waitlistRepository";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles } from "lucide-react";
 
-const REFRESH_INTERVAL = 30_000;
+const REFRESH_INTERVAL = 120_000;
 
 const WaitlistCounter = () => {
   const [count, setCount] = useState(0);

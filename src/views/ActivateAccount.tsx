@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { useAuthStore } from "../store/authStore";
 
 const ActivateAccount = () => {
   const [searchParams] = useSearchParams();
@@ -8,11 +9,14 @@ const ActivateAccount = () => {
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "loading"
   );
-  const [isConnected, setIsConnected] = useState(false);
+
+  const token = useAuthStore((state) => state.token);
+
+  const hasFetched = useRef(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsConnected(!!token);
+    if (hasFetched.current) return;
+    hasFetched.current = true;
 
     const activationToken = searchParams.get("token");
     const id = searchParams.get("id");
@@ -27,12 +31,17 @@ const ActivateAccount = () => {
         import.meta.env.VITE_API_URL
       }/auth/activate?token=${activationToken}&id=${id}`
     )
-      .then((res) => {
+      .then(async (res) => {
         if (!res.ok) throw new Error("Activation failed");
-        return res.json();
+        try {
+          await res.json();
+        } catch {}
+        setStatus("success");
       })
-      .then(() => setStatus("success"))
-      .catch(() => setStatus("error"));
+      .catch((err) => {
+        console.error("Activation error:", err);
+        setStatus("error");
+      });
   }, []);
 
   return (
@@ -51,10 +60,10 @@ const ActivateAccount = () => {
             Your account has been activated!
           </p>
           <button
-            onClick={() => navigate(isConnected ? "/dashboard" : "/login")}
-            className="mt-4 bg-[#71FFFF] text-[#001A22] font-bold py-2 px-6 rounded-xl hover:bg-[#00FEFB] transition duration-300"
+            onClick={() => navigate(token ? "/dashboard" : "/login")}
+            className="cursor-pointer mt-4 bg-[#71FFFF] text-[#001A22] font-bold py-2 px-6 rounded-xl hover:bg-[#00FEFB] transition duration-300"
           >
-            {isConnected ? "Go to Dashboard" : "Go to Login"}
+            {token ? "Go to Dashboard" : "Go to Login"}
           </button>
         </div>
       )}
