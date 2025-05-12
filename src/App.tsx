@@ -5,8 +5,6 @@ import Navbar from "./components/Navbar";
 import AboutUs from "./views/AboutUsView";
 import Home from "./views/HomeView";
 import Merchants from "./views/MerchantsView";
-// import LOI from "./views/LetterOfIntent";
-// import LoiIntroPage from "./views/LoiIntroPage";
 import Missions from "./views/MissionsView";
 import WhyFlexFi from "./views/WhyFlexFi";
 // import LaunchPopup from "./components/LaunchPopup";
