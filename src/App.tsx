@@ -1,32 +1,33 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Home from "./views/HomeView";
-import Waitlist from "./views/WaitlistView";
+import Navbar from "./components/Navbar";
 import AboutUs from "./views/AboutUsView";
+import Home from "./views/HomeView";
 import Merchants from "./views/MerchantsView";
+import Waitlist from "./views/WaitlistView";
 // import LOI from "./views/LetterOfIntent";
 // import LoiIntroPage from "./views/LoiIntroPage";
 
 import HowItWorks from "./views/HowItWorksView";
+import LegalNotice from "./views/LegalNoticeView";
+import PrivacyPolicy from "./views/PrivacyPolicyView";
 import Roadmap from "./views/RoadmapView";
 import Team from "./views/TeamView";
 import TermsOfUse from "./views/TermsOfUseView";
-import PrivacyPolicy from "./views/PrivacyPolicyView";
-import LegalNotice from "./views/LegalNoticeView";
 
-import Customers from "./views/CustomersView";
 import ScrollToTop from "./components/ScrollTop";
 import WaitlistCounter from "./components/WaitlistCounter";
+import Customers from "./views/CustomersView";
 
-import Register from "./views/RegisterView";
-import ContestInfoButton from "./components/ContestInfoButton";
 import { useEffect, useState } from "react";
+import Chatbot from "./components/Chatbot";
+import ContestInfoButton from "./components/ContestInfoButton";
 import { getToken } from "./utils/storage";
-import NotFoundView from "./views/NotFoundView";
-import LoginView from "./views/LoginView";
 import DashboardView from "./views/DashboardView";
+import LoginView from "./views/LoginView";
+import NotFoundView from "./views/NotFoundView";
+import Register from "./views/RegisterView";
 
 function App() {
   const [isConnected, setIsConnected] = useState(false);
@@ -85,9 +86,11 @@ function App() {
         <ContestInfoButton />
       </div>
 
-      <div className="fixed bottom-4 right-4 z-50">
+      <div className="fixed bottom-20 left-4 z-50">
         <WaitlistCounter />
       </div>
+
+      <Chatbot />
     </Router>
   );
 }
