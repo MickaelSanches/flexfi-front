@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState, useRef } from "react";
 import { waitlistRepository } from "../repository/waitlistRepository";
 import { motion, AnimatePresence } from "framer-motion";

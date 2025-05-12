@@ -30,12 +30,12 @@ export const waitlistRepository = {
   async getWaitlistCount(): Promise<number> {
     const res = await fetch(`${API_URL}/waitlist/count`);
 
+    const json = await res.json();
+
     if (!res.ok) {
-      const error = await res.json();
-      throw new Error(error.message || "Failed to fetch waitlist count");
+      throw new Error(json.message || "Failed to fetch waitlist count");
     }
 
-    const json = await res.json();
     return json.data.count;
   },
 
