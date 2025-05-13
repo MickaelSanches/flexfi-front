@@ -100,7 +100,7 @@ const DashboardView = () => {
           >
             <div className="bg-red-900/10 border border-red-500/20 p-3 sm:p-5 rounded-lg">
               <div className="flex items-center justify-center gap-2 mb-2 sm:mb-3">
-                <MdMarkEmailRead className="text-red-300 w-5 h-5" />
+                <MdMarkEmailRead className="text-red-300 w-5 h-5 animate-pulse" />
                 <p className="text-sm sm:text-base text-red-300 font-semibold">
                   Email not verified
                 </p>
@@ -110,7 +110,7 @@ const DashboardView = () => {
               </p>
               {resendSuccess ? (
                 <p className="text-xs text-green-400 font-medium">
-                  Verification email sent!
+                  ✅ Verification email sent!
                 </p>
               ) : (
                 <button
@@ -141,10 +141,13 @@ const DashboardView = () => {
             className="mb-8 text-center w-full max-w-xs sm:max-w-md"
           >
             <div className="bg-yellow-900/10 border border-yellow-400/20 p-3 sm:p-5 rounded-lg">
-              <p className="text-sm text-yellow-300 font-semibold mb-2">
-                Profile incomplete
-              </p>
-              <p className="text-xs text-gray-400 mb-4">
+              <div className="flex items-center justify-center gap-2 mb-2 sm:mb-3">
+                <FaWpforms className="text-yellow-300 w-5 h-5 animate-pulse" />
+                <p className="text-sm sm:text-base text-yellow-300 font-semibold">
+                  Profile incomplete
+                </p>
+              </div>
+              <p className="text-xs text-gray-400 mb-4 sm:mb-5">
                 Finish now to get your bonus points.
               </p>
               <Link
