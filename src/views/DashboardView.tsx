@@ -14,6 +14,7 @@ import { RiSwordLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useDashboardViewModel } from "../viewmodels/useDashboardViewModel";
 import { JSX } from "react";
+import { useAuthStore } from "../store/authStore";
 
 const DashboardView = () => {
   const {
@@ -29,6 +30,8 @@ const DashboardView = () => {
     handleCopy,
     handleResendVerification,
   } = useDashboardViewModel();
+
+  const user = useAuthStore((state) => state.user);
 
   type StatCard = {
     id: number;
@@ -78,7 +81,13 @@ const DashboardView = () => {
   return (
     <main className="px-6 md:px-16 lg:px-24 xl:px-40 min-h-screen text-white">
       <h1 className="text-3xl font-bold mb-10 font-days-one mt-20 text-center">
-        Welcome to Your Dashboard
+        Hi{" "}
+        <span className="text-[#00FEFB] font-days-one">
+          {user?.firstName
+            ? user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+            : ""}
+        </span>
+        , Welcome to Your Dashboard
       </h1>
 
       <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-10 px-2 sm:px-4">
