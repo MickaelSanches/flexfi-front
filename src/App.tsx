@@ -36,6 +36,7 @@ import { useAuthStore } from "./store/authStore";
 import LOI from "./views/LetterOfIntent";
 import LoiIntroPage from "./views/LoiIntroPage";
 import LoiSuccessView from "./views/LoiSuccessView";
+import ZealyCallback from "./components/ZealyCallback";
 
 function App() {
   const token = useAuthStore((state) => state.token);
@@ -88,6 +89,7 @@ function App() {
               path="/dashboard"
               element={isConnected ? <DashboardView /> : <LoginView />}
             />
+            <Route path="/zealy/callback" element={<ZealyCallback />} />
             <Route path="/waitlist" element={<Waitlist />} />
             <Route path="*" element={<NotFoundView />} />
           </Routes>
