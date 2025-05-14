@@ -116,7 +116,7 @@ const DashboardView = () => {
                 <button
                   onClick={handleResendVerification}
                   disabled={isResending}
-                  className="inline-flex items-center justify-center gap-1 bg-[#00FEFB] text-[#001A22] hover:bg-[#71FFFF] font-bold text-xs px-3 py-1.5 rounded-full shadow transition disabled:opacity-50"
+                  className="cursor-pointer inline-flex items-center justify-center gap-1 bg-[#00FEFB] text-[#001A22] hover:bg-[#71FFFF] font-bold text-xs px-3 py-1.5 rounded-full shadow transition disabled:opacity-50"
                 >
                   {isResending ? "Sending..." : "Resend Email"}
                   <span className="flex items-center gap-1 text-[10px] font-semibold text-teal-700">

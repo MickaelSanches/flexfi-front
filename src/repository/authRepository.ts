@@ -13,9 +13,8 @@ interface RegisterPayload {
 }
 
 interface AuthResponse {
-  data: { token: any; user: any };
   token: string;
-  user: any; // adapte selon ton besoin
+  user: any;
 }
 
 export const authRepository = {
@@ -35,8 +34,8 @@ export const authRepository = {
     return data;
   },
 
-  login: async (email: string, password: string) => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+  async login(email: string, password: string): Promise<AuthResponse> {
+    const res = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,12 +43,22 @@ export const authRepository = {
       body: JSON.stringify({ email, password }),
     });
 
+    const json = await res.json();
+
     if (!res.ok) {
-      const errorData = await res.json();
-      throw new Error(errorData.message || "Login failed");
+      throw new Error(json.message || json.error || "Login failed");
     }
 
-    return await res.json();
+    if (!json.data || !json.data.token || !json.data.user) {
+      throw new Error("Invalid response structure from server.");
+    }
+
+    const { token, user } = json.data;
+
+    useAuthStore.getState().setToken(token);
+    useAuthStore.getState().setUser(user);
+
+    return { token, user };
   },
 
   async sendVerificationCode(email: string) {
@@ -80,15 +89,17 @@ export const authRepository = {
   },
 
   async resendVerificationEmail(email: string) {
-    const res = await fetch(`${API_URL}/auth/send-code`, {
+    if (!email) throw new Error("Email is required");
+
+    const res = await fetch(`${API_URL}/auth/resend-verification`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
     });
 
     const data = await res.json();
-    if (!res.ok) throw new Error(data.message || "Failed to resend");
-
+    if (!res.ok)
+      throw new Error(data.error || data.message || "Failed to resend");
     return data;
   },
 

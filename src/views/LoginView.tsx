@@ -16,7 +16,7 @@ const LoginView = () => {
     e.preventDefault();
     try {
       const res = await authRepository.login(email, password);
-      const { token, user } = res.data;
+      const { token, user } = res;
 
       setToken(token);
       setUser(user);
