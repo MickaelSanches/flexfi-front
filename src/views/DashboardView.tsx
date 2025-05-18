@@ -11,11 +11,12 @@ import {
 import { FaUserFriends, FaWpforms } from "react-icons/fa";
 import { HiCheckBadge } from "react-icons/hi2";
 import { RiSwordLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useDashboardViewModel } from "../viewmodels/useDashboardViewModel";
-import { JSX } from "react";
+import { JSX, useEffect } from "react";
 import { useAuthStore } from "../store/authStore";
 import { ConnectZealyButton } from "../components/ConnectZealyButton";
+import { ZealySyncButton } from "../components/ZealySyncButton";
 
 const DashboardView = () => {
   const {
@@ -33,6 +34,26 @@ const DashboardView = () => {
   } = useDashboardViewModel();
 
   const user = useAuthStore((state) => state.user);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const status = searchParams.get("status");
+    const zealyPoints = searchParams.get("zealy_points");
+    const totalPoints = searchParams.get("total_points");
+    const message = searchParams.get("message");
+
+    if (status === "success") {
+      console.log(`Zealy linked! 🎉 You earned ${zealyPoints} FlexPoints`);
+      // Tu peux aussi mettre à jour ton store si tu veux
+      setSearchParams({}, { replace: true }); // nettoie l’URL
+    }
+
+    if (status === "error") {
+      console.log(`Zealy linking failed: ${message}`);
+      setSearchParams({}, { replace: true }); // nettoie aussi
+    }
+  }, []);
 
   type StatCard = {
     id: number;
@@ -204,7 +225,7 @@ const DashboardView = () => {
         ))}
       </div>
 
-      {!user?.zealyConnected && (
+      {!user?.zealy_id ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -232,10 +253,48 @@ const DashboardView = () => {
                 <span className="text-teal-300 font-medium">FlexPoints</span> by
                 completing missions like tweets, quizzes, retweets and more.
               </p>
+              <p className="text-sm text-gray-300 leading-relaxed max-w-lg mt-3">
+                ⚠️ Use the{" "}
+                <span className="text-white font-medium">same email</span> as
+                your <span className="text-white font-medium">FlexFi</span>{" "}
+                account when logging into{" "}
+                <span className="text-white font-medium">Zealy</span>.
+              </p>
             </div>
           </div>
           <div className="flex-shrink-0">
             <ConnectZealyButton />
+          </div>
+        </motion.div>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full bg-gradient-to-br from-[#1b1035]/80 to-[#0d0c23]/80 border border-purple-600/30 rounded-3xl px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-8 mb-16 shadow-[0_0_40px_rgba(128,90,213,0.15)] backdrop-blur-xl hover:shadow-purple-500/30 transition-shadow duration-300"
+        >
+          <div className="flex items-center gap-6 flex-1">
+            <div className="relative w-14 h-14 rounded-full bg-white border border-purple-400/30 shadow-inner shadow-purple-500/10 backdrop-blur-md p-1">
+              <img
+                src="/logo/zealy.svg"
+                alt="Zealy Logo"
+                className="w-full h-full object-contain rounded-full"
+              />
+            </div>
+            <div>
+              <h3 className="text-xl sm:text-2xl font-extrabold text-purple-300 mb-2 tracking-tight">
+                Zealy Connected
+              </h3>
+              <p className="text-sm text-gray-300 leading-relaxed max-w-lg">
+                Your <span className="text-white font-medium">Zealy</span>{" "}
+                account is connected. You can now sync your latest missions and
+                get updated{" "}
+                <span className="text-teal-300 font-medium">FlexPoints</span>.
+              </p>
+            </div>
+          </div>
+          <div className="flex-shrink-0">
+            <ZealySyncButton />
           </div>
         </motion.div>
       )}

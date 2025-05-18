@@ -17,9 +17,11 @@ export type UserType = {
 interface AuthState {
   token: string | null;
   user: UserType | null;
+  points: number;
   setToken: (token: string | null) => void;
   setUser: (user: UserType | null) => void;
   updateUser: (updates: Partial<UserType>) => void;
+  setPoints: (points: number) => void;
   logout: () => void;
 }
 
@@ -28,13 +30,15 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       token: null,
       user: null,
+      points: 0,
       setToken: (token) => set({ token }),
       setUser: (user) => set({ user }),
       updateUser: (updates) =>
         set((state) => ({
           user: state.user ? { ...state.user, ...updates } : null,
         })),
-      logout: () => set({ token: null, user: null }),
+      setPoints: (points) => set({ points }),
+      logout: () => set({ token: null, user: null, points: 0 }),
     }),
     {
       name: "auth-storage",

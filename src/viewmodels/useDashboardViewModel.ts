@@ -10,12 +10,14 @@ export const useDashboardViewModel = () => {
   const [userReferralCode, setUserReferralCode] = useState("");
   const [formFullfilled, setFormFullfilled] = useState<boolean | null>(null);
   const [isVerified, setIsVerified] = useState(false);
-  const [points, setPoints] = useState(0);
   const [rank, setRank] = useState(0);
   const [referralsCount, setReferralsCount] = useState(0);
   const [isResending, setIsResending] = useState(false);
   const [resendSuccess, setResendSuccess] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const points = useAuthStore((s) => s.points);
+  const setPoints = useAuthStore((s) => s.setPoints);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -69,6 +71,14 @@ export const useDashboardViewModel = () => {
     }
   };
 
+  const refreshData = async () => {
+    const userPoints = await authRepository.getCurrentUserPoints();
+    setPoints(userPoints.data.points);
+
+    const userRank = await authRepository.getCurrentUserRank();
+    setRank(userRank.data.rank);
+  };
+
   return {
     userReferralCode,
     formFullfilled,
@@ -81,5 +91,6 @@ export const useDashboardViewModel = () => {
     copied,
     handleCopy,
     handleResendVerification,
+    refreshData,
   };
 };

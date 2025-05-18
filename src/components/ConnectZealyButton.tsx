@@ -2,11 +2,44 @@ import { useAuthStore } from "../store/authStore";
 
 export function ConnectZealyButton() {
   const token = useAuthStore((s) => s.token);
+  const user = useAuthStore((s) => s.user);
+  const setUser = useAuthStore((s) => s.setUser);
 
-  const handleRedirect = () => {
-    const baseUrl = import.meta.env.VITE_API_URL;
-    const redirectUrl = `${baseUrl}/zealy/connect?token=${token}`;
-    window.location.href = redirectUrl;
+  const handleRedirect = async () => {
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    try {
+      const res = await fetch(`${API_URL}/zealy/connect`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (data.status === "success") {
+        if (user && user._id) {
+          setUser({
+            ...user,
+            zealy_id: data.zealy_id,
+          });
+        }
+
+        const params = new URLSearchParams({
+          status: "success",
+          zealy_points: data.zealy_points.toString(),
+          total_points: data.total_points.toString(),
+        });
+        window.location.href = `/dashboard?${params.toString()}`;
+      } else {
+        alert(data.message || "Une erreur est survenue");
+      }
+    } catch (err) {
+      console.error("Zealy connection error:", err);
+      alert("Erreur lors de la connexion à Zealy");
+    }
   };
 
   return (
