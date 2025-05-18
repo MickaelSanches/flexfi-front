@@ -143,11 +143,10 @@ const RegisterForm = ({ setIsRegistered }: RegisterFormProps) => {
               </li>
             </ul>
             <button
-
               onClick={() => setShowModal(true)}
               type="button"
               className="cursor-pointer mt-3 text-xs underline text-[#71FFFF] hover:text-white"
-
+            >
               See more about the contest
             </button>
           </div>

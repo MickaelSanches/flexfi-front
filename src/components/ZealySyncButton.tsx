@@ -1,19 +1,16 @@
 import { useState } from "react";
 import { ZealyRepository } from "../repository/zealyRepository";
 import { authRepository } from "../repository/authRepository";
-import { useDashboardViewModel } from "../viewmodels/useDashboardViewModel";
 import { useAuthStore } from "../store/authStore";
 
 export function ZealySyncButton() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const setPoints = useAuthStore((s) => s.setPoints);
 
   const handleSync = async () => {
     setLoading(true);
-    setError(null);
     try {
       const res = await ZealyRepository.syncZealyPoints();
       console.log("Sync successful:", res);
@@ -23,7 +20,6 @@ export function ZealySyncButton() {
       // Optionally trigger a UI update / refetch user data
     } catch (err: any) {
       console.error("Sync error:", err);
-      setError(err.message);
     } finally {
       setLoading(false);
     }

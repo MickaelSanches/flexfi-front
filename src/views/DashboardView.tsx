@@ -39,13 +39,9 @@ const DashboardView = () => {
 
   useEffect(() => {
     const status = searchParams.get("status");
-    const zealyPoints = searchParams.get("zealy_points");
-    const totalPoints = searchParams.get("total_points");
     const message = searchParams.get("message");
 
     if (status === "success") {
-      console.log(`Zealy linked! 🎉 You earned ${zealyPoints} FlexPoints`);
-      // Tu peux aussi mettre à jour ton store si tu veux
       setSearchParams({}, { replace: true }); // nettoie l’URL
     }
 
@@ -354,7 +350,6 @@ const DashboardView = () => {
             )}
 
             {Array.from({ length: referralsCount }).map((_, idx) => (
-
               <li key={idx} className="flex items-center gap-4">
                 <Clock className="w-5 h-5 text-cyan-400 flex-shrink-0" />
                 <span className="flex items-center">
@@ -368,7 +363,6 @@ const DashboardView = () => {
                     />
                   </span>
                 </span>
-
               </li>
             ))}
           </ul>
@@ -458,11 +452,9 @@ const DashboardView = () => {
                     className="w-4 h-4 object-contain"
                   />
                 </span>
-
                 each
               </span>
             </li>
-
           </ul>
         </motion.div>
       </div>
