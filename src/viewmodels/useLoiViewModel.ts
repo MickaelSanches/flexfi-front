@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { LOIRepository } from "../repository/LOIRepository";
 
 const initialFormData = {
   fullName: "",
@@ -13,6 +15,8 @@ export const useLoiViewModel = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState("");
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
+  const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -44,7 +48,11 @@ export const useLoiViewModel = () => {
   };
 
   const handleSubmit = async (signatureBase64: string) => {
-    if (!validate()) return;
+    setLoader(true);
+    if (!validate()) {
+      setLoader(false);
+      return;
+    }
 
     const submissionData = {
       ...formData,
@@ -52,9 +60,22 @@ export const useLoiViewModel = () => {
       submittedAt: new Date().toISOString(),
     };
 
-    console.log("Submission Data:", submissionData);
 
-    // TODO: Send to backend or email or generate PDF
+    try {
+      const res = await LOIRepository.register(submissionData);
+      const loiId = res.id;
+
+      if (loiId) {
+        setLoader(false);
+        navigate(`/loi-success/${loiId}`);
+      }
+    } catch (err: any) {
+      setLoader(false);
+      setError("Failed to submit LOI. Please try again.");
+    }
+
+
+
   };
 
   return {
@@ -64,5 +85,6 @@ export const useLoiViewModel = () => {
     handleSubmit,
     invalidFields,
     error,
+    loader,
   };
 };

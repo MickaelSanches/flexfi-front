@@ -1,9 +1,8 @@
-// src/viewmodels/useWaitlistViewModel.ts
 import { useState, useEffect, useRef, useCallback } from "react";
 import { WaitlistFormData } from "../@types/waitlist";
 import { waitlistRepository } from "../repository/waitlistRepository";
-import { getUser } from "../utils/storage";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
 
 const initialFormData: WaitlistFormData = {
   email: "",
@@ -39,7 +38,12 @@ const initialFormData: WaitlistFormData = {
 };
 
 export const useWaitlistViewModel = () => {
-  const [formData, setFormData] = useState<WaitlistFormData>(initialFormData);
+  const user = useAuthStore((state) => state.user);
+
+  const [formData, setFormData] = useState<WaitlistFormData>({
+    ...initialFormData,
+    email: user?.email || "",
+  });
   const [step, setStep] = useState<number>(1);
   const [error, setError] = useState<string>("");
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
@@ -196,8 +200,9 @@ export const useWaitlistViewModel = () => {
         return;
       }
 
-      const currentUser = getUser();
-      if (!currentUser?.email) {
+
+      if (!user?.email) {
+
         setError("Missing email. Please log in again.");
         return;
       }
@@ -205,32 +210,35 @@ export const useWaitlistViewModel = () => {
       const submission: WaitlistFormData = Object.fromEntries(
         Object.entries({
           ...formData,
-          email: currentUser.email,
+
+          email: user.email,
+
           timeToCompletionSeconds: Math.floor(
             (Date.now() - startTime.current) / 1000
           ),
           consent_data_sharing_date: new Date().toISOString(),
           signupTimestamp: new Date().toISOString(),
         }).filter(([, v]) => v !== undefined)
-      ) as WaitlistFormData;
+
+      ) as unknown as WaitlistFormData;
+
 
       try {
-        console.log("Submitting waitlist form", submission);
         const res = await waitlistRepository.submit(submission);
         if (res.data.userReferralCode)
           setReferralCode(res.data.userReferralCode);
-        if (currentUser) {
-          localStorage.setItem(
-            "user",
-            JSON.stringify({ ...currentUser, formFullfilled: true })
-          );
+
+
+        if (user) {
+          useAuthStore.getState().updateUser({ formFullfilled: true });
+
         }
         navigate("/dashboard");
       } catch (err: any) {
         setError(err.message || "Submission failed");
       }
     },
-    [formData, step, validateStep]
+    [formData, step, validateStep, user]
   );
 
   return {

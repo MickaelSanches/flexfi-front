@@ -1,7 +1,6 @@
-// src/viewmodels/useRegisterViewModel.ts
 import { useState } from "react";
 import { isPasswordStrong } from "../utils/validators";
-import { authRepository } from "../repository/authRepository";
+import { authRepository } from "../repository/authRepository"; // 👈 c'est un objet, pas un hook
 
 export const useRegisterViewModel = () => {
   const [form, setForm] = useState({
@@ -14,6 +13,7 @@ export const useRegisterViewModel = () => {
     consentMarketing: false,
     consent_data_sharing: false,
   });
+
   const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,9 +66,10 @@ export const useRegisterViewModel = () => {
         lastName: form.lastName,
         referralCodeUsed: form.referralCodeUsed,
       });
+
       return true;
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || "Registration failed.");
       return false;
     }
   };

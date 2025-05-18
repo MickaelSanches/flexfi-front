@@ -3,11 +3,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import RegisterForm from "../components/RegisterForm";
 import SuccessView from "./SuccesWaitlistView";
 
-interface RegisterProps {
-  setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Register = ({ setIsConnected }: RegisterProps) => {
+const Register = () => {
   const [isRegistered, setIsRegistered] = useState(false);
 
   return (
@@ -39,10 +35,7 @@ const Register = ({ setIsConnected }: RegisterProps) => {
           </section>
 
           <section className="w-full max-w-2xl mx-auto">
-            <RegisterForm
-              setIsRegistered={setIsRegistered}
-              setIsConnected={setIsConnected}
-            />
+            <RegisterForm setIsRegistered={setIsRegistered} />
           </section>
 
           <section className="text-center mx-auto">

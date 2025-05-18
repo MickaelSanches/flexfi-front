@@ -1,36 +1,22 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
-import { waitlistRepository } from "../repository/waitlistRepository";
-import { getUser } from "../utils/storage";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
+import { authRepository } from "../repository/authRepository";
 
 const SuccessView: React.FC = () => {
-  const [position, setPosition] = useState<number | null>(null);
+  const user = useAuthStore((state) => state.user);
+  const [rank, setRank] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [userFirstName, setUserFirstName] = useState<string | null>(null);
-  const [referralCode, setReferralCode] = useState<string | null>(null);
 
-  useEffect(() => {
-    try {
-      const user = getUser(); // déjà parsé
-      if (user && typeof user.firstName === "string") {
-        setUserFirstName(user.firstName);
-      }
-      if (user && typeof user.userReferralCode === "string") {
-        setReferralCode(user.userReferralCode);
-      }
-    } catch (err) {
-      console.error("Invalid user data in localStorage", err);
-    }
-  }, []);
+  const userFirstName = user?.firstName || null;
+  const referralCode = user?.userReferralCode || null;
 
   useEffect(() => {
     const fetchPosition = async () => {
       try {
-        const result = await waitlistRepository.getWaitlistCount();
-        setPosition(result);
-      } catch (err: any) {
+        const userRank = await authRepository.getCurrentUserRank();
+        setRank(userRank.data.rank);
+      } catch (err) {
         setError("Unable to load position");
       }
     };
@@ -49,7 +35,7 @@ const SuccessView: React.FC = () => {
         Congratulations{" "}
         <span className="text-[#00FEFB]">
           {userFirstName &&
-            userFirstName?.charAt(0).toUpperCase() + userFirstName?.slice(1)}
+            userFirstName.charAt(0).toUpperCase() + userFirstName.slice(1)}
         </span>
         , you’re in!
       </h1>
@@ -61,11 +47,10 @@ const SuccessView: React.FC = () => {
 
       {error && <p className="text-red-400 text-sm italic">{error}</p>}
 
-      {position !== null && (
+      {rank !== null && (
         <p className="text-sm text-cyan-300 font-mono">
-          You are user{" "}
-          <span className="text-[#00FEFB] font-bold">#{position}</span> on the
-          waitlist
+          You are user <span className="text-[#00FEFB] font-bold">#{rank}</span>{" "}
+          on the waitlist
         </p>
       )}
 
@@ -81,7 +66,7 @@ const SuccessView: React.FC = () => {
 
         <Link
           to="/waitlist"
-          className=" mx-auto mt-4 bg-transparent border border-[#00FEFB] text-[#00FEFB] hover:bg-[#00FEFB] hover:text-[#001A22] font-semibold px-6 py-3 rounded-xl transition duration-300"
+          className="mx-auto mt-4 bg-transparent border border-[#00FEFB] text-[#00FEFB] hover:bg-[#00FEFB] hover:text-[#001A22] font-semibold px-6 py-3 rounded-xl transition duration-300"
         >
           Continue to earn FlexPoints
         </Link>
