@@ -24,7 +24,6 @@ import Team from "./views/TeamView";
 import TermsOfUse from "./views/TermsOfUseView";
 import ScrollToTop from "./components/ScrollTop";
 import WaitlistCounter from "./components/WaitlistCounter";
-import Chatbot from "./components/Chatbot";
 import ContestInfoButton from "./components/ContestInfoButton";
 import PrivacyPolicy from "./views/PrivacyPolicyView";
 import LegalNotice from "./views/LegalNoticeView";
@@ -70,11 +69,16 @@ function App() {
 
             <Route path="/education" element={<EducationView />} />
             <Route path="/education/flexfi" element={<FlexFiView />} />
-            <Route path="/education/web3-explained" element={<Web3Explained />} />
-            <Route path="/education/stablecoins" element={<StablecoinsView />} />
+            <Route
+              path="/education/web3-explained"
+              element={<Web3Explained />}
+            />
+            <Route
+              path="/education/stablecoins"
+              element={<StablecoinsView />}
+            />
             <Route path="/education/bnpl" element={<FlexFiBNPLView />} />
             <Route path="/education/wallets" element={<WalletView />} />
-
 
             <Route path="/why-flexfi" element={<WhyFlexFi />} />
 
@@ -119,8 +123,6 @@ function App() {
       <div className="fixed bottom-20 left-4 z-50">
         <WaitlistCounter />
       </div>
-
-      <Chatbot />
     </Router>
   );
 }
