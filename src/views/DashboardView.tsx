@@ -70,6 +70,7 @@ const DashboardView = () => {
       value: points,
       icon: (
         <img
+          loading="lazy"
           src="/logo/flexpoint.webp"
           alt="FlexPoints"
           className="w-8 h-8 object-contain"
@@ -353,6 +354,7 @@ const DashboardView = () => {
             )}
 
             {Array.from({ length: referralsCount }).map((_, idx) => (
+
               <li key={idx} className="flex items-center gap-4">
                 <Clock className="w-5 h-5 text-cyan-400 flex-shrink-0" />
                 <span className="flex items-center">
@@ -366,6 +368,7 @@ const DashboardView = () => {
                     />
                   </span>
                 </span>
+
               </li>
             ))}
           </ul>
@@ -409,6 +412,7 @@ const DashboardView = () => {
                   <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold bg-yellow-700/30 text-yellow-100 rounded-full shadow">
                     +20
                     <img
+                      loading="lazy"
                       src="/logo/flexpoint.webp"
                       alt="FlexPoints"
                       className="w-4 h-4 object-contain"
@@ -454,9 +458,11 @@ const DashboardView = () => {
                     className="w-4 h-4 object-contain"
                   />
                 </span>
+
                 each
               </span>
             </li>
+
           </ul>
         </motion.div>
       </div>

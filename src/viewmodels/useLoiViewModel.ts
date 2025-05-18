@@ -60,6 +60,7 @@ export const useLoiViewModel = () => {
       submittedAt: new Date().toISOString(),
     };
 
+
     try {
       const res = await LOIRepository.register(submissionData);
       const loiId = res.id;
@@ -72,6 +73,9 @@ export const useLoiViewModel = () => {
       setLoader(false);
       setError("Failed to submit LOI. Please try again.");
     }
+
+
+
   };
 
   return {

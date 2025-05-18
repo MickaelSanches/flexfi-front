@@ -40,7 +40,9 @@ export const waitlistRepository = {
   },
 
   async getReferralCount(code: string): Promise<number> {
+
     const res = await fetchWithAuth(`${API_URL}/waitlist/referral/${code}`);
+
 
     if (!res.ok) {
       const error = await res.json();

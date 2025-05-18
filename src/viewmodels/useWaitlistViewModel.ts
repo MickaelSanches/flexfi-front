@@ -200,7 +200,9 @@ export const useWaitlistViewModel = () => {
         return;
       }
 
+
       if (!user?.email) {
+
         setError("Missing email. Please log in again.");
         return;
       }
@@ -208,24 +210,29 @@ export const useWaitlistViewModel = () => {
       const submission: WaitlistFormData = Object.fromEntries(
         Object.entries({
           ...formData,
+
           email: user.email,
+
           timeToCompletionSeconds: Math.floor(
             (Date.now() - startTime.current) / 1000
           ),
           consent_data_sharing_date: new Date().toISOString(),
           signupTimestamp: new Date().toISOString(),
         }).filter(([, v]) => v !== undefined)
+
       ) as unknown as WaitlistFormData;
+
 
       try {
         const res = await waitlistRepository.submit(submission);
         if (res.data.userReferralCode)
           setReferralCode(res.data.userReferralCode);
 
+
         if (user) {
           useAuthStore.getState().updateUser({ formFullfilled: true });
-        }
 
+        }
         navigate("/dashboard");
       } catch (err: any) {
         setError(err.message || "Submission failed");

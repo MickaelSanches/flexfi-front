@@ -55,8 +55,10 @@ export const authRepository = {
 
     const { token, user } = json.data;
 
+
     useAuthStore.getState().setToken(token);
     useAuthStore.getState().setUser(user);
+
 
     return { token, user };
   },
@@ -69,7 +71,9 @@ export const authRepository = {
     });
 
     const data = await res.json();
+
     if (!res.ok) throw new Error(data.message || "Failed to send code");
+
 
     return data;
   },
