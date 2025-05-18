@@ -243,19 +243,49 @@ const DashboardView = () => {
                 Boost Your Points with Zealy
               </h3>
               <p className="text-sm text-gray-300 leading-relaxed max-w-lg">
-                Connect your{" "}
-                <span className="text-white font-medium">FlexFi</span> account
-                with <span className="text-white font-medium">Zealy</span> and
-                unlock bonus{" "}
-                <span className="text-teal-300 font-medium">FlexPoints</span> by
-                completing missions like tweets, quizzes, retweets and more.
+                To unlock exclusive{" "}
+                <span className="text-teal-300 font-medium">FlexPoints</span>{" "}
+                bonuses, you need to link your
+                <span className="text-white font-medium"> FlexFi</span> account
+                with
+                <span className="text-white font-medium"> Zealy</span>.
               </p>
-              <p className="text-sm text-gray-300 leading-relaxed max-w-lg mt-3">
-                ⚠️ Use the{" "}
-                <span className="text-white font-medium">same email</span> as
-                your <span className="text-white font-medium">FlexFi</span>{" "}
-                account when logging into{" "}
-                <span className="text-white font-medium">Zealy</span>.
+
+              <ol className="list-decimal text-sm text-gray-300 leading-relaxed max-w-lg mt-4 pl-4 space-y-2">
+                <li>
+                  Go to{" "}
+                  <a
+                    href="https://zealy.io/cw/flexfifounderstribe/questboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#71FFFF] underline hover:text-white"
+                  >
+                    zealy.io
+                  </a>{" "}
+                  and create an account using the{" "}
+                  <span className="text-white font-medium">same email</span> as
+                  your FlexFi account.
+                </li>
+                <li>
+                  After creating your Zealy account, come back here and click
+                  the{" "}
+                  <span className="text-white font-medium">Connect Zealy</span>{" "}
+                  button.
+                </li>
+                <li>
+                  Once connected, complete missions (quizzes, retweets, etc.) to
+                  earn{" "}
+                  <span className="text-teal-300 font-medium">
+                    extra FlexPoints
+                  </span>
+                  .
+                </li>
+              </ol>
+
+              <p className="text-sm text-gray-300 leading-relaxed max-w-lg mt-4">
+                ⚠️ Make sure to use the{" "}
+                <span className="text-white font-medium">same email</span>{" "}
+                across both platforms to link your accounts successfully.
               </p>
             </div>
           </div>
@@ -419,9 +449,9 @@ const DashboardView = () => {
             <li className="flex items-start gap-4 p-4 rounded-2xl bg-purple-900/10 border border-purple-500/20 shadow-inner shadow-purple-900/10 hover:bg-purple-900/20 transition">
               <RiSwordLine className="text-purple-300 w-6 h-6 flex-shrink-0" />
               <span className="flex flex-wrap items-center">
-                Complete Zealy missions (quiz, RT...)
-                <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold bg-purple-700/30 text-purple-100 rounded-full shadow">
-                  +2
+                Complete Zealy missions (quiz, RT...){" "}
+                <span className="ml-2 mr-2 inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold bg-purple-700/30 text-purple-100 rounded-full shadow">
+                  +20
                   <img
                     src="/logo/flexpoint.webp"
                     alt="FlexPoints"
@@ -429,14 +459,23 @@ const DashboardView = () => {
                   />
                 </span>
                 to
-                <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold bg-purple-700/30 text-purple-100 rounded-full shadow">
-                  +10
+                <span className="ml-2 inline-flex items-center gap-1 px-2 mr-2 py-0.5 text-xs font-semibold bg-purple-700/30 text-purple-100 rounded-full shadow">
+                  +40
                   <img
                     src="/logo/flexpoint.webp"
                     alt="FlexPoints"
                     className="w-4 h-4 object-contain"
                   />
                 </span>
+                <a
+                  href="https://zealy.io/cw/flexfifounderstribe/questboard"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#71FFFF] underline hover:text-white"
+                >
+                  {" "}
+                  zealy.io
+                </a>
               </span>
             </li>
 
@@ -444,7 +483,7 @@ const DashboardView = () => {
               <FaUserFriends className="text-cyan-300 w-6 h-6 flex-shrink-0" />
               <span className="flex flex-wrap items-center">
                 Invite friends and earn
-                <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold bg-cyan-700/30 text-cyan-100 rounded-full shadow">
+                <span className="ml-2 mr-2 inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold bg-cyan-700/30 text-cyan-100 rounded-full shadow">
                   +5
                   <img
                     src="/logo/flexpoint.webp"
