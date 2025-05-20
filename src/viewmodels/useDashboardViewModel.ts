@@ -1,8 +1,8 @@
 // src/viewmodels/useDashboardViewModel.ts
 import { useEffect, useState } from "react";
-import { useAuthStore } from "../store/authStore";
 import { authRepository } from "../repository/authRepository";
 import { waitlistRepository } from "../repository/waitlistRepository";
+import { useAuthStore } from "../store/authStore";
 
 export const useDashboardViewModel = () => {
   const user = useAuthStore((state) => state.user);
@@ -48,7 +48,7 @@ export const useDashboardViewModel = () => {
     };
 
     fetchUserInfo();
-  }, [user]);
+  }, []);
 
   const handleResendVerification = async () => {
     try {
