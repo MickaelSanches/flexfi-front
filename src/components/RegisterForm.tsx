@@ -169,7 +169,7 @@ const RegisterForm = ({ setIsRegistered }: RegisterFormProps) => {
             >
               &times;
             </button>
-            <ParticipationInfo />
+            <ParticipationInfo setShowModal={setShowModal} />
           </div>
         </div>
       )}

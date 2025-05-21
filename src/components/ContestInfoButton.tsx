@@ -24,7 +24,7 @@ const ContestInfoButton = () => {
             >
               &times;
             </button>
-            <ParticipationInfo />
+            <ParticipationInfo setShowModal={setShowModal} />
           </div>
         </div>
       )}

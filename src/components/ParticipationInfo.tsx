@@ -7,9 +7,19 @@ import {
   ShieldAlert,
   CheckCircle,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const ParticipationInfo = () => {
+interface ParticipationInfoProps {
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ParticipationInfo = ({ setShowModal }: ParticipationInfoProps) => {
+  const onMissionsButtonClick = () => {
+    setShowModal(false);
+    navigate("/missions");
+  };
+
+  const navigate = useNavigate();
   return (
     <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 py-6 bg-[#0C1D26] border border-cyan-500/20 rounded-2xl text-white shadow-lg space-y-6">
       <h2 className="text-xl sm:text-2xl font-bold text-cyan-300 font-days-one text-center sm:text-left">
@@ -40,7 +50,13 @@ const ParticipationInfo = () => {
           The leaderboard is based on the total number of{" "}
           <strong>FlexPoints</strong> earned until the end of the contest. Each
           action earns a specific number of points (see scoring on the{" "}
-          <Link to="/missions" className="text-[#71FFFF] underline" >Missions</Link> page).
+          <button
+            onClick={onMissionsButtonClick}
+            className="text-[#71FFFF] underline cursor-pointer"
+          >
+            Missions
+          </button>{" "}
+          page).
         </p>
       </div>
 
