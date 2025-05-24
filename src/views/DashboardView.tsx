@@ -318,6 +318,22 @@ const DashboardView = () => {
                 get updated{" "}
                 <span className="text-teal-300 font-medium">FlexPoints</span>.
               </p>
+              <li>
+                Go to{" "}
+                <a
+                  href="https://zealy.io/cw/flexfifounderstribe/questboard"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#71FFFF] underline hover:text-white"
+                >
+                  zealy.io
+                </a>{" "}
+                and complete missions (quizzes, retweets, etc.) to earn{" "}
+                <span className="text-teal-300 font-medium">
+                  extra FlexPoints
+                </span>
+                .
+              </li>
             </div>
           </div>
           <div className="flex-shrink-0">
