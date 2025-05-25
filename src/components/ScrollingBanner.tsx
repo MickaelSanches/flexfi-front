@@ -5,6 +5,7 @@ const logos = [
   { src: "/logo/jito.webp", alt: "JITO", href: "https://jito.network/" },
   { src: "/logo/jupiter.webp", alt: "JUPITER", href: "https://jup.ag/" },
   { src: "/logo/codigo.webp", alt: "CODIGO" },
+  { src: "/logo/plink.webp", alt: "P-Link" },
   {
     src: "/logo/solidefinance.webp",
     alt: "SOLIDEFINANCE",
@@ -27,7 +28,7 @@ const ScrollingLogos = () => {
             key={index}
             src={logo.src}
             alt={logo.alt}
-            className="h-30 py-2 drop-shadow-[0_0_5px_rgba(0,255,250,0.3)] opacity-80 hover:opacity-100 transition duration-300 grayscale hover:grayscale-0"
+            className="h-20 py-2 drop-shadow-[0_0_5px_rgba(0,255,250,0.3)] opacity-80 hover:opacity-100 transition duration-300 grayscale hover:grayscale-0"
           />
         ))}
       </div>
