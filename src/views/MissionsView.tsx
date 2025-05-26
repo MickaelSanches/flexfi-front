@@ -14,29 +14,29 @@ const MissionsPage = () => {
       </section>
 
       {/* Rewards */}
-      <section className="bg-[#0C1D26] rounded-2xl p-8 shadow-xl max-w-2xl mx-auto mb-16">
-        <h2 className="text-2xl font-bold text-white font-days-one mb-4 flex items-center gap-2">
-          <FaGift className="text-[#00FEFB]" /> Rewards
-        </h2>
-        <ul className="text-base space-y-2 text-left">
-  <li className="flex items-start gap-2">
-    <FaTrophy className="text-yellow-400 mt-1" />
-    Top 3 – Solana Mobile Seeker (value: $500)
-  </li>
-  <li className="flex items-start gap-2">
-    <FaGift className="text-pink-400 mt-1" />
-    Ranks 4–10 – JamboPhone (value: $99)
-  </li>
-  <li className="flex items-start gap-2">
-    <FaBolt className="text-cyan-400 mt-1" />
-    Others – Exclusive perks & early access
-  </li>
-</ul>
-        <p className="text-sm text-gray-400 italic mt-2">
-          *Details announced before
-          beta launch.
-        </p>
-      </section>
+<section className="bg-[#0C1D26] rounded-2xl p-8 shadow-xl max-w-2xl mx-auto mb-16">
+  <h2 className="text-2xl font-bold text-white font-days-one mb-4 flex items-center gap-2">
+    <FaGift className="text-[#00FEFB]" /> Rewards (To Be Announced)
+  </h2>
+  <ul className="text-base space-y-3 text-left text-white/90">
+    <li className="flex items-start gap-2">
+      <FaTrophy className="text-yellow-400 mt-1" />
+      Exclusive tech gadgets for the top participants
+    </li>
+    <li className="flex items-start gap-2">
+      <FaGift className="text-pink-400 mt-1" />
+      Unique prizes and surprises for ranks 4–10
+    </li>
+    <li className="flex items-start gap-2">
+      <FaBolt className="text-cyan-400 mt-1" />
+      Early access, NFT perks, and community features for all engaged members
+    </li>
+  </ul>
+  <p className="text-sm text-gray-400 italic mt-3">
+    *Reward details will be revealed before the official beta launch. Subject to availability and partnerships.
+  </p>
+</section>
+
 
       {/* Missions */}
       <section className="grid gap-6 max-w-3xl mx-auto mb-20">
